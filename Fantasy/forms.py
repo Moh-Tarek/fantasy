@@ -30,3 +30,6 @@ class SquadSelection (ModelForm):
         self.fields['captinSelected'].queryset = Player.objects.filter(playingRole='Captin')
         self.fields['goalKeeperSelected'].queryset = Player.objects.filter(playingRole='GoalKeeper')
         self.fields['players1Selected'].queryset = Player.objects.filter(playingRole='Player')
+
+
+
