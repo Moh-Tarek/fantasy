@@ -1,0 +1,81 @@
+{% extends "Fantasy/base.html" %}
+{% block content%}
+{% load static %}
+
+
+
+<div class="card mb-0">
+  <div class="card-header">
+      <h3 class="card-title">All Players</h3>
+  </div>
+	<div class="card-body">
+            <form method="GET" action=".">
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label for="category">View</label>
+                    <select id="category" class="form-control" name="category">
+                      <option selected value="" >All Players</option>
+                      <option value="Captin">Captin</option>
+                      <option value="GoalKeeper">Goal Keeper</option>
+                      <option value="Player">Player</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">View</button>
+            </form>
+             <div class="table-responsive">
+
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <div class="row">
+                    <div class="row"><div class="col-sm-12">
+                        <table class="display table table-bordered ajaxtable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 700px;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 30px;" aria-label="COD  (LE): activate to sort column ascending">Player Icon</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 58px;" aria-label="Serial: activate to sort column ascending">Player Name</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 48px;" aria-sort="descending" aria-label="Order Date: activate to sort column ascending">Team Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 40px;" aria-label="Name: activate to sort column ascending">Playing Role</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 30px;" aria-label="COD  (LE): activate to sort column ascending">Last Round Score</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 30px;" aria-label="COD  (LE): activate to sort column ascending">Overall Score</th>
+                            </thead>
+                            <tbody>
+                            {% for player in players%}
+                            <tr role="row" class="odd">
+                                <td><img class="rounded-circle account-img" src="{{player.image.url}}"></td>
+                                <td>{{player.playerName}}</td>
+                                <td class="sorting_1">{{player.teamName}}</td>
+                                <td>{{player.playingRole}}</td>
+                                <td>{{player.lastRoundScore}}</td>
+                                <td>{{player.overallScore}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% if is_paginated %}
+                        {%if page_obj.has_previous %}
+                            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number}}">Previous</a>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range%}
+                            {% if page_obj.number == num %}
+                                <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>
+                            {% endif  %}
+                        {% endfor %}
+                        {%if page_obj.has_next %}
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number}}">Next</a>
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages}}">Last</a>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+                </div>
+                </div>
+             </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}

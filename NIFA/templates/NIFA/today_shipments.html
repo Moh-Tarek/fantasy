@@ -1,0 +1,62 @@
+{% extends "MTexpress/base.html" %}
+{% block content%}
+{% load static %}
+
+
+<div class="card mb-0">
+  <div class="card-header">
+      <h3 class="card-title">Today Shipments</h3>
+  </div>
+	<div class="card-body">
+		<div class="row">
+
+             <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-4 text-left"><div class="dt-buttons btn-group"><a class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" href="#"><span><i class="fa fa-download" title="download as excel sheet"></i> download as excel sheet</span></a></div></div><div class="col-sm-4  text-left"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm"><option value="5">5</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-4"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><div class="row"><div class="col-sm-12"><table class="display table table-bordered ajaxtable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 700px;">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 58px;" aria-label="Serial: activate to sort column ascending">Bill No.</th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 48px;" aria-sort="descending" aria-label="Order Date: activate to sort column ascending">Order Date</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 40px;" aria-label="Name: activate to sort column ascending">Client Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 30px;" aria-label="COD  (LE): activate to sort column ascending">COD  (LE)</th>
+<!--                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 66px;" aria-label="Address: activate to sort column ascending">Address</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 30px;" aria-label="City: activate to sort column ascending">City</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92px;" aria-label="Phone: activate to sort column ascending">Phone</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 74px;" aria-label="Shipment Contents: activate to sort column ascending">Shipment Contents</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 51px;" aria-label="Status: activate to sort column ascending">Status</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 51px;" aria-label="Status Note: activate to sort column ascending">Status Note</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 56px;" aria-label="Return: activate to sort column ascending">Return</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 79px;" aria-label="Collected: activate to sort column ascending">Collected</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 56px;" aria-label="Weight (KG): activate to sort column ascending">Weight (KG)</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 61px;" aria-label="Total Amount (LE): activate to sort column ascending">Total Amount (LE)</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 42px;" aria-label="Total Fees (LE): activate to sort column ascending">Total Fees (LE)</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 45px;" aria-label="notes: activate to sort column ascending">notes</th>
+                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 126px;" aria-label="Issues: activate to sort column ascending">Issues</th></tr> -->
+                    </thead>
+                    <tbody>
+                    {% for shipment in shipments%}
+                    <tr role="row" class="odd">
+                        <td>{{shipment.shipment_Number}}</td>
+                        <td class="sorting_1">{{shipment.date_created| date:"M d, Y"}}</td>
+                        <td>{{shipment.client_name}}</td>
+                        <td>{{shipment.shipment_Fees}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr role="row" class="odd">
+                        <td><b>Total</b></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{totalCOD}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+                </div>
+             </div>
+        </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}
