@@ -30,11 +30,11 @@ class Player(models.Model):
 
 class FantasySquad(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    captinSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='C')
-    goalKeeperSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='GK', null=True)
-    players1Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P1', null=True)
-    player2Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P2', null=True)
-    player3Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P3', null=True)
+    captinSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='C', null=True, blank=True)
+    goalKeeperSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='GK', null=True, blank=True)
+    players1Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P1', null=True, blank=True)
+    player2Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P2', null=True, blank=True)
+    player3Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P3', null=True, blank=True)
     player4Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P4', null=True)
     player5Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P5', null=True)
     lastRoundScore = models.IntegerField()
