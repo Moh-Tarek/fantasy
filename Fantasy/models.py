@@ -37,5 +37,5 @@ class FantasySquad(models.Model):
     player3Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P3', null=True, blank=True)
     player4Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P4', null=True)
     player5Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P5', null=True)
-    lastRoundScore = models.IntegerField()
-    overallScore = models.IntegerField()
+    # lastRoundScore = models.IntegerField()
+    # overallScore = models.IntegerField()
