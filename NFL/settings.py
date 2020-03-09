@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'Fantasy.apps.FantasyConfig',
-    'NIFA.apps.NifaConfig',
     'django.contrib.admin',
     'crispy_forms',
     'django.contrib.auth',

@@ -2,12 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+
 class FantasyTeam(models.Model):
-    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     FantasyPlayerName = models.CharField(max_length=100)
     FantasyTeamName = models.CharField(max_length=100)
-    lastRoundScore = models.IntegerField()
-    overallScore = models.IntegerField()
+    nagwaID = models.IntegerField(null=True)
+    lastRoundScore = models.IntegerField(null=True)
+    overallScore = models.IntegerField(null=True)
 
 
 class Player(models.Model):
@@ -31,7 +33,8 @@ class Player(models.Model):
 class FantasySquad(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     captinSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='C', null=True, blank=True)
-    goalKeeperSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='GK', null=True, blank=True)
+    goalKeeperSelected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='GK', null=True,
+                                              blank=True)
     players1Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P1', null=True, blank=True)
     player2Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P2', null=True, blank=True)
     player3Selected = models.OneToOneField(Player, on_delete=models.CASCADE, related_name='P3', null=True, blank=True)

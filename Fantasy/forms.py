@@ -1,25 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import FantasySquad,Player
+from .models import FantasySquad,Player,FantasyTeam
 from django.forms import ModelForm
 
-class UserRegisterForm (UserCreationForm):
-    email = forms.EmailField()
-    NagwaUnits_CHOICES =(
-    ("1", "Product"),
-    ("2", "IS"),
-    ("3", "Content Creation"),
-    ("4", "Content Localization"),
-    ("5", "Content Technologist"))
-    nagwaTeam = forms.ChoiceField(required=True, label='Unit/Team in Nagwa',choices=NagwaUnits_CHOICES)
-    class Meta(UserCreationForm.Meta):
-        fields = ['username', 'email', 'password1', 'password2']
-    def __init__(self, *args, **kwargs):
-        super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label='Team Name'
+class FantasyRegister (ModelForm):
+    class Meta:
+        model = FantasyTeam
+        exclude = ['user','lastRoundScore','overallScore']
 
-        model = User
 
 class SquadSelection (ModelForm):
     class Meta:
