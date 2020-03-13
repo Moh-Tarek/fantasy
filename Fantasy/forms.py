@@ -7,7 +7,7 @@ from django.forms import ModelForm
 class FantasyRegister (ModelForm):
     class Meta:
         model = FantasyTeam
-        exclude = ['user','lastRoundScore','overallScore']
+        exclude = ['user']
 
     def __init__(self, *args, **kwargs):
         self.my_user = kwargs.pop('my_user', None)
@@ -24,12 +24,12 @@ class FantasyRegister (ModelForm):
 class SquadSelection (ModelForm):
     class Meta:
         model = FantasySquad
-        exclude = ['lastRoundScore','overallScore','user']
+        exclude = ['team', 'gameweek']
     def __init__(self, *args, **kwargs):
         super(SquadSelection, self).__init__(*args, **kwargs)
         self.fields['captinSelected'].queryset = Player.objects.filter(playingRole='Captin')
         self.fields['goalKeeperSelected'].queryset = Player.objects.filter(playingRole='GoalKeeper')
-        self.fields['players1Selected'].queryset = Player.objects.filter(playingRole='Player')
+        self.fields['player1Selected'].queryset = Player.objects.filter(playingRole='Player')
 
 
 

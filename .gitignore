@@ -110,6 +110,6 @@ venv.bak/
 .mypy_cache/
 
 # media library and migrations
-**/migrations
-**/**/migrations
+# **/migrations
+# **/**/migrations
 .media/*

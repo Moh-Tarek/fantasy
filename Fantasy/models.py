@@ -4,10 +4,10 @@ from datetime import datetime
 
 
 class FantasyTeam(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     FantasyPlayerName = models.CharField(max_length=100)
     FantasyTeamName = models.CharField(max_length=100)
-    nagwaID = models.IntegerField(null=True)
+    nagwaID = models.IntegerField(null=True, blank=True)
     # lastRoundScore = models.IntegerField(null=True)
     # overallScore = models.IntegerField(null=True)
 

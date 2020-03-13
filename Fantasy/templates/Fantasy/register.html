@@ -4,6 +4,7 @@
 {% load static %}
 
 <div class="content-section">
+    {% if form %}
     <form method="post">
       {% csrf_token %}
         <fieldset class="form-group">
@@ -17,5 +18,8 @@
     <div class="border-top pt-3">
         <small class="text-muted">Already Have An Account? <a class="ml-2" href="{% url 'login'%}">Sign In</a> </small>
     </div>
+    {% else %}
+    You have account already.
+    {% endif %}
 </div>
 {% endblock content%}

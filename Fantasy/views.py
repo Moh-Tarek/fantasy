@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Player,FantasySquad, FantasyRegister
+from .models import Player,FantasySquad, FantasyTeam
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection,FantasyRegister
@@ -41,8 +41,11 @@ def register(request):
             messages.success(request, 'Thanks {} for joining us! You can login now!'.format(username))
             return redirect('Fantasy-home')
     else:
-        form = FantasyRegister()
-    return render(request,'Fantasy/register.html',{'form':form})
+        existing_team = FantasyTeam.objects.filter(user=request.user)
+        if existing_team.count() == 0:
+            form = FantasyRegister()
+            return render(request,'Fantasy/register.html',{'form':form})
+        return render(request,'Fantasy/register.html',{'team':existing_team})
 
 @login_required
 def squadSelectionView(request):
