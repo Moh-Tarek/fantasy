@@ -8,13 +8,6 @@ from datetime import datetime
 from django.db.models import Sum
 import os
 
-scores = [
-    {
-        'userName': 'Mohamed Tarek',
-        'fantasyTeamName': 'Ahly',
-        'score':'100'
-    }
-]
 
 def home(request):
     context={'players':Player.objects.all()}
@@ -32,31 +25,45 @@ def allPlayers(request):
     return render(request,'Fantasy/all_players.html',context)
 
 @login_required
+def allTeams(request):
+    teams = FantasyTeam.objects.all()
+
+@login_required
 def register(request):
+    # check existing team
+    try:
+        team = FantasyTeam.objects.get(user=request.user)
+    except:
+        team = None
     if request.method == 'POST':
-        form = FantasyRegister(request.POST, my_user=request.user)
+        if team:
+            form = FantasyRegister(request.POST, my_user=request.user, instance=team)
+        else:
+            form = FantasyRegister(request.POST, my_user=request.user)
         if form.is_valid():
             sub_form = form.save()
             # sub_form.user = request.user
             username = form.cleaned_data.get('FantasyPlayerName')
-            messages.success(request, 'Thanks {} for joining us! You can login now!'.format(username))
-            return redirect('Fantasy-home')
+            messages.success(request, f'Thanks {username} for updating your team details! You can select or update your squad now!')
+            return redirect('Fantasy-squadSelection')
     else:
-        existing_team = FantasyTeam.objects.filter(user=request.user)
-        if existing_team.count() == 0:
+        if team:
+            form = FantasyRegister(instance=team)
+        else:
             form = FantasyRegister()
-            return render(request,'Fantasy/register.html',{'form':form})
-        return render(request,'Fantasy/register.html',{'team':existing_team[0]})
+        return render(request,'Fantasy/register.html',{'form':form})
+        # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
 
 @login_required
 def squadSelectionView(request):
-    # 1. get current gameweek number
+    # 1. get current gameweek number and deadline
     gameweek = os.getenv('GAMEWEEK', 1)
+    gameweek_deadline = os.getenv('GAMEWEEK_DEADLINE')
     # 2. get the registered team, and redirect to register page if not registered before
     try:
         team = FantasyTeam.objects.get(user=request.user)
     except:
-        messages.warning(request, 'You should create a team before selecting a squad')
+        messages.warning(request, 'You should update your team details before selecting a squad')
         return redirect('Fantasy-register')
     # 3. get this gameweek's squad so that the user can edit it, and return empty form if no squad created
     try:
@@ -71,13 +78,14 @@ def squadSelectionView(request):
             form = SquadSelection(request.POST, team=team, gameweek=gameweek)
         if form.is_valid():
             sub_form = form.save()
-            # sub_form.user = request.user
             messages.success(request, 'Thanks, your Squad has been submitted!')
-            # return redirect('Fantasy-allplayers')
             return redirect('Fantasy-squadSelection')
+        else:
+            # messages.warning(request, form.errors)
+            return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
     else:
         if squad:
             form = SquadSelection(instance=squad)
         else:
             form = SquadSelection()
-    return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek})
+    return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from .constants import GOAL_POINTS, ASSIST_POINTS, YELLOW_CARD_POINTS, RED_CARD_POINTS, CLEAN_SHEET_POINTS, \
     PENALTY_SAVED_POINTS, PENALTY_MISSED_POINTS
+import os
 
 
 class FantasyTeam(models.Model):
@@ -16,8 +17,15 @@ class FantasyTeam(models.Model):
         team_score = 0
         for s in self.squads.all():
             team_score += s.total_squad_score
-
         return team_score
+    
+    @property
+    def last_gameweek_score(self):
+        last_gameweek = int(os.getenv('GAMEWEEK')) - 1
+        last_gameweek_squad = self.squads.filter(gameweek=last_gameweek)
+        if last_gameweek_squad:
+            return last_gameweek_squad.total_squad_score
+        return None
 
 class Player(models.Model):
     playerName = models.CharField(max_length=100, unique=True)
