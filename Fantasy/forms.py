@@ -27,7 +27,7 @@ class SquadSelection (ModelForm):
         exclude = ['team', 'gameweek']
     def __init__(self, *args, **kwargs):
         super(SquadSelection, self).__init__(*args, **kwargs)
-        self.fields['captinSelected'].queryset = Player.objects.filter(playingRole='Captin')
+        self.fields['captainSelected'].queryset = Player.objects.filter(playingRole='Captin')
         self.fields['goalKeeperSelected'].queryset = Player.objects.filter(playingRole='GoalKeeper')
         self.fields['player1Selected'].queryset = Player.objects.filter(playingRole='Player')
 

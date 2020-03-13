@@ -17,7 +17,7 @@ class Player(models.Model):
     image = models.ImageField(default='defaultplayer.jpg', upload_to='profile_pics')
     teamName = models.CharField(max_length=100)
     playingRoleChoices = (
-        ('Captin', 'Captin'),
+        ('Captain', 'Captain'),
         ('GoalKeeper', 'GoalKeeper'),
         ('Player', 'Player'),
     )
@@ -31,7 +31,7 @@ class Player(models.Model):
 
 class FantasySquad(models.Model):
     team = models.ForeignKey(FantasyTeam, on_delete=models.CASCADE, related_name="squads")
-    captinSelected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='C')
+    captainSelected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='C')
     goalKeeperSelected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='GK')
     player1Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P1')
     player2Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P2')
