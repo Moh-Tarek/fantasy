@@ -9,6 +9,17 @@ class FantasyRegister (ModelForm):
         model = FantasyTeam
         exclude = ['user','lastRoundScore','overallScore']
 
+    def __init__(self, *args, **kwargs):
+        self.my_user = kwargs.pop('my_user', None)
+        super(FantasyRegister, self).__init__(*args, **kwargs)
+        
+    
+    def save(self, commit=True):
+        obj = super(FantasyRegister, self).save(commit=False)
+        obj.user = self.my_user
+        if commit:
+            obj.save()
+        return obj
 
 class SquadSelection (ModelForm):
     class Meta:

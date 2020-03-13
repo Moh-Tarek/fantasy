@@ -31,8 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'Fantasy.apps.FantasyConfig',
     'django.contrib.admin',
     'crispy_forms',
     'django.contrib.auth',
@@ -40,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
+    'Fantasy.apps.FantasyConfig'
 ]
 
 MIDDLEWARE = [

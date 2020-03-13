@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Player,FantasySquad
+from .models import Player,FantasySquad, FantasyRegister
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection,FantasyRegister
@@ -23,17 +23,17 @@ def about(request):
     return render(request,'Fantasy/about.html',{'title':'About Fantasy'})
 
 def allPlayers(request):
-    playingRoleQuery = request.GET.get('category')
+    playingRoleQuery = request.GET.get('category', None)
     context = {'players':Player.objects.all()}
-    if playingRoleQuery!="":
+    if not playingRoleQuery is None:
         context = {'players':Player.objects.all().filter(playingRole=playingRoleQuery)}
-
-    return render(request,'Fantasy/all_players.html',context,{'title':'All Players'})
+    context['title'] = 'All Players'
+    return render(request,'Fantasy/all_players.html',context)
 
 @login_required
 def register(request):
     if request.method == 'POST':
-        form = FantasyRegister(request.POST)
+        form = FantasyRegister(request.POST, my_user=request.user)
         if form.is_valid():
             sub_form = form.save()
             sub_form.user = request.user
