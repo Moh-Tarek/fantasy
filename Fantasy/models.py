@@ -41,3 +41,6 @@ class FantasySquad(models.Model):
     gameweek = models.IntegerField()
     # lastRoundScore = models.IntegerField()
     # overallScore = models.IntegerField()
+    
+    class Meta:
+        unique_together = ['team', 'gameweek']

@@ -15,11 +15,17 @@
             <button class="btn btn-outline-info" type="submit">Sign Up</button>
         </div>
     </form>
-    <div class="border-top pt-3">
+    <!-- <div class="border-top pt-3">
         <small class="text-muted">Already Have An Account? <a class="ml-2" href="{% url 'login'%}">Sign In</a> </small>
-    </div>
+    </div> -->
     {% else %}
-    You have account already.
+    <div class="border-top pt-3">
+            <span class="text-muted">You have account already. You can go to squad selection directly.</span>
+            <p><br/></p>
+            <h4><b>Player Name:</b> {{team.FantasyPlayerName}}</h4>
+            <h4><b>Team Name:</b> {{team.FantasyTeamName}}</h4>
+            <h4><b>Nagwa ID:</b> {{team.nagwaID | default_if_none:'-' }}</h4>
+    </div>
     {% endif %}
 </div>
 {% endblock content%}

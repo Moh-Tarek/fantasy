@@ -26,10 +26,25 @@ class SquadSelection (ModelForm):
         model = FantasySquad
         exclude = ['team', 'gameweek']
     def __init__(self, *args, **kwargs):
+        self.team = kwargs.pop('team', None)
+        self.gameweek = kwargs.pop('gameweek', None)
         super(SquadSelection, self).__init__(*args, **kwargs)
-        self.fields['captainSelected'].queryset = Player.objects.filter(playingRole='Captin')
+        self.fields['captainSelected'].queryset = Player.objects.filter(playingRole='Captain')
         self.fields['goalKeeperSelected'].queryset = Player.objects.filter(playingRole='GoalKeeper')
         self.fields['player1Selected'].queryset = Player.objects.filter(playingRole='Player')
+        self.fields['player2Selected'].queryset = Player.objects.filter(playingRole='Player')
+        self.fields['player3Selected'].queryset = Player.objects.filter(playingRole='Player')
+        self.fields['player4Selected'].queryset = Player.objects.filter(playingRole='Player')
+        self.fields['player5Selected'].queryset = Player.objects.filter(playingRole='Player')
+
+    def save(self, commit=True):
+        obj = super(SquadSelection, self).save(commit=False)
+        obj.team = self.team
+        obj.gameweek = self.gameweek
+        if commit:
+            obj.save()
+        return obj
+
 
 
 
