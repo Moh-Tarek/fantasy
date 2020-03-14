@@ -13,6 +13,7 @@ class Command(BaseCommand):
         return False
 
     def handle(self, *args, **options):
+        FantasySquad.objects.filter(gameweek=2).delete()
         current_gameweek = int(os.getenv('GAMEWEEK'))
         previous_gameweek = current_gameweek - 1
         previous_gameweek_squads = FantasySquad.objects.filter(gameweek=previous_gameweek)

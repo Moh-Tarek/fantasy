@@ -268,5 +268,20 @@
     "penalty_saved": 0,
     "penalty_missed": 0
   }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 23,
+  "fields": {
+    "player": 4,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
 }
 ]

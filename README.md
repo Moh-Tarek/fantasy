@@ -1,6 +1,6 @@
 ## After deploy, run:
 
-- python manage.py loaddata initial_data.json  (for players data)
+- python manage.py loaddata players.json  (for players data)
 - python manage.py loaddata users.json         (for users data)
 - python manage.py loaddata teams.json         (to create a team for each user)
 
