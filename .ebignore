@@ -118,3 +118,8 @@ venv.bak/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# AWS ignore
+.env
+.git
+# Fantasty/fixtures/*
