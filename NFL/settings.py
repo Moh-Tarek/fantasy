@@ -24,7 +24,7 @@ SECRET_KEY = '9!@6+^@o1f#pwq*!jkcscrcyr604nq4#p7luc639d8i)y_0@zu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dev-env.eba-m6ckxj4t.us-west-2.elasticbeanstalk.com', 'localhost']
+ALLOWED_HOSTS = ['nfl-env.eba-2jea2pg6.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -136,9 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    # os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "Fantasy/static")
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

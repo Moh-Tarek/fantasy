@@ -119,6 +119,8 @@ venv.bak/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
+staticfiles/
+
 # AWS ignore
 .env
 .git
