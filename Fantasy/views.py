@@ -106,4 +106,5 @@ def squadSelectionView(request):
     return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
 
 def fixtures(request):
-    return render(request,'Fantasy/fixtures.html',{'title':'Nagwa League Fixtures Season 2020'})
+    gameweek = os.getenv('GAMEWEEK')
+    return render(request,'Fantasy/fixtures.html',{'title':'Nagwa League Fixtures Season 2020', 'gameweek': gameweek})
