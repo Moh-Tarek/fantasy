@@ -1,1 +1,1 @@
-00 15 * * 2 root source /opt/python/run/venv/bin/activate && python manage.py add_new_gameweek_squads
+05,10,15 14 * * 2 root source /opt/python/run/venv/bin/activate && python manage.py add_new_gameweek_squads
