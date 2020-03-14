@@ -71,22 +71,55 @@ class FantasySquad(models.Model):
     class Meta:
         unique_together = ['team', 'gameweek']
 
+    def get_player_score(self, player):
+        score_obj = player.player_scores.filter(gameweek=self.gameweek)
+        if score_obj:
+            return score_obj[0].total_score
+        return None
+        
+    @property
+    def captainSelected_score(self):
+        return self.get_player_score(self.captainSelected)
+
+    @property
+    def goalKeeperSelected_score(self):
+        return self.get_player_score(self.goalKeeperSelected)
+
+    @property
+    def player1Selected_score(self):
+        return self.get_player_score(self.player1Selected)
+    
+    @property
+    def player2Selected_score(self):
+        return self.get_player_score(self.player2Selected)
+
+    @property
+    def player3Selected_score(self):
+        return self.get_player_score(self.player3Selected)
+
+    @property
+    def player4Selected_score(self):
+        return self.get_player_score(self.player4Selected)
+
+    @property
+    def player5Selected_score(self):
+        return self.get_player_score(self.player5Selected)
+
     @property
     def total_squad_score(self):
         total_squad_score = 0
-        players = [
-            self.captainSelected,
-            self.goalKeeperSelected,
-            self.player1Selected,
-            self.player2Selected,
-            self.player3Selected,
-            self.player4Selected,
-            self.player5Selected
+        scores = [
+            self.captainSelected_score,
+            self.goalKeeperSelected_score,
+            self.player1Selected_score,
+            self.player2Selected_score,
+            self.player3Selected_score,
+            self.player4Selected_score,
+            self.player5Selected_score
         ]
-        for p in players:
-            score_obj = p.player_scores.filter(gameweek=self.gameweek)
-            if score_obj:
-                total_squad_score += score_obj[0].total_score
+        for s in scores:
+            if not s is None:
+                total_squad_score += s
         return total_squad_score
 
 class Score(models.Model):

@@ -1,0 +1,32 @@
+{% extends "Fantasy/base.html" %}
+{% block content%}
+<legend class="border-bottom mb-4">Gameweek Scores</legend>
+{% for squad in squads %}
+<h3>Gameweek {{squad.gameweek}}: {{squad.total_squad_score}} points</h3>
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">{{squad.captainSelected}}</th>
+        <th scope="col">{{squad.goalKeeperSelected}}</th>
+        <th scope="col">{{squad.player1Selected}}</th>
+        <th scope="col">{{squad.player2Selected}}</th>
+        <th scope="col">{{squad.player3Selected}}</th>
+        <th scope="col">{{squad.player4Selected}}</th>
+        <th scope="col">{{squad.player5Selected}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ squad.captainSelected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.goalKeeperSelected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.player1Selected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.player2Selected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.player3Selected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.player4Selected_score|default_if_none:'-' }}</td>
+        <td>{{ squad.player5Selected_score|default_if_none:'-' }}</td>
+    </tr>
+    </tbody>
+</table>
+{% endfor %}
+
+{% endblock content%}

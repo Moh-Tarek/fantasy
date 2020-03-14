@@ -52,6 +52,16 @@ def allTeams(request):
     return render(request,'Fantasy/all_teams.html',context)
 
 @login_required
+def teamScore(request):
+    try:
+        team = FantasyTeam.objects.get(user=request.user)
+    except:
+        return render(request, 'Fantasy/team_score.html', {'squads': []})
+    
+    squads = FantasySquad.objects.filter(team=team)
+    return render(request, 'Fantasy/team_score.html', {'squads': squads})
+
+@login_required
 def register(request):
     # check existing team
     try:
