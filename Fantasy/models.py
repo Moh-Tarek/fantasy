@@ -156,3 +156,6 @@ class Score(models.Model):
 
     class Meta:
         unique_together = ['player', 'gameweek']
+
+    def __str__(self):
+        return self.player.playerName + " - " + str(self.gameweek)

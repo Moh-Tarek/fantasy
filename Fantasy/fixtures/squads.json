@@ -418,5 +418,20 @@
     "player5Selected": 27,
     "gameweek": 1
   }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 31,
+  "fields": {
+    "team": 61,
+    "captainSelected": 2,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 12,
+    "player3Selected": 17,
+    "player4Selected": 23,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
 }
 ]

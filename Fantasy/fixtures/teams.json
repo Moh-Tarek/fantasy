@@ -278,5 +278,15 @@
     "FantasyTeamName": "ashraf.omara Team",
     "nagwaID": null
   }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 61,
+  "fields": {
+    "user": 31,
+    "FantasyPlayerName": "YasserMohsen",
+    "FantasyTeamName": "ElMatador",
+    "nagwaID": null
+  }
 }
 ]

@@ -14,6 +14,7 @@ def register(request):
             messages.success(request, 'Thanks {} for joining us! You can login now!'.format(username))
             return redirect('Fantasy-home')
     else:
+
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 

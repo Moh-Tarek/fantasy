@@ -3,11 +3,7 @@ from .models import Player, FantasySquad, FantasyTeam
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection, FantasyRegister
-from django.views.generic import ListView, DetailView
-from datetime import datetime
-from django.db.models import Sum
 import os
-from django.db.models import Q
 
 
 def home(request):
@@ -45,7 +41,6 @@ def allPlayers(request):
     return render(request, 'Fantasy/all_players.html', context)
 
 
-@login_required
 def allTeams(request):
     teams = FantasyTeam.objects.all()
     teams_sorted = sorted(teams, key=lambda x: x.total_team_score, reverse=True)
