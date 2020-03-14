@@ -14,19 +14,19 @@
                     <label for="category_playing_role">Choose Playing Role:</label>
                     <select id="category_playing_role" class="form-control" name="playingRole">
                         <option selected value="all">All Roles</option>
-                        <option value="Captain">Captain</option>
-                        <option value="GoalKeeper">Goal Keeper</option>
-                        <option value="Player">Player</option>
+                        <option {% if playingRoleQuery == "Captain" %}selected{% endif %} value="Captain">Captains</option>
+                        <option {% if playingRoleQuery == "GoalKeeper" %}selected{% endif %} value="GoalKeeper">GoalKeepers</option>
+                        <option {% if playingRoleQuery == "Player" %}selected{% endif %} value="Player">Players</option>
                     </select>
                     <br/>
                     <label for="category_team_name">Choose Team Name:</label>
                     <select id="category_team_name" class="form-control" name="teamname">
                         <option selected value="all">All Teams</option>
-                        <option value="Broussia Dortumund">Broussia Dortumund</option>
-                        <option value="Sparta Return">Sparta Return</option>
-                        <option value="Masters of Darkness">Masters of Darkness</option>
-                        <option value="Hawks">Hawks</option>
-                        <option value="Gunners">Gunners</option>
+                        <option {% if teamQuery == "Broussia Dortumund" %}selected{% endif %} value="Broussia Dortumund">Broussia Dortumund</option>
+                        <option {% if teamQuery == "Sparta Return" %}selected{% endif %} value="Sparta Return">Sparta Return</option>
+                        <option {% if teamQuery == "Masters of Darkness" %}selected{% endif %} value="Masters of Darkness">Masters of Darkness</option>
+                        <option {% if teamQuery == "Hawks" %}selected{% endif %} value="Hawks">Hawks</option>
+                        <option {% if teamQuery == "Gunners" %}selected{% endif %} value="Gunners">Gunners</option>
                     </select>
 
                 </div>

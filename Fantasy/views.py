@@ -35,7 +35,9 @@ def allPlayers(request):
 
     context = {
         'players': players,
-        'title':'Show Players'
+        'title':'Show Players',
+        'playingRoleQuery': playingRoleQuery,
+        'teamQuery': teamQuery
     }
     return render(request,'Fantasy/all_players.html',context)
 
