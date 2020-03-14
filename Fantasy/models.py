@@ -20,11 +20,11 @@ class FantasyTeam(models.Model):
         return team_score
     
     @property
-    def last_gameweek_score(self):
+    def last_gameweek_team_score(self):
         last_gameweek = int(os.getenv('GAMEWEEK')) - 1
         last_gameweek_squad = self.squads.filter(gameweek=last_gameweek)
         if last_gameweek_squad:
-            return last_gameweek_squad.total_squad_score
+            return last_gameweek_squad[0].total_squad_score
         return None
 
 class Player(models.Model):
@@ -37,6 +37,21 @@ class Player(models.Model):
         ('Player', 'Player'),
     )
     playingRole = models.CharField(max_length=100, choices=playingRoleChoices)
+
+    @property
+    def total_player_score(self):
+        total_player_score = 0
+        for s in self.player_scores.all():
+            total_player_score += s.total_score
+        return total_player_score
+
+    @property
+    def last_gameweek_player_score(self):
+        last_gameweek = int(os.getenv('GAMEWEEK')) - 1
+        last_gameweek_score = self.player_scores.filter(gameweek=last_gameweek)
+        if last_gameweek_score:
+            return last_gameweek_score[0].total_score
+        return None
 
     def __str__(self):
         return self.playerName

@@ -76,8 +76,8 @@
                                     <td>{{player.playerName}}</td>
                                     <td class="sorting_1">{{player.teamName}}</td>
                                     <td>{{player.playingRole}}</td>
-                                    <td>{{player.lastRoundScore}}</td>
-                                    <td>{{player.overallScore}}</td>
+                                    <td>{{player.last_gameweek_player_score | default_if_none:'-' }}</td>
+                                    <td>{{player.total_player_score | default_if_none:'-' }}</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
