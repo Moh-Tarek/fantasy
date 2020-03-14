@@ -2,7 +2,7 @@
 
 - python manage.py loaddata initial_data.json  (for players data)
 - python manage.py loaddata users.json         (for users data)
-- python manage.py create_default_teams        (to create a team for each user)
+- python manage.py loaddata teams.json         (to create a team for each user)
 
 - python manage.py loaddata squads.json        (for gameweek 1 squads)
 - python manage.py loaddata scores.json        (for gameweek 1 players scores)

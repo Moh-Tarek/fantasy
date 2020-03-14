@@ -1,0 +1,282 @@
+[
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "FantasyPlayerName": "ahmed.alhelaly",
+    "FantasyTeamName": "ahmed.alhelaly Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "FantasyPlayerName": "ahmed.abdullah",
+    "FantasyTeamName": "ahmed.abdullah Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "FantasyPlayerName": "magdy.younis",
+    "FantasyTeamName": "magdy.younis Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 4,
+  "fields": {
+    "user": 6,
+    "FantasyPlayerName": "sherif.saleh",
+    "FantasyTeamName": "sherif.saleh Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 5,
+  "fields": {
+    "user": 7,
+    "FantasyPlayerName": "mohamed.abubakr",
+    "FantasyTeamName": "mohamed.abubakr Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 6,
+  "fields": {
+    "user": 8,
+    "FantasyPlayerName": "amr.khattab",
+    "FantasyTeamName": "amr.khattab Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 7,
+  "fields": {
+    "user": 9,
+    "FantasyPlayerName": "doaa.abdelhamid",
+    "FantasyTeamName": "doaa.abdelhamid Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 8,
+  "fields": {
+    "user": 10,
+    "FantasyPlayerName": "mohamed.hegazy",
+    "FantasyTeamName": "mohamed.hegazy Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 9,
+  "fields": {
+    "user": 11,
+    "FantasyPlayerName": "khaled.raafat",
+    "FantasyTeamName": "khaled.raafat Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 10,
+  "fields": {
+    "user": 12,
+    "FantasyPlayerName": "abdelhamid.alsaid",
+    "FantasyTeamName": "abdelhamid.alsaid Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 11,
+  "fields": {
+    "user": 13,
+    "FantasyPlayerName": "safwan.zahran",
+    "FantasyTeamName": "safwan.zahran Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 12,
+  "fields": {
+    "user": 14,
+    "FantasyPlayerName": "mahmoud.elneweshy",
+    "FantasyTeamName": "mahmoud.elneweshy Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 13,
+  "fields": {
+    "user": 15,
+    "FantasyPlayerName": "eslam.elhanafy",
+    "FantasyTeamName": "eslam.elhanafy Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 14,
+  "fields": {
+    "user": 16,
+    "FantasyPlayerName": "amany.yusuf",
+    "FantasyTeamName": "amany.yusuf Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 15,
+  "fields": {
+    "user": 17,
+    "FantasyPlayerName": "mohamed.alieldin",
+    "FantasyTeamName": "mohamed.alieldin Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 16,
+  "fields": {
+    "user": 18,
+    "FantasyPlayerName": "hussein.magdy",
+    "FantasyTeamName": "hussein.magdy Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 17,
+  "fields": {
+    "user": 19,
+    "FantasyPlayerName": "ahmed.hatem",
+    "FantasyTeamName": "ahmed.hatem Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 18,
+  "fields": {
+    "user": 20,
+    "FantasyPlayerName": "mohammed.ramadan",
+    "FantasyTeamName": "mohammed.ramadan Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 19,
+  "fields": {
+    "user": 21,
+    "FantasyPlayerName": "mohamed.hosny",
+    "FantasyTeamName": "mohamed.hosny Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 20,
+  "fields": {
+    "user": 22,
+    "FantasyPlayerName": "mahmoud.alesawy",
+    "FantasyTeamName": "mahmoud.alesawy Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 21,
+  "fields": {
+    "user": 23,
+    "FantasyPlayerName": "haytham.mahmoud",
+    "FantasyTeamName": "haytham.mahmoud Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 22,
+  "fields": {
+    "user": 24,
+    "FantasyPlayerName": "dalia.saber",
+    "FantasyTeamName": "dalia.saber Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 23,
+  "fields": {
+    "user": 25,
+    "FantasyPlayerName": "omar.ali",
+    "FantasyTeamName": "omar.ali Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 24,
+  "fields": {
+    "user": 26,
+    "FantasyPlayerName": "mohsen.ashour",
+    "FantasyTeamName": "mohsen.ashour Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 25,
+  "fields": {
+    "user": 27,
+    "FantasyPlayerName": "ameer.omar",
+    "FantasyTeamName": "ameer.omar Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 26,
+  "fields": {
+    "user": 28,
+    "FantasyPlayerName": "mohamed.tarek",
+    "FantasyTeamName": "mohamed.tarek Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 27,
+  "fields": {
+    "user": 29,
+    "FantasyPlayerName": "nader.atef",
+    "FantasyTeamName": "nader.atef Team",
+    "nagwaID": null
+  }
+},
+{
+  "model": "Fantasy.fantasyteam",
+  "pk": 28,
+  "fields": {
+    "user": 30,
+    "FantasyPlayerName": "ashraf.omara",
+    "FantasyTeamName": "ashraf.omara Team",
+    "nagwaID": null
+  }
+}
+]

@@ -1,0 +1,287 @@
+[
+{
+  "model": "Fantasy.score",
+  "pk": 1,
+  "fields": {
+    "player": 3,
+    "gameweek": 1,
+    "goal": 3,
+    "assist": 1,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 2,
+  "fields": {
+    "player": 21,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 1,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 3,
+  "fields": {
+    "player": 22,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 3,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 4,
+  "fields": {
+    "player": 23,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 5,
+  "fields": {
+    "player": 24,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": true,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 6,
+  "fields": {
+    "player": 25,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 7,
+  "fields": {
+    "player": 4,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 8,
+  "fields": {
+    "player": 9,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 1,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 9,
+  "fields": {
+    "player": 26,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 10,
+  "fields": {
+    "player": 27,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 2,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 11,
+  "fields": {
+    "player": 28,
+    "gameweek": 1,
+    "goal": 2,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 12,
+  "fields": {
+    "player": 1,
+    "gameweek": 1,
+    "goal": 2,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 13,
+  "fields": {
+    "player": 11,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 1,
+    "yellow_card": true,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 14,
+  "fields": {
+    "player": 12,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 2,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 15,
+  "fields": {
+    "player": 15,
+    "gameweek": 1,
+    "goal": 1,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 16,
+  "fields": {
+    "player": 2,
+    "gameweek": 1,
+    "goal": 2,
+    "assist": 0,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 17,
+  "fields": {
+    "player": 16,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 2,
+    "yellow_card": false,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 18,
+  "fields": {
+    "player": 19,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 0,
+    "yellow_card": true,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+},
+{
+  "model": "Fantasy.score",
+  "pk": 19,
+  "fields": {
+    "player": 20,
+    "gameweek": 1,
+    "goal": 0,
+    "assist": 0,
+    "yellow_card": true,
+    "red_card": false,
+    "clean_sheet": false,
+    "penalty_saved": 0,
+    "penalty_missed": 0
+  }
+}
+]
