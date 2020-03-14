@@ -54,7 +54,7 @@ class SquadSelection (ModelForm):
             duplicates = [item for item, count in collections.Counter(selected_palyers).items() if count > 1]
             if len(duplicates) > 0:
                 c = 0
-                for p in seen:
+                for p in duplicates:
                     if c == 0:
                         self.add_error(None, f'You have selected {p} more than once! Do you like him that much?! I don\'t care, please make sure to select him once.')
                     else:

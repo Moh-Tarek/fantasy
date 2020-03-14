@@ -79,9 +79,8 @@ def register(request):
 
 @login_required
 def squadSelectionView(request):
-    # 1. get current gameweek number and deadline
+    # 1. get current gameweek
     gameweek = os.getenv('GAMEWEEK', 1)
-    gameweek_deadline = os.getenv('GAMEWEEK_DEADLINE')
     # 2. get the registered team, and redirect to register page if not registered before
     try:
         team = FantasyTeam.objects.get(user=request.user)
@@ -105,15 +104,13 @@ def squadSelectionView(request):
             return redirect('Fantasy-squadSelection')
         else:
             # messages.warning(request, form.errors)
-            return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
+            return render(request,'Fantasy/squad_selection.html', {'form':form})
     else:
         if squad:
             form = SquadSelection(instance=squad)
         else:
             form = SquadSelection()
-    return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
+    return render(request,'Fantasy/squad_selection.html', {'form':form})
 
 def fixtures(request):
-    gameweek = os.getenv('GAMEWEEK', 1)
-    gameweek_deadline = os.getenv('GAMEWEEK_DEADLINE')
-    return render(request,'Fantasy/fixtures.html',{'title':'Nagwa League Fixtures Season 2020', 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
+    return render(request,'Fantasy/fixtures.html',{'title':'Nagwa League Fixtures Season 2020'})

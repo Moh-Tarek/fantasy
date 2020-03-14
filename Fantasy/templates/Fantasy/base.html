@@ -52,11 +52,13 @@
               <div class="content-section">
                 <!-- <h3>Shipments</h3> -->
                   <ul class="list-group">
-                      <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{%url 'Fantasy-teams'%}">Fantasy Teams</a></li>
-                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{%url 'Fantasy-allplayers'%}">All Players</a></li>
-                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'Fantasy-squadSelection'%}">Squad Selection</a></li>
-                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'Fantasy-register'%}">Join Fantasy</a></li>
+                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{%url 'Fantasy-teams'%}">Fantasy Teams</a></li>
+                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{%url 'Fantasy-allplayers'%}">Players</a></li>
                     <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'Fantasy-fixtures'%}">Fixtures</a></li>
+                    <li role="presentation" class="divider"></li>
+                    <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'Fantasy-register'%}">My Fantasy Team</a></li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><a class="nav-item nav-link" href="{% url 'Fantasy-squadSelection'%}">Squad Selection</a><span class="badge badge-primary badge-pill">Gameweek {{gameweek}}</span></li>
+                    
                   </ul>
                 </p>
               </div>
