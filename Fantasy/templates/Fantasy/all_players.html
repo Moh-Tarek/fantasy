@@ -72,7 +72,8 @@
                                 <tbody>
                                 {% for player in players%}
                                 <tr role="row" class="odd">
-                                    <td><img class="rounded-circle account-img" src="{{player.image.url}}"></td>
+                                    <!-- <td><img class="rounded-circle account-img" src="{{player.image.url}}"></td> -->
+                                    <td><img class="rounded-circle account-img" src="/media/profile_pics/{{player.playerName}}.jpg"></td>
                                     <td>{{player.playerName}}</td>
                                     <td class="sorting_1">{{player.teamName}}</td>
                                     <td>{{player.playingRole}}</td>
@@ -107,6 +108,4 @@
         </div>
     </div>
 </div>
-<!-- </div> -->
-
 {% endblock content%}
