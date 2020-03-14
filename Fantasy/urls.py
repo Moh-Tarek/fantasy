@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='Fantasy-home'),
     path('about/', views.about, name='Fantasy-about'),
-    path('fixtures/', views.fixtures, name='Fantasy-fixtures'),
+    path('matches/', views.matches, name='Fantasy-matches'),
     path('allplayers/', views.allPlayers, name='Fantasy-allplayers'),
     path('teams/', views.allTeams, name='Fantasy-teams'),
     path('scores/', views.teamScore, name='Fantasy-score'),
