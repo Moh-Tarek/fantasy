@@ -59,7 +59,7 @@ def teamScore(request):
         return render(request, 'Fantasy/team_score.html', {'squads': []})
     
     squads = FantasySquad.objects.filter(team=team)
-    return render(request, 'Fantasy/team_score.html', {'squads': squads})
+    return render(request, 'Fantasy/team_score.html', {'squads': squads, 'team': team})
 
 @login_required
 def register(request):
