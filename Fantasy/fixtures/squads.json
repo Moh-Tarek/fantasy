@@ -1,0 +1,422 @@
+[
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 1,
+  "fields": {
+    "team": 1,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 17,
+    "player4Selected": 28,
+    "player5Selected": 31,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 2,
+  "fields": {
+    "team": 2,
+    "captainSelected": 3,
+    "goalKeeperSelected": 8,
+    "player1Selected": 15,
+    "player2Selected": 16,
+    "player3Selected": 17,
+    "player4Selected": 26,
+    "player5Selected": 31,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 3,
+  "fields": {
+    "team": 3,
+    "captainSelected": 2,
+    "goalKeeperSelected": 7,
+    "player1Selected": 12,
+    "player2Selected": 19,
+    "player3Selected": 20,
+    "player4Selected": 23,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 4,
+  "fields": {
+    "team": 4,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 21,
+    "player4Selected": 23,
+    "player5Selected": 33,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 5,
+  "fields": {
+    "team": 5,
+    "captainSelected": 3,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 19,
+    "player4Selected": 21,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 6,
+  "fields": {
+    "team": 6,
+    "captainSelected": 3,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 23,
+    "player4Selected": 27,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 7,
+  "fields": {
+    "team": 7,
+    "captainSelected": 2,
+    "goalKeeperSelected": 8,
+    "player1Selected": 13,
+    "player2Selected": 18,
+    "player3Selected": 23,
+    "player4Selected": 29,
+    "player5Selected": 33,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 8,
+  "fields": {
+    "team": 8,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 21,
+    "player4Selected": 23,
+    "player5Selected": 26,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 9,
+  "fields": {
+    "team": 9,
+    "captainSelected": 1,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 23,
+    "player4Selected": 27,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 10,
+  "fields": {
+    "team": 10,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 18,
+    "player3Selected": 21,
+    "player4Selected": 23,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 11,
+  "fields": {
+    "team": 11,
+    "captainSelected": 2,
+    "goalKeeperSelected": 7,
+    "player1Selected": 14,
+    "player2Selected": 19,
+    "player3Selected": 26,
+    "player4Selected": 31,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 12,
+  "fields": {
+    "team": 12,
+    "captainSelected": 3,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 19,
+    "player4Selected": 23,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 13,
+  "fields": {
+    "team": 13,
+    "captainSelected": 1,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 12,
+    "player3Selected": 17,
+    "player4Selected": 21,
+    "player5Selected": 23,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 14,
+  "fields": {
+    "team": 14,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 13,
+    "player3Selected": 17,
+    "player4Selected": 22,
+    "player5Selected": 26,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 15,
+  "fields": {
+    "team": 15,
+    "captainSelected": 3,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 19,
+    "player4Selected": 23,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 16,
+  "fields": {
+    "team": 16,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 21,
+    "player4Selected": 24,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 17,
+  "fields": {
+    "team": 17,
+    "captainSelected": 1,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 19,
+    "player3Selected": 23,
+    "player4Selected": 27,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 18,
+  "fields": {
+    "team": 18,
+    "captainSelected": 1,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 23,
+    "player4Selected": 24,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 19,
+  "fields": {
+    "team": 19,
+    "captainSelected": 2,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 14,
+    "player3Selected": 19,
+    "player4Selected": 25,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 20,
+  "fields": {
+    "team": 20,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 23,
+    "player4Selected": 29,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 21,
+  "fields": {
+    "team": 21,
+    "captainSelected": 3,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 13,
+    "player3Selected": 16,
+    "player4Selected": 25,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 22,
+  "fields": {
+    "team": 22,
+    "captainSelected": 2,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 23,
+    "player4Selected": 27,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 23,
+  "fields": {
+    "team": 23,
+    "captainSelected": 3,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 13,
+    "player3Selected": 17,
+    "player4Selected": 18,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 24,
+  "fields": {
+    "team": 24,
+    "captainSelected": 5,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 28,
+    "player4Selected": 31,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 25,
+  "fields": {
+    "team": 25,
+    "captainSelected": 3,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 18,
+    "player4Selected": 22,
+    "player5Selected": 28,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 26,
+  "fields": {
+    "team": 26,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 17,
+    "player3Selected": 21,
+    "player4Selected": 23,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 27,
+  "fields": {
+    "team": 27,
+    "captainSelected": 3,
+    "goalKeeperSelected": 8,
+    "player1Selected": 11,
+    "player2Selected": 13,
+    "player3Selected": 16,
+    "player4Selected": 19,
+    "player5Selected": 32,
+    "gameweek": 1
+  }
+},
+{
+  "model": "Fantasy.fantasysquad",
+  "pk": 28,
+  "fields": {
+    "team": 28,
+    "captainSelected": 2,
+    "goalKeeperSelected": 6,
+    "player1Selected": 11,
+    "player2Selected": 16,
+    "player3Selected": 21,
+    "player4Selected": 23,
+    "player5Selected": 27,
+    "gameweek": 1
+  }
+}
+]
