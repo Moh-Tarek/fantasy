@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/', views.about, name='Fantasy-about'),
     path('fixtures/', views.fixtures, name='Fantasy-fixtures'),
     path('allplayers/', views.allPlayers, name='Fantasy-allplayers'),
+    path('teams/', views.allTeams, name='Fantasy-teams'),
     path('squadselection/', views.squadSelectionView, name='Fantasy-squadSelection'),
     path('register/',views.register, name='Fantasy-register'),
 ]

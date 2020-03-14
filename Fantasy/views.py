@@ -33,8 +33,9 @@ def allPlayers(request):
         if playingRoleQuery == "all" and teamQuery =="all":
             players = Player.objects.all()
 
+    players_sorted = sorted(players, key=lambda x: x.total_player_score, reverse=True)
     context = {
-        'players': players,
+        'players': players_sorted,
         'title':'Show Players',
         'playingRoleQuery': playingRoleQuery,
         'teamQuery': teamQuery
@@ -44,6 +45,11 @@ def allPlayers(request):
 @login_required
 def allTeams(request):
     teams = FantasyTeam.objects.all()
+    teams_sorted = sorted(teams, key=lambda x: x.total_team_score, reverse=True)
+    context = {
+        'teams': teams_sorted
+    }
+    return render(request,'Fantasy/all_teams.html',context)
 
 @login_required
 def register(request):
