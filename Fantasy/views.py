@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection,FantasyRegister
 from django.views.generic import ListView,DetailView
+from django.views import View
 from datetime import datetime
 from django.db.models import Sum
 import os
