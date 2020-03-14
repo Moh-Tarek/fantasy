@@ -7,6 +7,7 @@ from django.views.generic import ListView,DetailView
 from datetime import datetime
 from django.db.models import Sum
 import os
+from django.db.models import Q
 
 
 def home(request):
@@ -17,11 +18,25 @@ def about(request):
     return render(request,'Fantasy/about.html',{'title':'About Fantasy'})
 
 def allPlayers(request):
-    playingRoleQuery = request.GET.get('category', None)
-    context = {'players':Player.objects.all()}
-    if not playingRoleQuery is None:
-        context = {'players':Player.objects.all().filter(playingRole=playingRoleQuery)}
-    context['title'] = 'All Players'
+    players = Player.objects.all()
+    playingRoleQuery = request.GET.get('playingRole')
+    teamQuery = request.GET.get('teamname')
+    if playingRoleQuery!="" and playingRoleQuery is not None and teamQuery!="" and teamQuery is not None:
+        if playingRoleQuery != "all" and teamQuery !="all":
+            playersRole = players.filter(playingRole = playingRoleQuery)
+            playersTeam = players.filter(teamName=teamQuery)
+            players = playersRole & playersTeam
+        if playingRoleQuery == "all" and teamQuery !="all":
+            players = players.filter(teamName=teamQuery)
+        if playingRoleQuery != "all" and teamQuery =="all":
+            players = players.filter(playingRole = playingRoleQuery)
+        if playingRoleQuery == "all" and teamQuery =="all":
+            players = Player.objects.all()
+
+    context = {
+        'players': players,
+        'title':'Show Players'
+    }
     return render(request,'Fantasy/all_players.html',context)
 
 @login_required
@@ -89,3 +104,6 @@ def squadSelectionView(request):
         else:
             form = SquadSelection()
     return render(request,'Fantasy/squad_selection.html', {'form':form, 'gameweek': gameweek, 'gameweek_deadline': gameweek_deadline})
+
+def fixtures(request):
+    return render(request,'Fantasy/fixtures.html',{'title':'Nagwa League Fixtures Season 2020'})
