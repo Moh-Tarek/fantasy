@@ -24,7 +24,9 @@ SECRET_KEY = '9!@6+^@o1f#pwq*!jkcscrcyr604nq4#p7luc639d8i)y_0@zu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nfl-env.eba-2jea2pg6.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['nfl-env.eba-2jea2pg6.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
