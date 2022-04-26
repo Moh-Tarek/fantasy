@@ -51,10 +51,10 @@ spec:
     environment {
         SONAR_PROJECT_DEV="fantasy-python-dev"
         SONAR_PROJECT_PROD="fantasy-python-prod"
-        IMAGE_REGISTRY_DEV="fantasy-python-dev"
-        IMAGE_REGISTRY_PROD="fantasy-python-prod"
-        K8S_MANIFESTS_BRANCH_DEV="fantasy-python-de-dev"
-        K8S_MANIFESTS_BRANCH_PROD="fantasy-python-de-prod"  
+        IMAGE_REGISTRY_DEV="fantasy-python-de-dev"
+        IMAGE_REGISTRY_PROD="fantasy-python-de-prod"
+        K8S_MANIFESTS_BRANCH_DEV="fantasy-python-dev"
+        K8S_MANIFESTS_BRANCH_PROD="fantasy-python-prod"  
         REPO_URL="https://github.com/Moh-Tarek/fantasy.git"
     }
 
