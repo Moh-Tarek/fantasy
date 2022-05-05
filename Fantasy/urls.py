@@ -1,13 +1,14 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('', views.home, name='Fantasy-home'),
-    path('about/', views.about, name='Fantasy-about'),
-    path('matches/', views.matches, name='Fantasy-matches'),
-    path('allplayers/', views.allPlayers, name='Fantasy-allplayers'),
-    path('teams/', views.allTeams, name='Fantasy-teams'),
-    path('scores/', views.teamScore, name='Fantasy-score'),
-    path('squadselection/', views.squadSelectionView, name='Fantasy-squadSelection'),
-    path('register/',views.register, name='Fantasy-register'),
+    path('', login_required(login_url='/accounts/google/login')(views.home), name='Fantasy-home'),
+    path('about/', login_required(login_url='/accounts/google/login/')(views.about), name='Fantasy-about'),
+    path('matches/', login_required(login_url='/accounts/google/login/')(views.matches), name='Fantasy-matches'),
+    path('allplayers/', login_required(login_url='/accounts/google/login/')(views.allPlayers), name='Fantasy-allplayers'),
+    path('teams/', login_required(login_url='/accounts/google/login/')(views.allTeams), name='Fantasy-teams'),
+    path('scores/', login_required(login_url='/accounts/google/login/')(views.teamScore), name='Fantasy-score'),
+    path('squadselection/', login_required(login_url='/accounts/google/login/')(views.squadSelectionView), name='Fantasy-squadSelection'),
+    path('register/',login_required(login_url='/accounts/google/login/')(views.register), name='Fantasy-register'),
 ]
