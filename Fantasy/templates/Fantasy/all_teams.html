@@ -6,20 +6,18 @@
     <thead class="thead-light">
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Team</th>
         <th scope="col">Player</th>
         <th scope="col">Last GW Score</th>
         <th scope="col">Total Score</th>
     </tr>
     </thead>
     <tbody>
-    {% for t in teams %}
+    {% for team in teams %}
     <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ t.FantasyTeamName }}</td>
-        <td>{{ t.FantasyPlayerName }}</td>
-        <td>{{ t.last_gameweek_team_score|default_if_none:'-' }}</td>
-        <td>{{ t.total_team_score|default_if_none:'-' }}</td>
+        <td>{{ team.first_name }} {{ team.last_name }}</td>
+        <td>{{ team.last_gameweek_team_score|default_if_none:'-' }}</td>
+        <td>{{ team.total_team_score|default_if_none:'-' }}</td>
     </tr>
     {% endfor %}
     </tbody>

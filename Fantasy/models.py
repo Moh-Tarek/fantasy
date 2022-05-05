@@ -1,24 +1,23 @@
-from django.db import models
-from django.contrib.auth.models import User
-from datetime import datetime
 from .constants import GOAL_POINTS, ASSIST_POINTS, YELLOW_CARD_POINTS, RED_CARD_POINTS, CLEAN_SHEET_POINTS, \
     PENALTY_SAVED_POINTS, PENALTY_MISSED_POINTS
+
+from django.db.models import Model, ForeignKey, CharField, IntegerField, BooleanField, ImageField, CASCADE
+from django.contrib.auth.models import User
+
 import os
 
 
-class FantasyTeam(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    FantasyPlayerName = models.CharField(max_length=100)
-    FantasyTeamName = models.CharField(max_length=100)
-    nagwaID = models.IntegerField(null=True, blank=True)
-
+class Team(User):
+    class Meta:
+        proxy = True
+        
     @property
     def total_team_score(self):
         team_score = 0
         for s in self.squads.all():
             team_score += s.total_squad_score
         return team_score
-    
+
     @property
     def last_gameweek_team_score(self):
         last_gameweek = int(os.getenv('GAMEWEEK')) - 1
@@ -27,16 +26,18 @@ class FantasyTeam(models.Model):
             return last_gameweek_squad[0].total_squad_score
         return None
 
-class Player(models.Model):
-    playerName = models.CharField(max_length=100, unique=True)
-    image = models.ImageField(default='defaultplayer.jpg', upload_to='profile_pics')
-    teamName = models.CharField(max_length=100)
+
+class Player(Model):
+    playerName = CharField(max_length=100, unique=True)
+    image = ImageField(
+        default='defaultplayer.jpg', upload_to='profile_pics')
+    teamName = CharField(max_length=100)
     playingRoleChoices = (
         ('Captain', 'Captain'),
         ('GoalKeeper', 'GoalKeeper'),
         ('Player', 'Player'),
     )
-    playingRole = models.CharField(max_length=100, choices=playingRoleChoices)
+    playingRole = CharField(max_length=100, choices=playingRoleChoices)
 
     @property
     def total_player_score(self):
@@ -57,16 +58,24 @@ class Player(models.Model):
         return self.playerName
 
 
-class FantasySquad(models.Model):
-    team = models.ForeignKey(FantasyTeam, on_delete=models.CASCADE, related_name="squads")
-    captainSelected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='C')
-    goalKeeperSelected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='GK')
-    player1Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P1')
-    player2Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P2')
-    player3Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P3')
-    player4Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P4')
-    player5Selected = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='P5')
-    gameweek = models.IntegerField()
+class FantasySquad(Model):
+    team = ForeignKey(
+        Team, on_delete=CASCADE, related_name="squads")
+    captainSelected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='C')
+    goalKeeperSelected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='GK')
+    player1Selected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='P1')
+    player2Selected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='P2')
+    player3Selected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='P3')
+    player4Selected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='P4')
+    player5Selected = ForeignKey(
+        Player, on_delete=CASCADE, related_name='P5')
+    gameweek = IntegerField()
 
     class Meta:
         unique_together = ['team', 'gameweek']
@@ -76,7 +85,7 @@ class FantasySquad(models.Model):
         if score_obj:
             return score_obj[0].total_score
         return None
-        
+
     @property
     def captainSelected_score(self):
         return self.get_player_score(self.captainSelected)
@@ -88,7 +97,7 @@ class FantasySquad(models.Model):
     @property
     def player1Selected_score(self):
         return self.get_player_score(self.player1Selected)
-    
+
     @property
     def player2Selected_score(self):
         return self.get_player_score(self.player2Selected)
@@ -122,23 +131,25 @@ class FantasySquad(models.Model):
                 total_squad_score += s
         return total_squad_score
 
-class Score(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="player_scores")
-    gameweek = models.IntegerField()
 
-    goal = models.IntegerField(default=0)
-    assist = models.IntegerField(default=0)
-    yellow_card = models.BooleanField(default=False)
-    red_card = models.BooleanField(default=False)
-    clean_sheet = models.BooleanField(default=False)
-    penalty_saved = models.IntegerField(default=0)
-    penalty_missed = models.IntegerField(default=0)
+class Score(Model):
+    player = ForeignKey(
+        Player, on_delete=CASCADE, related_name="player_scores")
+    gameweek = IntegerField()
+
+    goal = IntegerField(default=0)
+    assist = IntegerField(default=0)
+    yellow_card = BooleanField(default=False)
+    red_card = BooleanField(default=False)
+    clean_sheet = BooleanField(default=False)
+    penalty_saved = IntegerField(default=0)
+    penalty_missed = IntegerField(default=0)
 
     @property
     def total_score(self):
         total_score = GOAL_POINTS * self.goal + ASSIST_POINTS * self.assist \
-                      + PENALTY_SAVED_POINTS * self.penalty_saved \
-                      + PENALTY_MISSED_POINTS * self.penalty_missed
+            + PENALTY_SAVED_POINTS * self.penalty_saved \
+            + PENALTY_MISSED_POINTS * self.penalty_missed
 
         if self.red_card:
             total_score += RED_CARD_POINTS
@@ -159,3 +170,25 @@ class Score(models.Model):
 
     def __str__(self):
         return self.player.playerName + " - " + str(self.gameweek)
+
+
+# class FantasyTeam(Model):
+#     user = ForeignKey(User, on_delete=CASCADE)
+#     FantasyPlayerName = CharField(max_length=100)
+#     FantasyTeamName = CharField(max_length=100)
+#     nagwaID = IntegerField(null=True, blank=True)
+
+#     @property
+#     def total_team_score(self):
+#         team_score = 0
+#         for s in self.squads.all():
+#             team_score += s.total_squad_score
+#         return team_score
+
+#     @property
+#     def last_gameweek_team_score(self):
+#         last_gameweek = int(os.getenv('GAMEWEEK')) - 1
+#         last_gameweek_squad = self.squads.filter(gameweek=last_gameweek)
+#         if last_gameweek_squad:
+#             return last_gameweek_squad[0].total_squad_score
+#         return None

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Player, FantasySquad, FantasyTeam
+from .models import Player, FantasySquad, Team
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection, FantasyRegister
@@ -46,7 +46,7 @@ def allPlayers(request):
 
 
 def allTeams(request):
-    teams = FantasyTeam.objects.all()
+    teams = Team.objects.all()
     teams_sorted = sorted(teams, key=lambda x: x.total_team_score, reverse=True)
     context = {
         'teams': teams_sorted
@@ -57,7 +57,7 @@ def allTeams(request):
 @login_required
 def teamScore(request):
     try:
-        team = FantasyTeam.objects.get(user=request.user)
+        team = Team.objects.get(user=request.user)
     except:
         return render(request, 'Fantasy/team_score.html', {'squads': []})
 
@@ -69,7 +69,7 @@ def teamScore(request):
 def register(request):
     # check existing team
     try:
-        team = FantasyTeam.objects.get(user=request.user)
+        team = Team.objects.get(user=request.user)
     except:
         team = None
     if request.method == 'POST':
@@ -93,27 +93,20 @@ def register(request):
         # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
 
 
-@login_required
 def squadSelectionView(request):
-    # 1. get current gameweek
     gameweek = os.getenv('GAMEWEEK', 1)
-    # 2. get the registered team, and redirect to register page if not registered before
-    try:
-        team = FantasyTeam.objects.get(user=request.user)
-    except:
-        messages.warning(request, 'You should update your team details before selecting a squad')
-        return redirect('Fantasy-register')
+    
     # 3. get this gameweek's squad so that the user can edit it, and return empty form if no squad created
     try:
-        squad = FantasySquad.objects.get(team=team, gameweek=gameweek)
+        squad = FantasySquad.objects.get(team=request.user, gameweek=gameweek)
     except:
         squad = None
     # 4. check request method and continue
     if request.method == 'POST':
         if squad:
-            form = SquadSelection(request.POST, team=team, gameweek=gameweek, instance=squad)
+            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek, instance=squad)
         else:
-            form = SquadSelection(request.POST, team=team, gameweek=gameweek)
+            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek)
         if form.is_valid():
             sub_form = form.save()
             messages.success(request, 'Thanks, your Squad has been submitted!')

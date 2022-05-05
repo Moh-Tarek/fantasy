@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import FantasySquad,Player,FantasyTeam
+from .models import FantasySquad,Player, Team
 from django.forms import ModelForm
 import collections
 
 class FantasyRegister (ModelForm):
     class Meta:
-        model = FantasyTeam
+        model = Team
         exclude = ['user']
 
     def __init__(self, *args, **kwargs):
