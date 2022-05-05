@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Player, FantasySquad, Team
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SquadSelection, FantasyRegister
+from .forms import SquadSelection
 from django.views.generic import ListView,DetailView
 from django.views import View
 from datetime import datetime
@@ -65,32 +65,32 @@ def teamScore(request):
     return render(request, 'Fantasy/team_score.html', {'squads': squads, 'team': team})
 
 
-@login_required
-def register(request):
-    # check existing team
-    try:
-        team = Team.objects.get(user=request.user)
-    except:
-        team = None
-    if request.method == 'POST':
-        if team:
-            form = FantasyRegister(request.POST, my_user=request.user, instance=team)
-        else:
-            form = FantasyRegister(request.POST, my_user=request.user)
-        if form.is_valid():
-            sub_form = form.save()
-            # sub_form.user = request.user
-            username = form.cleaned_data.get('FantasyPlayerName')
-            messages.success(request,
-                             f'Thanks {username} for updating your team details! You can select or update your squad now!')
-            return redirect('Fantasy-squadSelection')
-    else:
-        if team:
-            form = FantasyRegister(instance=team)
-        else:
-            form = FantasyRegister()
-        return render(request, 'Fantasy/register.html', {'form': form})
-        # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
+# @login_required
+# def register(request):
+#     # check existing team
+#     try:
+#         team = Team.objects.get(user=request.user)
+#     except:
+#         team = None
+#     if request.method == 'POST':
+#         if team:
+#             form = FantasyRegister(request.POST, my_user=request.user, instance=team)
+#         else:
+#             form = FantasyRegister(request.POST, my_user=request.user)
+#         if form.is_valid():
+#             sub_form = form.save()
+#             # sub_form.user = request.user
+#             username = form.cleaned_data.get('FantasyPlayerName')
+#             messages.success(request,
+#                              f'Thanks {username} for updating your team details! You can select or update your squad now!')
+#             return redirect('Fantasy-squadSelection')
+#     else:
+#         if team:
+#             form = FantasyRegister(instance=team)
+#         else:
+#             form = FantasyRegister()
+#         return render(request, 'Fantasy/register.html', {'form': form})
+#         # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
 
 
 def squadSelectionView(request):
@@ -112,7 +112,7 @@ def squadSelectionView(request):
             messages.success(request, 'Thanks, your Squad has been submitted!')
             return redirect('Fantasy-squadSelection')
         else:
-            # messages.warning(request, form.errors)
+            messages.warning(request, form.errors)
             return render(request, 'Fantasy/squad_selection.html', {'form': form})
     else:
         if squad:

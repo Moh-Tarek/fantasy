@@ -5,22 +5,22 @@ from .models import FantasySquad,Player, Team
 from django.forms import ModelForm
 import collections
 
-class FantasyRegister (ModelForm):
-    class Meta:
-        model = Team
-        exclude = ['user']
+# class FantasyRegister (ModelForm):
+#     class Meta:
+#         model = Team
+#         exclude = ['user']
 
-    def __init__(self, *args, **kwargs):
-        self.my_user = kwargs.pop('my_user', None)
-        super(FantasyRegister, self).__init__(*args, **kwargs)
+#     def __init__(self, *args, **kwargs):
+#         self.my_user = kwargs.pop('my_user', None)
+#         super(FantasyRegister, self).__init__(*args, **kwargs)
         
     
-    def save(self, commit=True):
-        obj = super(FantasyRegister, self).save(commit=False)
-        obj.user = self.my_user
-        if commit:
-            obj.save()
-        return obj
+#     def save(self, commit=True):
+#         obj = super(FantasyRegister, self).save(commit=False)
+#         obj.user = self.my_user
+#         if commit:
+#             obj.save()
+#         return obj
 
 class SquadSelection (ModelForm):
     class Meta:
@@ -82,6 +82,7 @@ class SquadSelection (ModelForm):
         obj = super(SquadSelection, self).save(commit=False)
         obj.team = self.team
         obj.gameweek = self.gameweek
+
         if commit:
             obj.save()
         return obj
