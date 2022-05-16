@@ -110,7 +110,6 @@ SOCIALACCOUNT_LOGIN_ON_GET=True
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
