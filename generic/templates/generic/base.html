@@ -251,7 +251,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.username}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.first_name}} {{ user.last_name }}</span>
                                 <!-- <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg"> -->
                             </a>
@@ -281,9 +281,16 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    {% if messages %}
+                        {% for message in messages%}
+                            <div class="alert alert-{{message.tags}}">
+                            {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    <!-- <h1 class="h3 mb-4 text-gray-800">Blank Page</h1> -->
+                    {% block content %}{% endblock %}
 
                 </div>
                 <!-- /.container-fluid -->
@@ -295,7 +302,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; NFL 2022</span>
                     </div>
                 </div>
             </footer>
