@@ -21,6 +21,9 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+    <!-- Custom styles for tables page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -57,19 +60,19 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{%url 'Fantasy-teams'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Fantasy Teams</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{%url 'Fantasy-allplayers'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Players</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'Fantasy-matches'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Matches</span></a>
             </li>
@@ -89,13 +92,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'Fantasy-squadSelection'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Squad Selection</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'Fantasy-score'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>My Scores</span></a>
             </li>
@@ -347,6 +350,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- datatables plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

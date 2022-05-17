@@ -1,4 +1,4 @@
-{% extends "Fantasy/base.html" %}
+{% extends "generic/base.html" %}
 {% block content%}
 <legend class="border-bottom mb-4">Scores {% if team %}- {{ team.FantasyTeamName }} ({{team.total_team_score}} points){% endif %}</legend>
 {% for squad in squads %}
