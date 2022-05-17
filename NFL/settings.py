@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'Fantasy.apps.FantasyConfig',
+    'generic.apps.GenericConfig',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -166,7 +167,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "Fantasy/static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')

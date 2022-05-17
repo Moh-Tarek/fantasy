@@ -14,12 +14,12 @@ def logout(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Fantasy.urls')),
+    path('', include('generic.urls')),
     # path('signup/',user_views.register, name='register'),
     # path('profile/',user_views.profile, name='profile'),
     # path('login/',auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', logout, name='logout'),
-    path('accounts/', include('allauth.urls')),
-
+    path('accounts/', include('allauth.urls'))
 ]
 
 if settings.DEBUG:
