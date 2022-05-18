@@ -1,0 +1,126 @@
+{% extends "generic/base.html" %}
+{% load crispy_forms_tags%}
+{% load formset_tags %}
+{% load static %}
+
+{% block content%}
+<form method="POST" id="match_stats-form" action="">
+    {% csrf_token %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h4 class="m-0 font-weight-bold text-primary">Match Stats - {{ fixture }}</h4>
+        </div>
+        <div class="card-body">
+            <div id={{t1_formset.prefix}}>
+                {{ t1_formset.management_form }}
+                {{ t1_formset.non_form_errors }}
+                <div data-formset-body>
+                    <div data-formset-form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th colspan="11" class="font-weight-bold h4 text-primary text-center">{{ fixture.team1 }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Player</th>
+                                        <th>Role</th>
+                                        <th>Played</th>
+                                        <th>Goal</th>
+                                        <th>Assist</th>
+                                        <th>Own Goal</th>
+                                        <th>Yellow Card</th>
+                                        <th>Red Card</th>
+                                        <th>Clean Sheet</th>
+                                        <th>Penalties Saved</th>
+                                        <th>Penalties Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for form in t1_formset %}
+                                    <div style="display: none;">{{form.id}}</div>
+                                    <tr>
+                                        <td>{{ form.instance.player }}</td>
+                                        <td>{{ form.instance.player.playingRole }}</td>
+                                        <td>{{ form.played|as_crispy_field }}</td>
+                                        <td>{{ form.goal|as_crispy_field }}</td>
+                                        <td>{{ form.assist|as_crispy_field }}</td>
+                                        <td>{{ form.own_goal|as_crispy_field }}</td>
+                                        <td>{{ form.yellow_card|as_crispy_field }}</td>
+                                        <td>{{ form.red_card|as_crispy_field }}</td>
+                                        <td>{{ form.clean_sheet|as_crispy_field }}</td>
+                                        <td>{{ form.penalty_saved|as_crispy_field }}</td>
+                                        <td>{{ form.penalty_missed|as_crispy_field }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id={{t2_formset.prefix}}>
+                {{ t2_formset.management_form }}
+                {{ t2_formset.non_form_errors }}
+                <div data-formset-body>
+                    <div data-formset-form>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th colspan="11" class="font-weight-bold h4 text-primary text-center">{{ fixture.team2 }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Player</th>
+                                        <th>Role</th>
+                                        <th>Played</th>
+                                        <th>Goal</th>
+                                        <th>Assist</th>
+                                        <th>Own Goal</th>
+                                        <th>Yellow Card</th>
+                                        <th>Red Card</th>
+                                        <th>Clean Sheet</th>
+                                        <th>Penalties Saved</th>
+                                        <th>Penalties Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for form in t2_formset %}
+                                    <div style="display: none;">{{form.id}}</div>
+                                    <tr>
+                                        <td>{{ form.instance.player }}</td>
+                                        <td>{{ form.instance.player.playingRole }}</td>
+                                        <td>{{ form.played|as_crispy_field }}</td>
+                                        <td>{{ form.goal|as_crispy_field }}</td>
+                                        <td>{{ form.assist|as_crispy_field }}</td>
+                                        <td>{{ form.own_goal|as_crispy_field }}</td>
+                                        <td>{{ form.yellow_card|as_crispy_field }}</td>
+                                        <td>{{ form.red_card|as_crispy_field }}</td>
+                                        <td>{{ form.clean_sheet|as_crispy_field }}</td>
+                                        <td>{{ form.penalty_saved|as_crispy_field }}</td>
+                                        <td>{{ form.penalty_missed|as_crispy_field }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Save" class="mb-4 btn btn-success float-right" name="save">
+        </div>
+    </div>
+</form>
+{% endblock content%}
+
+{% block scripts %}
+<script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').DataTable(
+            {"bSort": false}
+        );
+        $("label").hide()
+    });
+</script>
+{% endblock %}

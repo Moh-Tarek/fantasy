@@ -1,4 +1,4 @@
-from .models import FantasySquad, GameweekSetting, Player
+from .models import FantasySquad, GameweekSetting, Player, Score
 from django.forms import ModelForm
 import collections
 
@@ -24,6 +24,11 @@ class GameweekSettingForm(ModelForm):
         model = GameweekSetting
         fields = '__all__'
 
+class ScoreForm(ModelForm):
+    class Meta:
+        model = Score
+        exclude = ['player', 'fixture']
+        # fields = '__all__'
 
 class SquadSelection(ModelForm):
     class Meta:

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Fixture, Player, FantasySquad, Team, GameweekSetting
+from .models import Fixture, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import GameweekSettingForm, SquadSelection
+from .forms import GameweekSettingForm, ScoreForm, SquadSelection
 
 
 def home(request):
@@ -10,6 +10,8 @@ def home(request):
     return render(request, 'Fantasy/home.html', context)
 
 def update_gameweek(request):
+    if not (request.user.is_staff or request.user.is_superuser):
+        return redirect('Fantasy-matches')
     try:
         gameweek_setting = GameweekSetting.objects.last()
     except:
@@ -39,6 +41,60 @@ def rules(request):
 def about(request):
     return render(request, 'Fantasy/about.html', {'title': 'About Fantasy'})
 
+def update_match_stats(request, id):
+    fixture = Fixture.objects.get(pk=id)
+    gameweek = GameweekSetting.objects.last().active_gameweek
+    if (not (request.user.is_staff or request.user.is_superuser)) or ((not request.user.is_superuser) and fixture.gameweek != gameweek):
+        # all staff users can update the active gameweek's fixtures stats only. Superusers can update any gameweek's fixtures stats.
+        return redirect('Fantasy-matches')
+
+    f_scores = fixture.scores
+    team1 = fixture.team1
+    # team1_scores = f_scores.filter(player__team=team1)
+    team2 = fixture.team2
+    # team2_scores = f_scores.filter(player__team=team2)
+
+    # team1_forms = []
+    for p1 in team1.players.all():
+        player_fixture_score = f_scores.filter(player=p1)
+        if not player_fixture_score:
+            player_fixture_score = Score.objects.create(player=p1, fixture=fixture)
+        # team1_forms.append(ScoreForm(instance=player_fixture_score))
+
+    # team2_forms = []
+    for p2 in team2.players.all():
+        player_fixture_score = f_scores.filter(player=p2)
+        if not player_fixture_score:
+            player_fixture_score = Score.objects.create(player=p2, fixture=fixture)
+        # team2_forms.append(ScoreForm(instance=player_fixture_score))
+    
+    from django.forms import modelformset_factory
+    ScoreFormSet = modelformset_factory(Score, extra=0, form=ScoreForm)
+    team1_fixture_scores = f_scores.filter(player__team=team1)
+    team2_fixture_scores = f_scores.filter(player__team=team2)
+
+    if request.method == 'POST':
+        team1_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team1_fixture_scores, prefix='team1')
+        team2_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team2_fixture_scores, prefix='team2')    
+        for formset in [team1_fixture_scores_formset, team2_fixture_scores_formset]:
+            if formset.is_valid():
+                for form in formset:
+                    if form.is_valid():
+                        form.save()
+                    print(form.errors)
+            else:
+                print(formset.errors)
+        return redirect('Fantasy-matches')
+    else:
+        team1_fixture_scores_formset = ScoreFormSet(queryset=team1_fixture_scores, prefix='team1')
+        team2_fixture_scores_formset = ScoreFormSet(queryset=team2_fixture_scores, prefix='team2')
+    
+    return render(request, 'Fantasy/update_match_stats.html', {
+        'fixture': fixture, 
+        't1_formset': team1_fixture_scores_formset,
+        't2_formset': team2_fixture_scores_formset
+    })
+    
 
 def allPlayers(request):
     players = Player.objects.all()

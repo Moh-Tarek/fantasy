@@ -21,6 +21,7 @@
                         <th>Team 1</th>
                         <th>Result</th>
                         <th>Team 2</th>
+                        {% if user.is_staff or user.is_superuser %}<th>Action</th>{% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,13 @@
                         <td class="text-center">{{ f.team1 }}</td>
                         <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
                         <td class="text-center">{{ f.team2 }}</td>
+                        {% if gameweek == f.gameweek and user.is_staff or user.is_superuser %}
+                            <td>
+                                <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-info btn-circle">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
