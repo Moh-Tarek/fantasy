@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Fixture, Player, FantasySquad, Team
+from .models import Fixture, Player, FantasySquad, Team, GameweekSetting
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection
-from django.views.generic import ListView,DetailView
-from django.views import View
-from datetime import datetime
-from django.db.models import Sum
-import os
 
 
 def home(request):
@@ -96,7 +91,10 @@ def teamScore(request):
 
 
 def squadSelectionView(request):
-    gameweek = os.getenv('GAMEWEEK', 1)
+    try:
+        gameweek = GameweekSetting.objects.last().active_gameweek
+    except:
+        gameweek = 1
     
     # 3. get this gameweek's squad so that the user can edit it, and return empty form if no squad created
     try:

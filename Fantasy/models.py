@@ -19,6 +19,10 @@ from django.contrib.auth.models import User
 import os
 
 
+class GameweekSetting(Model):
+    active_gameweek = IntegerField()
+    gameweek_deadline = DateTimeField()
+
 class Team(User):
     class Meta:
         proxy = True
@@ -32,17 +36,15 @@ class Team(User):
 
     @property
     def last_gameweek_team_score(self):
-        last_gameweek = int(os.getenv('GAMEWEEK')) - 1
+        try:
+            last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
+        except:
+            last_gameweek = 0
         last_gameweek_squad = self.squads.filter(gameweek=last_gameweek)
         if last_gameweek_squad:
             return last_gameweek_squad[0].total_squad_score
         return None
 
-
-class GameweekSetting(Model):
-    active_gameweek = IntegerField()
-    gameweek_deadline = DateTimeField()
-    
 class FootballTeam(Model):
     name = CharField(max_length=100, unique=True)
 
@@ -70,7 +72,10 @@ class Player(Model):
 
     @property
     def last_gameweek_player_score(self):
-        last_gameweek = int(os.getenv('GAMEWEEK')) - 1
+        try:
+            last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
+        except:
+            last_gameweek = 0
         last_gameweek_score = self.player_scores.filter(fixture__gameweek=last_gameweek)
         if last_gameweek_score:
             return last_gameweek_score[0].total_score
@@ -156,7 +161,9 @@ class FantasySquad(Model):
                 total_squad_score += s
         return total_squad_score
 
-
+    def __str__(self):
+        return f"{self.team} - GW{self.gameweek}" 
+        
 class Score(Model):
     player = ForeignKey(
         Player, on_delete=CASCADE, related_name="player_scores")

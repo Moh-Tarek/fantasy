@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from Fantasy.models import FantasySquad, Player
+from Fantasy.models import FantasySquad, GameweekSetting
 import os
 
 class Command(BaseCommand):
@@ -14,7 +14,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         c = 0
-        current_gameweek = int(os.getenv('GAMEWEEK'))
+        try:
+            current_gameweek = GameweekSetting.objects.last().active_gameweek
+        except:
+            current_gameweek = 1
         previous_gameweek = current_gameweek - 1
         previous_gameweek_squads = FantasySquad.objects.filter(gameweek=previous_gameweek)
         current_gameweek_squads = []
