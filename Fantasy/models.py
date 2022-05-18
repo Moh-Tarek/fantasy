@@ -1,7 +1,19 @@
-from .constants import GOAL_POINTS, ASSIST_POINTS, YELLOW_CARD_POINTS, RED_CARD_POINTS, CLEAN_SHEET_POINTS, \
-    PENALTY_SAVED_POINTS, PENALTY_MISSED_POINTS
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.forms import DateTimeField
+from .constants import (
+    PLAYED_POINTS, 
+    GOAL_POINTS, 
+    ASSIST_POINTS,
+    OWN_GOAL_POINTS, 
+    YELLOW_CARD_POINTS, 
+    RED_CARD_POINTS, 
+    CLEAN_SHEET_POINTS,
+    PENALTY_SAVED_POINTS, 
+    PENALTY_MISSED_POINTS
+)
 
-from django.db.models import Model, ForeignKey, CharField, IntegerField, BooleanField, ImageField, CASCADE
+from django.db.models import Model, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE
 from django.contrib.auth.models import User
 
 import os
@@ -27,11 +39,21 @@ class Team(User):
         return None
 
 
+class GameweekSetting(Model):
+    active_gameweek = IntegerField()
+    gameweek_deadline = DateTimeField()
+    
+class FootballTeam(Model):
+    name = CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Player(Model):
     playerName = CharField(max_length=100, unique=True)
     image = ImageField(
         default='defaultplayer.jpg', upload_to='profile_pics')
-    teamName = CharField(max_length=100)
+    team = ForeignKey(FootballTeam, on_delete=CASCADE, related_name='players')
     playingRoleChoices = (
         ('Captain', 'Captain'),
         ('GoalKeeper', 'GoalKeeper'),
@@ -49,10 +71,10 @@ class Player(Model):
     @property
     def last_gameweek_player_score(self):
         last_gameweek = int(os.getenv('GAMEWEEK')) - 1
-        last_gameweek_score = self.player_scores.filter(gameweek=last_gameweek)
+        last_gameweek_score = self.player_scores.filter(fixture__gameweek=last_gameweek)
         if last_gameweek_score:
             return last_gameweek_score[0].total_score
-        return None
+        return 0
 
     def __str__(self):
         return self.playerName
@@ -62,28 +84,31 @@ class FantasySquad(Model):
     team = ForeignKey(
         Team, on_delete=CASCADE, related_name="squads")
     captainSelected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='C')
+        Player, on_delete=CASCADE, related_name='C', verbose_name="Captain")
     goalKeeperSelected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='GK')
+        Player, on_delete=CASCADE, related_name='GK', verbose_name="GoalKeeper")
     player1Selected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='P1')
+        Player, on_delete=CASCADE, related_name='P1', verbose_name="Player 1")
     player2Selected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='P2')
+        Player, on_delete=CASCADE, related_name='P2', verbose_name="Player 2")
     player3Selected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='P3')
+        Player, on_delete=CASCADE, related_name='P3', verbose_name="Player 3")
     player4Selected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='P4')
+        Player, on_delete=CASCADE, related_name='P4', verbose_name="Player 4")
     player5Selected = ForeignKey(
-        Player, on_delete=CASCADE, related_name='P5')
+        Player, on_delete=CASCADE, related_name='P5', verbose_name="Player 5")
     gameweek = IntegerField()
 
     class Meta:
         unique_together = ['team', 'gameweek']
 
     def get_player_score(self, player):
-        score_obj = player.player_scores.filter(gameweek=self.gameweek)
-        if score_obj:
-            return score_obj[0].total_score
+        score_objects = player.player_scores.filter(fixture__gameweek=self.gameweek)
+        if score_objects:
+            score = 0
+            for s in score_objects:
+                score += s.total_score
+            return score
         return None
 
     @property
@@ -135,10 +160,12 @@ class FantasySquad(Model):
 class Score(Model):
     player = ForeignKey(
         Player, on_delete=CASCADE, related_name="player_scores")
-    gameweek = IntegerField()
+    fixture = ForeignKey('Fixture', on_delete=CASCADE, related_name="scores")
 
+    played = BooleanField(default=False)
     goal = IntegerField(default=0)
     assist = IntegerField(default=0)
+    own_goal = IntegerField(default=0)
     yellow_card = BooleanField(default=False)
     red_card = BooleanField(default=False)
     clean_sheet = BooleanField(default=False)
@@ -147,30 +174,99 @@ class Score(Model):
 
     @property
     def total_score(self):
-        total_score = GOAL_POINTS * self.goal + ASSIST_POINTS * self.assist \
-            + PENALTY_SAVED_POINTS * self.penalty_saved \
-            + PENALTY_MISSED_POINTS * self.penalty_missed
+        total_score = 0
+        if self.played:
+            total_score = PLAYED_POINTS * self.played \
+                + GOAL_POINTS * self.goal \
+                + ASSIST_POINTS * self.assist \
+                + OWN_GOAL_POINTS * self.own_goal \
+                + PENALTY_SAVED_POINTS * self.penalty_saved \
+                + PENALTY_MISSED_POINTS * self.penalty_missed
 
-        if self.red_card:
-            total_score += RED_CARD_POINTS
+            if self.red_card:
+                total_score += RED_CARD_POINTS
 
-        if self.yellow_card:
-            total_score += YELLOW_CARD_POINTS
+            if self.yellow_card and not self.red_card:
+                total_score += YELLOW_CARD_POINTS
 
-        if self.player.playingRole == "Captain":
-            total_score *= 2
+            if self.player.playingRole == "Captain":
+                total_score *= 2
 
-        if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
-            total_score += CLEAN_SHEET_POINTS
+            if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
+                total_score += CLEAN_SHEET_POINTS
 
         return total_score
 
     class Meta:
-        unique_together = ['player', 'gameweek']
+        unique_together = ['player', 'fixture']
 
+    def clean(self):
+        if self.player not in self.fixture.players:
+            raise ValidationError(_('The selected player doesn\'t play in any of the two teams of the selected fixture'))
+        
     def __str__(self):
-        return self.player.playerName + " - " + str(self.gameweek)
+        return f"{self.player.playerName} - {self.fixture}"
 
+
+class Fixture(Model):
+    team1 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="home_fixtures")
+    team2 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="away_fixtures")
+    gameweek = IntegerField()
+    date = DateTimeField()
+
+    def _goals(self):
+        team1_goals = None
+        team2_goals = None
+        team1_scores = Score.objects.filter(fixture=self, player__team=self.team1)
+        team2_scores = Score.objects.filter(fixture=self, player__team=self.team2)
+        if team1_scores or team2_scores:
+            team1_goals = 0
+            team2_goals = 0
+            for s1 in team1_scores:
+                team1_goals += s1.goal
+                team2_goals += s1.own_goal
+            for s2 in team2_scores:
+                team2_goals += s2.goal
+                team1_goals += s2.own_goal
+        return team1_goals, team2_goals
+
+    @property
+    def players(self):
+        a = list(self.team1.players.all())
+        b = list(self.team2.players.all())
+        return a + b
+
+    @property
+    def team1_goals(self):
+        return self._goals()[0]
+    
+    @property
+    def team2_goals(self):
+        return self._goals()[1]
+
+    # @property
+    # def team2_goals(self):
+    #     goals = None
+    #     scores = Score.objects.filter(fixture=self, player__team=self.team2)
+    #     if scores:
+    #         goals = 0
+    #         for s in scores:
+    #             goals += s.goal
+    #     return goals
+
+    class Meta:
+        ordering = ['gameweek', 'date']
+        unique_together = ['gameweek', 'team1', 'team2']
+
+    @property
+    def is_finished(self):
+        if self.team1_goals != None and self.team2_goals != None:
+            return True
+        return False
+    
+    def __str__(self):
+        return f"GW{self.gameweek}: {self.team1} vs {self.team2}"
+    
 
 # class FantasyTeam(Model):
 #     user = ForeignKey(User, on_delete=CASCADE)

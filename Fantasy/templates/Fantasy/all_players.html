@@ -15,7 +15,9 @@
                         <th>Player Name</th>
                         <th>Team Name</th>
                         <th>Playing Role</th>
-                        <th>Last Round Score</th>
+                        {% if previous_gameweek %}
+                            <th>GW{{previous_gameweek}} Score</th>
+                        {% endif %}
                         <th>Overall Score</th>
                     </tr>
                 </thead>
@@ -24,9 +26,11 @@
                         <tr>
                             <td class="text-center"><img class="rounded-circle account-img" style="max-width:80px;" src="/media/profile_pics/{{player.playerName}}.jpg"></td>
                             <td>{{player.playerName}}</td>
-                            <td>{{player.teamName}}</td>
+                            <td>{{player.team}}</td>
                             <td>{{player.playingRole}}</td>
-                            <td>{{player.last_gameweek_player_score | default_if_none:'-' }}</td>
+                            {% if previous_gameweek %}
+                                <td>{{player.last_gameweek_player_score | default_if_none:'-' }}</td>
+                            {% endif %}
                             <td>{{player.total_player_score | default_if_none:'-' }}</td>
                         </tr>
                     {% endfor %}

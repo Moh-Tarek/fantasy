@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Player, FantasySquad, Team
+from .models import Fixture, Player, FantasySquad, Team
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import SquadSelection
@@ -28,10 +28,10 @@ def allPlayers(request):
     if playingRoleQuery != "" and playingRoleQuery is not None and teamQuery != "" and teamQuery is not None:
         if playingRoleQuery != "all" and teamQuery != "all":
             playersRole = players.filter(playingRole=playingRoleQuery)
-            playersTeam = players.filter(teamName=teamQuery)
+            playersTeam = players.filter(team__name=teamQuery)
             players = playersRole & playersTeam
         if playingRoleQuery == "all" and teamQuery != "all":
-            players = players.filter(teamName=teamQuery)
+            players = players.filter(team__name=teamQuery)
         if playingRoleQuery != "all" and teamQuery == "all":
             players = players.filter(playingRole=playingRoleQuery)
         if playingRoleQuery == "all" and teamQuery == "all":
@@ -59,7 +59,7 @@ def allTeams(request):
 @login_required
 def teamScore(request):
     try:
-        team = Team.objects.get(user=request.user)
+        team = Team.objects.get(username=request.user)
     except:
         return render(request, 'Fantasy/team_score.html', {'squads': []})
 
@@ -125,4 +125,5 @@ def squadSelectionView(request):
 
 
 def matches(request):
-    return render(request, 'Fantasy/matches.html', {'title': 'Nagwa League matches Season 2020'})
+    fixtures = Fixture.objects.all()
+    return render(request, 'Fantasy/matches.html', {'fixtures': fixtures})

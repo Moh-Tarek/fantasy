@@ -12,7 +12,9 @@
                     <tr>
                         <th>#</th>
                         <th>Team</th>
-                        <th>Last GW Score</th>
+                        {% if previous_gameweek %}
+                            <th>GW{{previous_gameweek}} Score</th>
+                        {% endif %}
                         <th>Total Score</th>
                     </tr>
                 </thead>
@@ -21,7 +23,9 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ team.first_name }} {{ team.last_name }}</td>
-                            <td>{{ team.last_gameweek_team_score|default_if_none:'-' }}</td>
+                            {% if previous_gameweek %}
+                                <td>{{ team.last_gameweek_team_score|default_if_none:'-' }}</td>
+                            {% endif %}
                             <td>{{ team.total_team_score|default_if_none:'-' }}</td>
                         </tr>
                     {% endfor %}

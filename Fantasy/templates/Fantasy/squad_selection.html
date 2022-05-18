@@ -2,25 +2,27 @@
 {% load crispy_forms_tags%}
 {% block content%}
 {% load static %}
-
-
-<div class="content-section">
-    <form method="post">
-        {% csrf_token%}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Update Your Gameweek {{gameweek}} Squad</legend>
-            <div>
-            <small style="color: red; font-weight: bold;">Deadline at: {{gameweek_deadline}}</small>
+<div>
+    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline}}</small>
+</div>
+<div>&nbsp;</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">Update Gameweek {{gameweek}} Squad</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token%}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
             </div>
-            <div>&nbsp;</div>
-            {{ form|crispy }}
-        </fieldset>
+        </form>
         <div class="form-group">
-			<button class="btn btn-outline-info" type="submit">Submit</button>
+            <!-- <small class="text-muted">Want to create multiple shipments? <a class="ml-2" href="#">Add Multiple</a> </small> -->
         </div>
-    </form>
-    <div class="form-group">
-        <!-- <small class="text-muted">Want to create multiple shipments? <a class="ml-2" href="#">Add Multiple</a> </small> -->
     </div>
 </div>
 

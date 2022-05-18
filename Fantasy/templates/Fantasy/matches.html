@@ -13,7 +13,7 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="text-center">
                         <th>GW</th>
                         <th>Day</th>
                         <th>Date</th>
@@ -24,81 +24,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class='{% if gameweek == 1 %}table-info{% endif %}'>
-                        <td rowspan="2">1</td>
-                        <td rowspan="2">Tuesday</td>
-                        <td rowspan="2">2020-03-10</td>
-                        <td>5:00 PM</td>
-                        <td>Master of Darkness</td>
-                        <td class="text-center">7 - 4</td>
-                        <td>Hawks</td>
+                    {% for f in fixtures %}
+                    <tr class='{% if gameweek == f.gameweek %}table-info{% endif %}'>
+                        <td>{% ifchanged f.gameweek %}{{ f.gameweek }}{% endifchanged %}</td>
+                        <td>{% ifchanged f.date.date %}{{ f.date | date:'l' }}{% endifchanged %}</td>
+                        <td>{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
+                        <td>{{ f.date | date:'h:i A' }}</td>
+                        <td class="text-center">{{ f.team1 }}</td>
+                        <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
+                        <td class="text-center">{{ f.team2 }}</td>
                     </tr>
-                    <tr class='{% if gameweek == 1 %}table-info{% endif %}'>
-                        <td>6:00 PM</td>
-                        <td>Sparta Returns</td>
-                        <td class="text-center">2 - 3</td>
-                        <td>Brousia Dortmound</td>
-                    </tr>
-                    <tr class='{% if gameweek == 2 %}table-info{% endif %}'>
-                        <td rowspan="2">2</td>
-                        <td rowspan="2">Tuesday</td>
-                        <td rowspan="2">2020-03-17</td>
-                        <td>5:00 PM</td>
-                        <td>Sparta Returns</td>
-                        <td class="text-center">-</td>
-                        <td>Master of Darkness</td>
-                    </tr>
-                    <tr class='{% if gameweek == 2 %}table-info{% endif %}'>
-                        <td>6:00 PM</td>
-                        <td>Gunners</td>
-                        <td class="text-center">-</td>
-                        <td>Brousia Dortmound</td>
-                    </tr>
-                    <tr class='{% if gameweek == 3 %}table-info{% endif %}'>
-                        <td rowspan="2">3</td>
-                        <td rowspan="2">Tuesday</td>
-                        <td rowspan="2">2020-03-24</td>
-                        <td>5:00 PM</td>
-                        <td>Gunners</td>
-                        <td class="text-center">-</td>
-                        <td>Hawks</td>
-                    </tr>
-                    <tr class='{% if gameweek == 3 %}table-info{% endif %}'>
-                        <td>6:00 PM</td>
-                        <td>Master of Darkness</td>
-                        <td class="text-center">-</td>
-                        <td>Brousia Dortmound</td>
-                    </tr>
-                    <tr class='{% if gameweek == 4 %}table-info{% endif %}'>
-                        <td rowspan="2">4</td>
-                        <td rowspan="2">Tuesday</td>
-                        <td rowspan="2">2020-04-07</td>
-                        <td>5:00 PM</td>
-                        <td>Hawks</td>
-                        <td class="text-center">-</td>
-                        <td>Sparta Returns</td>
-                    </tr>
-                    <tr class='{% if gameweek == 4 %}table-info{% endif %}'>
-                        <td>6:00 PM</td>
-                        <td>Master of Darkness</td>
-                        <td class="text-center">-</td>
-                        <td>Gunners</td>
-                    </tr>
-                    <tr class='{% if gameweek == 5 %}table-info{% endif %}'>
-                        <td rowspan="2">5</td>
-                        <td rowspan="2">Tuesday</td>
-                        <td rowspan="2">2020-04-14</td>
-                        <td>5:00 PM</td>
-                        <td>Hawks</td>
-                        <td class="text-center">-</td>
-                        <td>Brousia Dortmound</td>
-                    </tr>
-                    <tr class='{% if gameweek == 5 %}table-info{% endif %}'>
-                        <td>6:00 PM</td>
-                        <td>Sparta Returns</td>
-                        <td class="text-center">-</td>
-                        <td>Gunners</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -110,7 +46,9 @@
 <script>
     // Call the dataTables jQuery plugin
         $(document).ready(function() {
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable(
+            {"bSort": false}
+        );
     });
 </script>
 {% endblock %}
