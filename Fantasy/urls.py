@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', login_required(login_url='/accounts/google/login')(views.home), name='Fantasy-home'),
+    path('rules/', login_required(login_url='/accounts/google/login/')(views.rules), name='Fantasy-rules'),
     path('about/', login_required(login_url='/accounts/google/login/')(views.about), name='Fantasy-about'),
     path('matches/', login_required(login_url='/accounts/google/login/')(views.matches), name='Fantasy-matches'),
     path('allplayers/', login_required(login_url='/accounts/google/login/')(views.allPlayers), name='Fantasy-allplayers'),

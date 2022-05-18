@@ -14,6 +14,8 @@ def home(request):
     context = {'players': Player.objects.all()}
     return render(request, 'Fantasy/home.html', context)
 
+def rules(request):
+    return render(request, 'Fantasy/rules.html')
 
 def about(request):
     return render(request, 'Fantasy/about.html', {'title': 'About Fantasy'})
