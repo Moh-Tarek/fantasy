@@ -1,7 +1,4 @@
-from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from .models import FantasySquad,Player, Team
+from .models import FantasySquad, GameweekSetting, Player
 from django.forms import ModelForm
 import collections
 
@@ -22,7 +19,13 @@ import collections
 #             obj.save()
 #         return obj
 
-class SquadSelection (ModelForm):
+class GameweekSettingForm(ModelForm):
+    class Meta:
+        model = GameweekSetting
+        fields = '__all__'
+
+
+class SquadSelection(ModelForm):
     class Meta:
         model = FantasySquad
         exclude = ['team', 'gameweek']

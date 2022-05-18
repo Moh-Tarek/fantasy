@@ -30,5 +30,6 @@ def add_new_gameweek_squads(sender, instance, created, **kwargs):
     if not created:
         current_gameweek = instance.active_gameweek
         previous_gameweek = current_gameweek - 1
-        previous_gameweek_squads = FantasySquad.objects.filter(gameweek=previous_gameweek)
-        create_squads(current_gameweek, previous_gameweek_squads)
+        if previous_gameweek > 0:
+            previous_gameweek_squads = FantasySquad.objects.filter(gameweek=previous_gameweek)
+            create_squads(current_gameweek, previous_gameweek_squads)

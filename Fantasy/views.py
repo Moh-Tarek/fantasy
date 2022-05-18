@@ -2,12 +2,36 @@ from django.shortcuts import render, redirect
 from .models import Fixture, Player, FantasySquad, Team, GameweekSetting
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SquadSelection
+from .forms import GameweekSettingForm, SquadSelection
 
 
 def home(request):
     context = {'players': Player.objects.all()}
     return render(request, 'Fantasy/home.html', context)
+
+def update_gameweek(request):
+    try:
+        gameweek_setting = GameweekSetting.objects.last()
+    except:
+        gameweek_setting = None
+
+    if request.method == 'POST':
+        if gameweek_setting:
+            form = GameweekSettingForm(request.POST, instance=gameweek_setting)
+        else:
+            form = GameweekSettingForm(request.POST)
+        if form.is_valid():
+            sub_form = form.save()
+            return redirect('Fantasy-matches')
+        else:
+            messages.warning(request, form.errors)
+            return render(request, 'Fantasy/gameweek_settings.html', {'form': form})
+    else:
+        if gameweek_setting:
+            form = GameweekSettingForm(instance=gameweek_setting)
+        else:
+            form = GameweekSettingForm()
+    return render(request, 'Fantasy/gameweek_settings.html', {'form': form})
 
 def rules(request):
     return render(request, 'Fantasy/rules.html')

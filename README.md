@@ -1,13 +1,10 @@
-## After deploy, run:
+## Before Deployment:
+- Update the football teams and their players in: Fantasy/fixtures/teams_players.json
+- Update the matches and their gameweeks and dates in: Fantasy/fixtures/fixtures_2022.json
 
-- python manage.py loaddata players.json  (for players data)
-- python manage.py loaddata users.json         (for users data)
-- python manage.py loaddata teams.json         (to create a team for each user)
-
-- python manage.py loaddata squads.json        (for gameweek 1 squads)
-- python manage.py loaddata scores.json        (for gameweek 1 players scores)
+## After Deployment, run:
+- python manage.py load_teams_players.py
+- python manage.py load_fixtures.py
 
 ## Each gameweek:
-
-- edit .env and update the variables: GAMEWEEK & GAMEWEEK_DEADLINE
-- run: python manage.py add_new_gameweek_squads
+- Update Gameweek Settings to your new active gameweek and its deadline

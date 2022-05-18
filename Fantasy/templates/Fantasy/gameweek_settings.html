@@ -1,0 +1,25 @@
+{% extends "generic/base.html" %}
+{% load crispy_forms_tags%}
+{% block content%}
+{% load static %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">Gameweek Settings</h4>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token%}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="form-group">
+            <!-- <small class="text-muted">Want to create multiple shipments? <a class="ml-2" href="#">Add Multiple</a> </small> -->
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
