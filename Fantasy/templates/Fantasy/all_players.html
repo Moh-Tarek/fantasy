@@ -18,7 +18,14 @@
                         {% if previous_gameweek %}
                             <th>GW{{previous_gameweek}} Score</th>
                         {% endif %}
-                        <th>Overall Score</th>
+                        <th class="important-cell">Overall Score</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Own Goals</th>
+                        <th>Yellow Cards</th>
+                        <th>Red Cards</th>
+                        <th>Penalties Saved</th>
+                        <th>Penalties Missed</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +38,16 @@
                             {% if previous_gameweek %}
                                 <td>{{player.last_gameweek_player_score | default_if_none:'-' }}</td>
                             {% endif %}
-                            <td>{{player.total_player_score | default_if_none:'-' }}</td>
+                            <td class="important-cell">{{player.total_player_score | default_if_none:'-' }}</td>
+                            {% with ps=player.player_scores %}
+                                <td>{{ ps.get_goals_sum }}</td>
+                                <td>{{ ps.get_assists_sum }}</td>
+                                <td>{{ ps.get_own_goals_sum }}</td>
+                                <td>{{ ps.get_yellow_cards_sum }}</td>
+                                <td>{{ ps.get_red_cards_sum }}</td>
+                                <td>{{ ps.get_penalties_saved_sum }}</td>
+                                <td>{{ ps.get_penalties_missed_sum }}</td>
+                            {% endwith %}
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -39,6 +55,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .important-cell {
+        background-color: lavender;
+    }
+</style>
 {% endblock content%}
 
 {% block scripts %}

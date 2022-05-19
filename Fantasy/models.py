@@ -14,6 +14,7 @@ from .constants import (
 )
 
 from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE
+from django.db.models import Sum, Count, Case, When, Value
 from django.contrib.auth.models import User
 
 import os
@@ -168,24 +169,38 @@ class FantasySquad(Model):
 class ScoreQuerySet(QuerySet):
     def get_goals(self):
         return self.filter(goal__gt=0).order_by('-goal').values_list('player__playerName', 'goal')
+    def get_goals_sum(self):
+        return self.aggregate(t=Sum('goal'))['t'] or 0
 
     def get_assists(self):
         return self.filter(assist__gt=0).order_by('-assist').values_list('player__playerName', 'assist')
+    def get_assists_sum(self):
+        return self.aggregate(t=Sum('assist'))['t'] or 0
 
     def get_own_goals(self):
         return self.filter(own_goal__gt=0).order_by('-own_goal').values_list('player__playerName', 'own_goal')
+    def get_own_goals_sum(self):
+        return self.aggregate(t=Sum('own_goal'))['t'] or 0
 
     def get_yellow_cards(self):
         return self.filter(yellow_card=True).values_list('player__playerName', 'yellow_card')
+    def get_yellow_cards_sum(self):
+        return self.aggregate(t=Count(Case(When(yellow_card=True, then=Value(1)))))['t']
 
     def get_red_cards(self):
         return self.filter(red_card=True).values_list('player__playerName', 'red_card')
+    def get_red_cards_sum(self):
+        return self.aggregate(t=Count(Case(When(red_card=True, then=Value(1)))))['t']
 
     def get_penalties_saved(self):
         return self.filter(penalty_saved__gt=0).order_by('-penalty_saved').values_list('player__playerName', 'penalty_saved')
+    def get_penalties_saved_sum(self):
+        return self.aggregate(t=Sum('penalty_saved'))['t'] or 0
 
     def get_penalties_missed(self):
         return self.filter(penalty_missed__gt=0).order_by('-penalty_missed').values_list('player__playerName', 'penalty_missed')
+    def get_penalties_missed_sum(self):
+        return self.aggregate(t=Sum('penalty_missed'))['t'] or 0
 
 class Score(Model):
     player = ForeignKey(
