@@ -122,13 +122,20 @@ def allTeams(request):
 
 
 @login_required
-def teamScore(request):
+def teamScore(request, id=None):
+    active_gameweek = GameweekSetting.objects.last().active_gameweek
     try:
-        team = Team.objects.get(username=request.user)
+        if not id:
+            team = Team.objects.get(username=request.user)
+        else:
+            team = Team.objects.get(pk=id)
     except:
         return render(request, 'Fantasy/team_score.html', {'squads': []})
 
     squads = FantasySquad.objects.filter(team=team)
+    if id != request.user.id:
+        # hide the current gameweek squads from other users
+        squads = squads.exclude(gameweek=active_gameweek)
     return render(request, 'Fantasy/team_score.html', {'squads': squads, 'team': team})
 
 

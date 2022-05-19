@@ -22,7 +22,7 @@
                     {% for team in teams %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ team.first_name }} {{ team.last_name }}</td>
+                            <td><a href="{% url 'Fantasy-score-others' team.id %}">{{ team.first_name }} {{ team.last_name }}</a></td>
                             {% if previous_gameweek %}
                                 <td>{{ team.last_gameweek_team_score|default_if_none:'-' }}</td>
                             {% endif %}
