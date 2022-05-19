@@ -50,23 +50,13 @@ def update_match_stats(request, id):
 
     f_scores = fixture.scores
     team1 = fixture.team1
-    # team1_scores = f_scores.filter(player__team=team1)
     team2 = fixture.team2
-    # team2_scores = f_scores.filter(player__team=team2)
 
-    # team1_forms = []
-    for p1 in team1.players.all():
-        player_fixture_score = f_scores.filter(player=p1)
+    ## create empty score object for players with the corresponding fixture in not exist
+    for p in fixture.players:
+        player_fixture_score = f_scores.filter(player=p)
         if not player_fixture_score:
-            player_fixture_score = Score.objects.create(player=p1, fixture=fixture)
-        # team1_forms.append(ScoreForm(instance=player_fixture_score))
-
-    # team2_forms = []
-    for p2 in team2.players.all():
-        player_fixture_score = f_scores.filter(player=p2)
-        if not player_fixture_score:
-            player_fixture_score = Score.objects.create(player=p2, fixture=fixture)
-        # team2_forms.append(ScoreForm(instance=player_fixture_score))
+            player_fixture_score = Score.objects.create(player=p, fixture=fixture)
     
     from django.forms import modelformset_factory
     ScoreFormSet = modelformset_factory(Score, extra=0, form=ScoreForm)

@@ -13,7 +13,7 @@ from .constants import (
     PENALTY_MISSED_POINTS
 )
 
-from django.db.models import Model, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE
+from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE
 from django.contrib.auth.models import User
 
 import os
@@ -164,6 +164,29 @@ class FantasySquad(Model):
     def __str__(self):
         return f"{self.team} - GW{self.gameweek}" 
         
+# class ScoreManager(Manager):
+class ScoreQuerySet(QuerySet):
+    def get_goals(self):
+        return self.filter(goal__gt=0).order_by('-goal').values_list('player__playerName', 'goal')
+
+    def get_assists(self):
+        return self.filter(assist__gt=0).order_by('-assist').values_list('player__playerName', 'assist')
+
+    def get_own_goals(self):
+        return self.filter(own_goal__gt=0).order_by('-own_goal').values_list('player__playerName', 'own_goal')
+
+    def get_yellow_cards(self):
+        return self.filter(yellow_card=True).values_list('player__playerName', 'yellow_card')
+
+    def get_red_cards(self):
+        return self.filter(red_card=True).values_list('player__playerName', 'red_card')
+
+    def get_penalties_saved(self):
+        return self.filter(penalty_saved__gt=0).order_by('-penalty_saved').values_list('player__playerName', 'penalty_saved')
+
+    def get_penalties_missed(self):
+        return self.filter(penalty_missed__gt=0).order_by('-penalty_missed').values_list('player__playerName', 'penalty_missed')
+
 class Score(Model):
     player = ForeignKey(
         Player, on_delete=CASCADE, related_name="player_scores")
@@ -178,6 +201,9 @@ class Score(Model):
     clean_sheet = BooleanField(default=False)
     penalty_saved = IntegerField(default=0)
     penalty_missed = IntegerField(default=0)
+
+    # objects = ScoreManager()
+    objects = ScoreQuerySet.as_manager()
 
     @property
     def total_score(self):
@@ -221,11 +247,19 @@ class Fixture(Model):
     gameweek = IntegerField()
     date = DateTimeField()
 
+    @property
+    def team1_scores(self):
+        return Score.objects.filter(fixture=self, player__team=self.team1)
+
+    @property
+    def team2_scores(self):
+        return Score.objects.filter(fixture=self, player__team=self.team2)
+
     def _goals(self):
         team1_goals = None
         team2_goals = None
-        team1_scores = Score.objects.filter(fixture=self, player__team=self.team1)
-        team2_scores = Score.objects.filter(fixture=self, player__team=self.team2)
+        team1_scores = self.team1_scores
+        team2_scores = self.team2_scores
         if team1_scores or team2_scores:
             team1_goals = 0
             team2_goals = 0
@@ -238,18 +272,18 @@ class Fixture(Model):
         return team1_goals, team2_goals
 
     @property
-    def players(self):
-        a = list(self.team1.players.all())
-        b = list(self.team2.players.all())
-        return a + b
-
-    @property
     def team1_goals(self):
         return self._goals()[0]
     
     @property
     def team2_goals(self):
         return self._goals()[1]
+
+    @property
+    def players(self):
+        a = list(self.team1.players.all())
+        b = list(self.team2.players.all())
+        return a + b
 
     # @property
     # def team2_goals(self):

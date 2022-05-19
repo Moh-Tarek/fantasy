@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead class="thead-light">
                     <tr class="text-center">
                         <th>GW</th>
@@ -26,37 +26,116 @@
                 </thead>
                 <tbody>
                     {% for f in fixtures %}
-                    <tr class='{% if gameweek == f.gameweek %}table-info{% endif %}'>
-                        <td>{% ifchanged f.gameweek %}{{ f.gameweek }}{% endifchanged %}</td>
-                        <td>{% ifchanged f.date.date %}{{ f.date | date:'l' }}{% endifchanged %}</td>
-                        <td>{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
-                        <td>{{ f.date | date:'h:i A' }}</td>
+                    <tr data-stats-tr="stats-{{f.id}}" class='{% if gameweek == f.gameweek %}table-selected{% endif %} {% if not f.is_finished %}nohover{% endif %}'>
+                        <td class="text-center">{% ifchanged f.gameweek %}{{ f.gameweek }}{% endifchanged %}</td>
+                        <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'l' }}{% endifchanged %}</td>
+                        <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
+                        <td class="text-center">{{ f.date | date:'h:i A' }}</td>
                         <td class="text-center">{{ f.team1 }}</td>
                         <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
                         <td class="text-center">{{ f.team2 }}</td>
                         {% if gameweek == f.gameweek and user.is_staff or user.is_superuser %}
                             <td>
-                                <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-info btn-circle">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-dark btn-circle btn-sm">
+                                    <i class="fas fa-pen"></i>
                                 </a>
                             </td>
+                        {% elif user.is_staff %}
+                            <td></td>
                         {% endif %}
                     </tr>
+                    {% if f.is_finished %}
+                    <tr class="stats_tr" id="stats-{{f.id}}" style="display: none;">
+                        <td colspan="100%">
+                            <!-- Goals -->
+                            {% with team1_goals=f.team1_scores.get_goals team2_goals=f.team2_scores.get_goals %}
+                                {% if team1_goals or team2_goals %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Goals" team1_stat=team1_goals team2_stat=team2_goals %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Assists -->
+                            {% with team1_assists=f.team1_scores.get_assists team2_assists=f.team2_scores.get_assists %}
+                                {% if team1_assists or team2_assists %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Assists" team1_stat=team1_assists team2_stat=team2_assists %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Own Goals -->
+                            {% with team1_og=f.team1_scores.get_own_goals team2_og=f.team2_scores.get_own_goals %}
+                                {% if team1_og or team2_og %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Own Goals" team1_stat=team1_og team2_stat=team2_og %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Yellow Cards -->
+                            {% with team1_yc=f.team1_scores.get_yellow_cards team2_yc=f.team2_scores.get_yellow_cards %}
+                                {% if team1_yc or team2_yc %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Yellow Cards" team1_stat=team1_yc team2_stat=team2_yc %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Red Cards -->
+                            {% with team1_rc=f.team1_scores.get_red_cards team2_rc=f.team2_scores.get_red_cards %}
+                                {% if team1_rc or team2_rc %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Red Cards" team1_stat=team1_rc team2_stat=team2_rc %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Penalties Saved -->
+                            {% with team1_ps=f.team1_scores.get_penalties_saved team2_ps=f.team2_scores.get_penalties_saved %}
+                                {% if team1_ps or team2_ps %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Penalties Saved" team1_stat=team1_ps team2_stat=team2_ps %}
+                                {% endif %}
+                            {% endwith %}
+                            <!-- Penalties Missed -->
+                            {% with team1_pm=f.team1_scores.get_penalties_missed team2_pm=f.team2_scores.get_penalties_missed %}
+                                {% if team1_pm or team2_pm %}
+                                    {% include 'Fantasy/match_stats_table_template.html' with stat_name="Penalties Missed" team1_stat=team1_pm team2_stat=team2_pm %}
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<style>
+    .statsTables {
+        width: 50%; 
+        table-layout: fixed; 
+        margin-left: auto; 
+        margin-right: auto; 
+        font-size: x-small;
+    }
+    .statsTables th, .statsTables td{
+        padding: 5px;
+    }
+    .table-selected {
+        background-color: aliceblue;
+        /* background-color: lightcyan; */
+    }
+    .statsTables > tbody > tr { cursor:default !important; }
+    .statsTables > tbody > tr:hover { background-color:#fff !important; }
+    .table-hover > tbody > tr.stats_tr { cursor:default !important; }
+    .table-hover > tbody > tr.stats_tr:hover { background-color:#fff !important; }
+    .table-hover > tbody > tr.nohover { cursor:default !important; }
+    .table-hover > tbody > tr.nohover:hover { background-color:#fff !important; }
+    .table-hover > tbody > tr.nohover.table-selected:hover { background-color:aliceblue !important; }
+</style>
 {% endblock content%}
 
 {% block scripts %}
 <script>
     // Call the dataTables jQuery plugin
-        $(document).ready(function() {
-        $('#dataTable').DataTable(
-            {"bSort": false}
-        );
+    $(document).ready(function() {
+        $('#dataTable tbody').on('click', 'tr', function () {
+            console.log($(this).data('stats-tr'))
+            $("#" + $(this).data('stats-tr')).toggle('slow');
+            // $("#" + $(this).data('stats-tr')).slideToggle(100);
+        });
+        // $('#dataTable').DataTable(
+        //     {"bSort": false}
+        // );
     });
 </script>
 {% endblock %}
