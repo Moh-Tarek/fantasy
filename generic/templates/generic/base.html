@@ -53,7 +53,7 @@
                 <!-- Nav Item - Admin Panel -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin:index' %}">
-                        <i class="fas fa-fw fa-tachometer-alt" style="color: red;"></i>
+                        <i class="fas fa-toolbox" style="color: red;"></i>
                         <span style="color: red;">Admin Panel</span></a>
                 </li>
             {% endif %}
@@ -61,7 +61,7 @@
             <!-- Nav Item - Gameweek Settings -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-gameweek' %}">
-                    <i class="fas fa-fw fa-tachometer-alt" style="color: red;"></i>
+                    <i class="fas fa-toolbox" style="color: red;"></i>
                     <span style="color: red;">Gameweek Settings</span></a>
             </li>
             {% endif %}
@@ -72,34 +72,8 @@
             <!-- Nav Item - Rules -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-rules' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-handshake"></i>
                     <span>Fantasy Rules</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Teams
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{%url 'Fantasy-teams'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Fantasy Teams</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{%url 'Fantasy-allplayers'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Players</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'Fantasy-matches'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Matches</span></a>
             </li>
 
             <!-- Divider -->
@@ -113,7 +87,7 @@
             {% if previous_gameweek %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-squad'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-calculator"></i>
                     <span>Points</span> <span class="badge badge-primary badge-pill">GW{{previous_gameweek}}</span>
                 </a>
             </li>
@@ -121,15 +95,41 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-squadSelection'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-check-double"></i>
                     <span>Squad Selection</span> <span class="badge badge-primary badge-pill">GW{{gameweek}}</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-score'%}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-calculator"></i>
                     <span>My Scores</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Teams
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'Fantasy-teams'%}">
+                    <i class="fas fa-star"></i>
+                    <span>Fantasy Leaderboard</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'Fantasy-allplayers'%}">
+                    <i class="fas fa-futbol"></i>
+                    <span>Players</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Fantasy-matches'%}">
+                    <i class="fas fa-clock"></i>
+                    <span>Matches</span></a>
             </li>
 
             <!-- Divider -->
@@ -185,7 +185,7 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
@@ -217,7 +217,7 @@
                                         <div class="small text-gray-500">December 2, 2019</div>
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
-                                </a>
+                                </a> -->
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -236,7 +236,7 @@
                                 <h6 class="dropdown-header">
                                     Message Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" src="img/undraw_profile_1.svg"
                                             alt="...">
@@ -283,7 +283,7 @@
                                             told me that people say this to all dogs, even if they aren't good...</div>
                                         <div class="small text-gray-500">Chicken the Dog · 2w</div>
                                     </div>
-                                </a>
+                                </a> -->
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
                         </li>
