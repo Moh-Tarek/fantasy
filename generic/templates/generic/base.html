@@ -110,16 +110,20 @@
                 My Team
             </div>
 
+            {% if previous_gameweek %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-squad'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>My Squad</span></a>
+                    <span>Points</span> <span class="badge badge-primary badge-pill">GW{{previous_gameweek}}</span>
+                </a>
             </li>
+            {% endif %}
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'Fantasy-squadSelection'%}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Squad Selection</span></a>
+                    <span>Squad Selection</span> <span class="badge badge-primary badge-pill">GW{{gameweek}}</span>
+                </a>
             </li>
 
             <li class="nav-item">

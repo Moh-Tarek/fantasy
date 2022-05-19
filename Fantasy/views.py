@@ -44,8 +44,9 @@ def about(request):
 def update_match_stats(request, id):
     fixture = Fixture.objects.get(pk=id)
     gameweek = GameweekSetting.objects.last().active_gameweek
-    if (not (request.user.is_staff or request.user.is_superuser)) or ((not request.user.is_superuser) and fixture.gameweek != gameweek):
-        # all staff users can update the active gameweek's fixtures stats only. Superusers can update any gameweek's fixtures stats.
+    previous_gameweek = gameweek - 1
+    if (not (request.user.is_staff or request.user.is_superuser)) or ((not request.user.is_superuser) and fixture.gameweek != previous_gameweek):
+        # all staff users can update the previous gameweek's fixtures stats only. Superusers can update any gameweek's fixtures stats.
         return redirect('Fantasy-matches')
 
     f_scores = fixture.scores
@@ -132,10 +133,8 @@ def teamScore(request, id=None):
     except:
         return render(request, 'Fantasy/team_score.html', {'squads': []})
 
-    squads = FantasySquad.objects.filter(team=team)
-    if id != request.user.id:
-        # hide the current gameweek squads from other users
-        squads = squads.exclude(gameweek=active_gameweek)
+    squads = FantasySquad.objects.filter(team=team).exclude(gameweek=active_gameweek)
+
     return render(request, 'Fantasy/team_score.html', {'squads': squads, 'team': team})
 
 
@@ -167,18 +166,21 @@ def teamScore(request, id=None):
 #         # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
 
 
-def squadView(request):
+def squadPointsView(request):
     try:
         gameweek = GameweekSetting.objects.last().active_gameweek
     except:
         gameweek = 1
+    previous_gameweek = gameweek-1
     
     ## get this gameweek's squad so that the user can edit it, and return empty squad if no squad created
     try:
-        squad = FantasySquad.objects.get(team=request.user, gameweek=gameweek)
+        squad = FantasySquad.objects.get(team=request.user, gameweek=previous_gameweek)
     except:
         squad = None
-    return render(request, 'Fantasy/squad_view.html', {'squad': squad})
+
+    fixtures = Fixture.objects.filter(gameweek=previous_gameweek)
+    return render(request, 'Fantasy/squad_points_view.html', {'squad': squad, 'fixtures': fixtures})
 
 def squadSelectionView(request):
     try:

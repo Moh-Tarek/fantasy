@@ -1,0 +1,18 @@
+<!-- <div class="tshirts" id="{{my_id}}"> 
+    <a href="#"><i class="fas fa-tshirt fa-lg" style="color: {{ color }}"></i></a>
+    <div style="font-size: x-small; text-align: center; margin-top: 5px; color: snow; font-weight: bold; ">
+        {{ player }}
+    </div>
+</div> -->
+
+<div class="tshirts" id="{{my_id}}"> 
+    <a class="fa-stack" style="text-align:center; width: -webkit-fill-available;" href="#">
+        <i class="fas fa-tshirt fa-lg fa-stack-2x" style="color: {{ color }}"></i>
+        <span class="fa fa-stack-1x" style="color: snow;">
+            <span style="display:block; font-size: xx-small;">{{ player.team.short_name }}</span>
+        </span>
+    </a>
+    <div style="font-size: x-small; text-align: center; margin-top: 10px; color: darkgreen; font-weight: bold; ">
+        {{ player }} {% if score != None %}({{score}}){% endif %}
+    </div>
+</div>

@@ -52,6 +52,17 @@ class FootballTeam(Model):
     def __str__(self):
         return self.name
 
+    @property
+    def short_name(self):
+        name = self.name.split(" ")
+        if len(name) > 1:
+            short_name = ""
+            for n in name:
+                short_name += n[0]
+            return short_name.upper()
+        else:
+            return (name[0][0] + name[0][1]).upper()
+
 class Player(Model):
     playerName = CharField(max_length=100, unique=True)
     image = ImageField(
