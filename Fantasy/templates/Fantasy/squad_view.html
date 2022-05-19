@@ -1,0 +1,85 @@
+{% extends "generic/base.html" %}
+{% load crispy_forms_tags%}
+{% block content%}
+{% load static %}
+<div>
+    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline}}</small>
+</div>
+<div>&nbsp;</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">Gameweek {{gameweek}} Squad</h4>
+    </div>
+    <div class="card-body">
+        <div class="container pitch-container">
+            <img src="{% static 'Fantasy/football-pitch.png' %}" alt="">
+            <div class="tshirts" id="tshirt-goalkeeper"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg" style="color: black;"></i></a>
+                <div>{{ squad.goalKeeperSelected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-player1"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg"></i></a>
+                <div>{{ squad.player1Selected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-player2"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg"></i></a>
+                <div>{{ squad.player2Selected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-player3"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg"></i></a>
+                <div>{{ squad.player3Selected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-player4"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg"></i></a>
+                <div>{{ squad.player4Selected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-player5"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg"></i></a>
+                <div>{{ squad.player5Selected }}</div>
+            </div>
+            <div class="tshirts" id="tshirt-captain"> 
+                <a href="#"><i class="fas fa-tshirt fa-lg" style="color: darkblue;"></i></a>
+                <div>{{ squad.captainSelected }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pitch-container { position: relative; }
+    .pitch-container img { display: block; }
+    .pitch-container > div { max-width: 60px; /* tshirt icon width */ }
+    .pitch-container i { font-size: 3em; }
+    .pitch-container > div > div { 
+        font-size: x-small; 
+        text-align: center; 
+        margin-top: 5px; 
+        color: snow; 
+        font-weight: bold; 
+    }
+    .pitch-container #tshirt-goalkeeper { position: absolute; top:10px; left:254px; }
+    .pitch-container #tshirt-player1 { position: absolute; top:105px; left:170px; }
+    .pitch-container #tshirt-player2 { position: absolute; top:105px; left:254px; }
+    .pitch-container #tshirt-player3 { position: absolute; top:105px; left:338px; }
+    .pitch-container #tshirt-player4 { position: absolute; top:200px; left:210px; }
+    .pitch-container #tshirt-player5 { position: absolute; top:200px; left:298px; }
+    .pitch-container #tshirt-captain { position: absolute; top:284px; left:254px; }
+</style>
+
+{% endblock content%}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $(".tshirts").each(function(){
+            var player_name = $(this).find('div').first().text()
+            if(player_name == ""){
+                console.log("Yes")
+                $(this).find('i').css('color', 'lightgray')
+            }else{
+                console.log("No")
+            }
+        })
+    });
+</script>
+{% endblock scripts %}

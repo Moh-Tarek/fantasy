@@ -167,18 +167,31 @@ def teamScore(request, id=None):
 #         # return render(request,'Fantasy/register.html',{'team':existing_team[0]})
 
 
+def squadView(request):
+    try:
+        gameweek = GameweekSetting.objects.last().active_gameweek
+    except:
+        gameweek = 1
+    
+    ## get this gameweek's squad so that the user can edit it, and return empty squad if no squad created
+    try:
+        squad = FantasySquad.objects.get(team=request.user, gameweek=gameweek)
+    except:
+        squad = None
+    return render(request, 'Fantasy/squad_view.html', {'squad': squad})
+
 def squadSelectionView(request):
     try:
         gameweek = GameweekSetting.objects.last().active_gameweek
     except:
         gameweek = 1
     
-    # 3. get this gameweek's squad so that the user can edit it, and return empty form if no squad created
+    ## get this gameweek's squad so that the user can edit it, and return empty squad if no squad created
     try:
         squad = FantasySquad.objects.get(team=request.user, gameweek=gameweek)
     except:
         squad = None
-    # 4. check request method and continue
+    ## check request method and continue
     if request.method == 'POST':
         if squad:
             form = SquadSelection(request.POST, team=request.user, gameweek=gameweek, instance=squad)
