@@ -10,20 +10,110 @@
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">Update Gameweek {{gameweek}} Squad</h4>
     </div>
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token%}
-            <fieldset class="form-group">
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Submit</button>
-            </div>
-        </form>
-        <div class="form-group">
-            <!-- <small class="text-muted">Want to create multiple shipments? <a class="ml-2" href="#">Add Multiple</a> </small> -->
+    <div class="card-body row">
+        <div class="col-lg-4">
+            <form method="post">
+                {% csrf_token%}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
+        <div class="col-lg-8">
+        <div class="container pitch-container">
+            <img src="{% static 'Fantasy/football-pitch.png' %}" alt="">
+            {% if squad %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="black" player=squad.goalKeeperSelected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="royalblue" player=squad.player1Selected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="royalblue" player=squad.player2Selected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="royalblue" player=squad.player3Selected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="royalblue" player=squad.player4Selected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="royalblue" player=squad.player5Selected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="darkblue" player=squad.captainSelected %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="lightgrey" hide="1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="lightgrey" hide="1" is_empty="1" %}
+            {% else %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="black" player=squad.goalKeeperSelected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="royalblue" player=squad.player1Selected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="royalblue" player=squad.player2Selected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="royalblue" player=squad.player3Selected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="royalblue" player=squad.player4Selected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="royalblue" player=squad.player5Selected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="darkblue" player=squad.captainSelected hide="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="lightgrey" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="lightgrey" is_empty="1" %}
+            {% endif %}
+        </div>
+        </div> 
+        <style>
+            .pitch-container { position: relative; }
+            /* .pitch-container img { display: block; } */
+            .pitch-container > div { max-width: 60px; /* tshirt icon width */ }
+            .pitch-container i { font-size: 3em; }
+            /* .pitch-container > div > div { 
+                font-size: x-small; 
+                text-align: center; 
+                margin-top: 5px; 
+                color: snow; 
+                font-weight: bold; 
+            } */
+            .pitch-container .tshirt-goalKeeper { position: absolute; top:10px; left:254px; }
+            .pitch-container .tshirt-player1 { position: absolute; top:105px; left:170px; }
+            .pitch-container .tshirt-player2 { position: absolute; top:105px; left:254px; }
+            .pitch-container .tshirt-player3 { position: absolute; top:105px; left:338px; }
+            .pitch-container .tshirt-player4 { position: absolute; top:200px; left:210px; }
+            .pitch-container .tshirt-player5 { position: absolute; top:200px; left:298px; }
+            .pitch-container .tshirt-captain { position: absolute; top:284px; left:254px; }
+        </style>
     </div>
 </div>
 
 {% endblock content%}
+
+{% block scripts %}
+{{ players_data|json_script:"my-data" }}
+<script>
+    var players_data = JSON.parse(document.getElementById('my-data').textContent);
+    $(document).ready(function() {
+        $(".tshirts-full:visible").each(function(){
+            var p = $(this).find('.tshirt_player_name').first().data('player_id')
+            var v = players_data[p]['vs']
+            if(!v){
+                v = "-"
+            }
+            $(this).find('.tshirt_player_value').first().text("(" + v + ")")
+        })
+        $("select").on("change", function(){
+            var new_id = this.value
+            var label = $(this).attr("name").replace("Selected", "")
+            $(".tshirt-" + label).hide()
+            if(new_id){
+                var item = $("#tshirt-" + label + "_full")
+                item.find('.tshirt_team_name').text(players_data[new_id]['team'])
+                item.find('.tshirt_player_name').text(players_data[new_id]['name'])
+                var v = players_data[new_id]['vs']
+                if(!v){
+                    v = "-"
+                }
+                item.find('.tshirt_player_value').text("(" + v + ")")
+                item.show()
+            }else{
+                $("#tshirt-" + label + "_empty").show()
+            }
+        })
+    });
+</script>
+{% endblock scripts %}

@@ -14,15 +14,15 @@
         <div class="container pitch-container">
             <img src="{% static 'Fantasy/football-pitch.png' %}" alt="">
             {% if squad %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalkeeper" color="black" player=squad.goalKeeperSelected score=squad.goalKeeperSelected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="royalblue" player=squad.player1Selected score=squad.player1Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="royalblue" player=squad.player2Selected score=squad.player2Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="royalblue" player=squad.player3Selected score=squad.player3Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="royalblue" player=squad.player4Selected score=squad.player4Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="royalblue" player=squad.player5Selected score=squad.player5Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="darkblue" player=squad.captainSelected score=squad.captainSelected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="black" player=squad.goalKeeperSelected value=squad.goalKeeperSelected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="royalblue" player=squad.player1Selected value=squad.player1Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="royalblue" player=squad.player2Selected value=squad.player2Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="royalblue" player=squad.player3Selected value=squad.player3Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="royalblue" player=squad.player4Selected value=squad.player4Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="royalblue" player=squad.player5Selected value=squad.player5Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="darkblue" player=squad.captainSelected value=squad.captainSelected_score %}
             {% else %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalkeeper" color="lightgrey" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="lightgrey" %}
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="lightgrey" %}
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="lightgrey" %}
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="lightgrey" %}
@@ -31,32 +31,31 @@
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="lightgrey" %}
             {% endif %}
         </div>
+        <style>
+            .pitch-container { position: relative; }
+            .pitch-container img { display: block; }
+            .pitch-container > div { max-width: 60px; /* tshirt icon width */ }
+            .pitch-container i { font-size: 3em; }
+            /* .pitch-container > div > div { 
+                font-size: x-small; 
+                text-align: center; 
+                margin-top: 5px; 
+                color: snow; 
+                font-weight: bold; 
+            } */
+            .pitch-container .tshirt-goalKeeper { position: absolute; top:10px; left:254px; }
+            .pitch-container .tshirt-player1 { position: absolute; top:105px; left:170px; }
+            .pitch-container .tshirt-player2 { position: absolute; top:105px; left:254px; }
+            .pitch-container .tshirt-player3 { position: absolute; top:105px; left:338px; }
+            .pitch-container .tshirt-player4 { position: absolute; top:200px; left:210px; }
+            .pitch-container .tshirt-player5 { position: absolute; top:200px; left:298px; }
+            .pitch-container .tshirt-captain { position: absolute; top:284px; left:254px; }
+        </style>
         <div class="table-responsive">
             {% include 'Fantasy/matches_table.html' %}
         </div>
     </div>
 </div>
-
-<style>
-    .pitch-container { position: relative; }
-    .pitch-container img { display: block; }
-    .pitch-container > div { max-width: 60px; /* tshirt icon width */ }
-    .pitch-container i { font-size: 3em; }
-    /* .pitch-container > div > div { 
-        font-size: x-small; 
-        text-align: center; 
-        margin-top: 5px; 
-        color: snow; 
-        font-weight: bold; 
-    } */
-    .pitch-container #tshirt-goalkeeper { position: absolute; top:10px; left:254px; }
-    .pitch-container #tshirt-player1 { position: absolute; top:105px; left:170px; }
-    .pitch-container #tshirt-player2 { position: absolute; top:105px; left:254px; }
-    .pitch-container #tshirt-player3 { position: absolute; top:105px; left:338px; }
-    .pitch-container #tshirt-player4 { position: absolute; top:200px; left:210px; }
-    .pitch-container #tshirt-player5 { position: absolute; top:200px; left:298px; }
-    .pitch-container #tshirt-captain { position: absolute; top:284px; left:254px; }
-</style>
 
 {% endblock content%}
 

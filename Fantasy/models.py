@@ -63,6 +63,22 @@ class FootballTeam(Model):
         else:
             return (name[0][0] + name[0][1]).upper()
 
+    @property
+    def fixtures(self):
+        hf = self.home_fixtures.all()
+        af = self.away_fixtures.all()
+        return hf, af
+
+    # @property
+    # def gameweek_fixtures(self):
+    #     try:
+    #         gameweek = GameweekSetting.objects.last().active_gameweek
+    #     except:
+    #         gameweek = 1
+    #     hf = self.home_fixtures.filter(gameweek=gameweek)
+    #     af = self.away_fixtures.filter(gameweek=gameweek)
+    #     return hf + af
+
 class Player(Model):
     playerName = CharField(max_length=100, unique=True)
     image = ImageField(

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Fixture, Player, FantasySquad, Team, GameweekSetting, Score
+from .models import Fixture, FootballTeam, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
@@ -193,6 +193,26 @@ def squadSelectionView(request):
         squad = FantasySquad.objects.get(team=request.user, gameweek=gameweek)
     except:
         squad = None
+
+    players_data = {}
+    players = Player.objects.all()
+    teams = FootballTeam.objects.all()
+    teams_against = {}
+    for t in teams:
+        t_h, t_a = t.fixtures
+        t_h = [i.team2.short_name for i in t_h.filter(gameweek=gameweek)]
+        t_a = [i.team1.short_name for i in t_a.filter(gameweek=gameweek)]
+        teams_against[t.short_name] = t_h + t_a
+    for p in players:
+        p_team = p.team.short_name
+        p_against = teams_against[p_team]
+        players_data[p.id] = {
+            'name': p.playerName,
+            'team': p_team,
+            'vs': ",".join(p_against)
+        }
+    print(players_data)
+
     ## check request method and continue
     if request.method == 'POST':
         if squad:
@@ -200,18 +220,24 @@ def squadSelectionView(request):
         else:
             form = SquadSelection(request.POST, team=request.user, gameweek=gameweek)
         if form.is_valid():
+            print("form saved")
             sub_form = form.save()
             messages.success(request, 'Thanks, your Squad has been submitted!')
             return redirect('Fantasy-squadSelection')
         else:
+            print("form issue")
+            print(form.errors)
             messages.warning(request, form.errors)
-            return render(request, 'Fantasy/squad_selection.html', {'form': form})
+            return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance, 'players_data': players_data})
     else:
         if squad:
             form = SquadSelection(instance=squad)
         else:
             form = SquadSelection()
-    return render(request, 'Fantasy/squad_selection.html', {'form': form})
+    
+    
+
+    return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance if form.instance.pk else None, 'players_data': players_data})
 
 
 def matches(request):

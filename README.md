@@ -3,8 +3,8 @@
 - Update the matches and their gameweeks and dates in: Fantasy/fixtures/fixtures_2022.json
 
 ## After Deployment, run:
-- python manage.py load_teams_players.py
-- python manage.py load_fixtures.py
+- python manage.py load_teams_players
+- python manage.py load_fixtures
 
 ## Each gameweek:
 - Update Gameweek Settings to your new active gameweek and its deadline
