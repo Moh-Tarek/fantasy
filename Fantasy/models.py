@@ -65,7 +65,10 @@ class FootballTeam(Model):
         if len(name) > 1:
             short_name = ""
             for n in name:
-                short_name += n[0]
+                if len(n) > 2:
+                    short_name += n[0]
+                else:
+                    short_name += n
             return short_name.upper()
         else:
             return (name[0][0] + name[0][1]).upper()

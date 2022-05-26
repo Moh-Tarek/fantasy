@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
-    'Fantasy.apps.FantasyConfig',
+    'Fantasy',
     'generic.apps.GenericConfig',
     'allauth',
     'allauth.account',

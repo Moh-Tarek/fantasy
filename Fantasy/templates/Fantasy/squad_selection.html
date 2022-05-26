@@ -94,7 +94,7 @@
             if(!v){
                 v = "-"
             }
-            $(this).find('.tshirt_player_value').first().text("(" + v + ")")
+            $(this).find('.tshirt_player_value').first().text("vs. " + v)
         })
         $("select").on("change", function(){
             var new_id = this.value
@@ -108,7 +108,7 @@
                 if(!v){
                     v = "-"
                 }
-                item.find('.tshirt_player_value').text("(" + v + ")")
+                item.find('.tshirt_player_value').text("vs. " + v)
                 item.show()
             }else{
                 $("#tshirt-" + label + "_empty").show()
