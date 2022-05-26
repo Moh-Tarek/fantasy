@@ -1,9 +1,11 @@
+from gc import is_finalized
 from django.shortcuts import render, redirect
 from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
 from .utils import group_fixtures_by_stage
+import operator
 
 
 def home(request):
@@ -249,5 +251,78 @@ def matches(request):
 
 
 def groups(request):
+    data = {}
+    # adding groups, teams, and initialize zero stats
     groups = Group.objects.all()
-    return render(request, 'Fantasy/groups.html', {'groups': groups})
+    for g in groups:
+        data[g.name] = {}
+        for t in g.teams.all():
+            data[g.name][t.name] = {
+                "MP": 0,
+                "W": 0,
+                "D": 0,
+                "L": 0,
+                "GS": 0,
+                "GC": 0,
+                "GD": 0,
+                "P": 0
+            }
+    # add stats
+    groups_fixtures = Fixture.objects.filter(stage="G")
+    for f in groups_fixtures:
+        if not f.is_finished:
+            continue
+        g = f.team1.group.name
+        t1 = f.team1.name
+        t2 = f.team2.name
+        t1_goals = f.team1_goals
+        t2_goals = f.team2_goals
+
+        data[g][t1]["MP"] += 1
+        data[g][t2]["MP"] += 1
+        data[g][t1]["GS"] += t1_goals
+        data[g][t2]["GS"] += t2_goals
+        data[g][t1]["GC"] += t2_goals
+        data[g][t2]["GC"] += t1_goals
+        data[g][t1]["GD"] += t1_goals - t2_goals
+        data[g][t2]["GD"] += t2_goals - t1_goals
+        if t1_goals > t2_goals:
+            data[g][t1]["P"] += 3
+            data[g][t1]["W"] += 1
+            data[g][t2]["L"] += 1
+        elif t2_goals > t1_goals:
+            data[g][t2]["P"] += 3
+            data[g][t2]["W"] += 1
+            data[g][t1]["L"] += 1
+        else:
+            data[g][t1]["P"] += 1
+            data[g][t2]["P"] += 1
+            data[g][t2]["D"] += 1
+            data[g][t1]["D"] += 1
+
+    ranked_data = {}
+    for g, teams in data.items():
+        teams_stats = []
+        for t, stats in teams.items():
+            stats['team'] = t
+            teams_stats.append(stats)
+        teams_stats.sort(key=operator.itemgetter('team'))      
+        teams_stats.sort(key=operator.itemgetter('GC'))  
+        teams_stats.sort(key=operator.itemgetter('GS'), reverse=True)  
+        teams_stats.sort(key=operator.itemgetter('GD'), reverse=True)    
+        teams_stats.sort(key=operator.itemgetter('P'), reverse=True)
+        ranked_data[g] = teams_stats
+
+    return render(request, 'Fantasy/groups.html', {'ranked_data': ranked_data})
+
+
+{
+    "A": {
+        "T1": {
+
+        },
+        "T2": {
+
+        }
+    }
+}
