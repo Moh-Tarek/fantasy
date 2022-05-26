@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Fixture, FootballTeam, Player, FantasySquad, Team, GameweekSetting, Score
+from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
@@ -246,3 +246,8 @@ def matches(request):
     fixtures = Fixture.objects.all()
     fixtures_grouped = group_fixtures_by_stage(fixtures)
     return render(request, 'Fantasy/matches.html', {'fixtures_grouped': fixtures_grouped})
+
+
+def groups(request):
+    groups = Group.objects.all()
+    return render(request, 'Fantasy/groups.html', {'groups': groups})

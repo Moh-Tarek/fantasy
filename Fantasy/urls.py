@@ -8,6 +8,7 @@ urlpatterns = [
     path('rules/', login_required(login_url='/accounts/google/login/')(views.rules), name='Fantasy-rules'),
     path('about/', login_required(login_url='/accounts/google/login/')(views.about), name='Fantasy-about'),
     path('matches/', login_required(login_url='/accounts/google/login/')(views.matches), name='Fantasy-matches'),
+    path('groups/', login_required(login_url='/accounts/google/login/')(views.groups), name='Fantasy-groups'),
     path('updatestats/<int:id>/', login_required(login_url='/accounts/google/login')(views.update_match_stats), name='Fantasy-update_match_stats'),
     path('allplayers/', login_required(login_url='/accounts/google/login/')(views.allPlayers), name='Fantasy-allplayers'),
     path('teams/', login_required(login_url='/accounts/google/login/')(views.allTeams), name='Fantasy-teams'),
