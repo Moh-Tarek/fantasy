@@ -113,8 +113,10 @@ class Player(Model):
         return 0
 
     def __str__(self):
-        return self.playerName
+        return f"{self.playerName} ({self.team})"
 
+    class Meta:
+        ordering = ('playerName', )
 
 class FantasySquad(Model):
     team = ForeignKey(
