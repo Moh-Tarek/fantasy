@@ -1,0 +1,58 @@
+{
+    "Broussia Dortumund": {
+        "Captain": "Ahmed Haseeb",
+        "GoalKeeper": "Amr Mohamed Ihab",
+        "Player": [
+            "Hassan Hosny",
+            "Omar Ali",
+            "Abdullah Fouad",
+            "Mohamed Abdelmoneam",
+            "Eslam Samaha"
+        ]
+    },
+    "Sparta Return": {
+        "Captain": "Mohamed Alieldin",
+        "GoalKeeper": "Ahmed Elhelaly",
+        "Player": [
+            "Mohamed Tarek",
+            "Ashraf Omara",
+            "Abdelhamid Karam",
+            "Michael Halim",
+            "Ibrahim Mansour"
+        ]
+    },
+    "Masters of Darkness": {
+        "Captain": "Mohamed Abubakr",
+        "GoalKeeper": "Ahmed Abdullah",
+        "Player": [
+            "Mohammed Saad",
+            "Hossam Hassan",
+            "Mahmoud Elneweshy",
+            "Mohammed Ramadan",
+            "Khaled Sameeh"
+        ]
+    },
+    "Hawks": {
+        "Captain": "Kasem Shalapy",
+        "GoalKeeper": "Mahmoud Fathy",
+        "Player": [
+            "Mohamed Mahrous",
+            "Tarek Monir",
+            "Khaled Raafat",
+            "Mahmoud Elesaway",
+            "Ayman Farag"
+        ]
+    },
+    "Gunners": {
+        "Captain": "Ahmed Elshayeb",
+        "GoalKeeper": "Mahmoud Elhussein",
+        "Player": [
+            "Mohsen Ashour",
+            "Tayseer Mohamed",
+            "Muhammad Eloqda",
+            "Mohamed Suliman",
+            "Mahmoud Sayed"
+        ]
+    }
+}
+  

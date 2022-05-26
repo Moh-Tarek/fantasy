@@ -19,11 +19,19 @@
 
 {% block scripts %}
 <script>
+    var my_gameweek = {{gameweek}};
     $(document).ready(function() {
-        $('#dataTable tbody').on('click', 'tr', function () {
+        $('.dataTable tbody').on('click', 'tr', function () {
             console.log($(this).data('stats-tr'))
             $("#" + $(this).data('stats-tr')).toggle('slow');
         });
+        var scroll_value = 0
+        if(my_gameweek != 1){
+            scroll_value = $("#gameweek-" + my_gameweek).offset().top - 100
+        }
+        $([document.documentElement, document.body]).animate({
+            scrollTop: scroll_value
+        }, 2000);
     });
 </script>
 {% endblock %}

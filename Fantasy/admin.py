@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Fixture, FootballTeam, GameweekSetting, Player, Team, FantasySquad, Score
+from .models import Fixture, FootballTeam, GameweekSetting, Player, Team, FantasySquad, Score, Group
 
 admin.site.register(GameweekSetting)
 admin.site.register(FootballTeam)
@@ -8,3 +8,4 @@ admin.site.register(Player)
 admin.site.register(Team)
 admin.site.register(FantasySquad)
 admin.site.register(Score)
+admin.site.register(Group)

@@ -6,6 +6,11 @@ import json
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        x = FootballTeam.objects.all().count()
+        if x:
+            print("There are Football Teams already. Please delete the existing teams if you need to load them from the beginning.")
+            return
+
         file = open("Fantasy/fixtures/teams_players_2022.json", "r")
         data = file.read()
         file.close()

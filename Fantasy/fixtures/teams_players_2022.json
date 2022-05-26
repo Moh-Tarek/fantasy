@@ -1,57 +1,118 @@
 {
-    "Broussia Dortumund": {
-        "Captain": "Ahmed Haseeb",
-        "GoalKeeper": "Amr Mohamed Ihab",
+    "Future Youth": {
+        "Captain": "Kasem Shalaby",
         "Player": [
-            "Hassan Hosny",
-            "Omar Ali",
-            "Abdullah Fouad",
-            "Mohamed Abdelmoneam",
-            "Eslam Samaha"
-        ]
-    },
-    "Sparta Return": {
-        "Captain": "Mohamed Alieldin",
-        "GoalKeeper": "Ahmed Elhelaly",
-        "Player": [
-            "Mohamed Tarek",
-            "Ashraf Omara",
-            "Abdelhamid Karam",
-            "Michael Halim",
-            "Ibrahim Mansour"
-        ]
-    },
-    "Masters of Darkness": {
-        "Captain": "Mohamed Abubakr",
-        "GoalKeeper": "Ahmed Abdullah",
-        "Player": [
-            "Mohammed Saad",
-            "Hossam Hassan",
-            "Mahmoud Elneweshy",
-            "Mohammed Ramadan",
-            "Khaled Sameeh"
-        ]
-    },
-    "Hawks": {
-        "Captain": "Kasem Shalapy",
-        "GoalKeeper": "Mahmoud Fathy",
-        "Player": [
-            "Mohamed Mahrous",
+            "Ahmed Abdullah",
+            "Mohamed Shaker",
             "Tarek Monir",
-            "Khaled Raafat",
-            "Mahmoud Elesaway",
-            "Ayman Farag"
+            "Mohamed Mahrous",
+            "Mohamed Shaaban",
+            "Abdelhamid Seyam"
         ]
     },
-    "Gunners": {
-        "Captain": "Ahmed Elshayeb",
-        "GoalKeeper": "Mahmoud Elhussein",
+    "Mazarita FC": {
+        "Captain": "Salah Khalil",
+        "GoalKeeper": "Mohamed Samir",
+        "Player": [
+            "Moenes Mourad",
+            "Ibrahim Abdo",
+            "Mohamed Ramadan Ragab",
+            "Khaled Saeed",
+            "Mohamed Ghoneim",
+            "Yousef Omar Hassan"
+        ]
+    },
+    "Liverpool": {
+        "Captain": "Ahmed Haseeb",
+        "GoalKeeper": "Ibrahim Monsour",
+        "Player": [
+            "Ashraf Saad",
+            "Mohamed Salaam",
+            "Ibrahim Abdelfadeel",
+            "Mohamed Mohsen",
+            "Islam Fathy",
+            "Elhusseiny Fekry"
+        ]
+    },
+    "Sampa": {
+        "Captain": "Ashraf Omara",
+        "GoalKeeper": "Amr Khattab",
+        "Player": [
+            "Rabee Eldoha",
+            "Ahmed Abdallah Hussein",
+            "Ahmed Madeh",
+            "Ahmed Salem",
+            "Mohamed Shaarawy",
+            "Ahmed Emad"
+        ]
+    },
+    "Pirates": {
+        "Captain": "Mohamed Sabry",
+        "GoalKeeper": "AboBakr Ibrahim",
+        "Player": [
+            "Mohamed Ezz Eldin Sayed",
+            "Ahmed Mohamed Zaher",
+            "Ahmed Abdelhamid Mahran",
+            "Ali Saber",
+            "Youssef Ghazi"
+        ]
+    },
+    "Bavana Bavana": {
+        "Captain": "Mahmoud Salheen",
+        "GoalKeeper": "Mohamed Nabil",
+        "Player": [
+            "Khaled Zohdy",
+            "Abdelfataah Abdallah",
+            "Ayman Farag",
+            "Ahmed Abdelmonem",
+            "Ismail Gamal Eldin",
+            "Ahmed Sayed Abdelhamid"
+        ]
+    },
+    "Pashas": {
+        "Captain": "Omar Ali",
+        "GoalKeeper": "Hossam Hassan",
         "Player": [
             "Mohsen Ashour",
-            "Tayseer Mohamed",
-            "Muhammad Eloqda",
-            "Mohamed Suliman",
-            "Mahmoud Sayed"
+            "Ahmed Raafat",
+            "Omar Mahmoud",
+            "Khaled Sameeh",
+            "Mohamed Sayed Ali",
+            "Abdelmegeed Abdallah"
+        ]
+    },
+    "The Challenge": {
+        "Captain": "Mohamed Abolnour",
+        "GoalKeeper": "Badr Mahmoud",
+        "Player": [
+            "Ibrahim Elnahaas",
+            "Mohamed Hossam",
+            "Tarek Mosaad",
+            "Mahmoud Elessawy",
+            "Mohamed Mostafa Ramadan"
+        ]
+    },
+    "Dark Knights": {
+        "Captain": "Mohamed Alieldin",
+        "GoalKeeper": "Mostafa Abdelsabour",
+        "Player": [
+            "Ali Mahmoud Mohamed",
+            "Ahmed Elshayeb",
+            "Mohamed Ramadan",
+            "Islam Nadi",
+            "Mohammed Saad",
+            "Sherif Khalil"
+        ]
+    },
+    "Titans United": {
+        "Captain": "Mohamed Abubakr",
+        "GoalKeeper": "Moyad Atef",
+        "Player": [
+            "Mohamed Tarek",
+            "Mahmoud Afifi",
+            "Amr Adel",
+            "Hussein Magdy",
+            "Mohamed Mahmoudi"
         ]
     }
 }

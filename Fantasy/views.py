@@ -3,6 +3,7 @@ from .models import Fixture, FootballTeam, Player, FantasySquad, Team, GameweekS
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
+from .utils import group_fixtures_by_stage
 
 
 def home(request):
@@ -180,7 +181,8 @@ def squadPointsView(request):
         squad = None
 
     fixtures = Fixture.objects.filter(gameweek=previous_gameweek)
-    return render(request, 'Fantasy/squad_points_view.html', {'squad': squad, 'fixtures': fixtures})
+    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    return render(request, 'Fantasy/squad_points_view.html', {'squad': squad, 'fixtures_grouped': fixtures_grouped})
 
 def squadSelectionView(request):
     try:
@@ -242,4 +244,5 @@ def squadSelectionView(request):
 
 def matches(request):
     fixtures = Fixture.objects.all()
-    return render(request, 'Fantasy/matches.html', {'fixtures': fixtures})
+    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    return render(request, 'Fantasy/matches.html', {'fixtures_grouped': fixtures_grouped})

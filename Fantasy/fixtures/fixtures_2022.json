@@ -1,50 +1,160 @@
 {
     "1": [
         {
-            "team1": "Broussia Dortumund",
-            "team2": "Sparta Return",
-            "date": "2022-05-25T18:00:00Z"
+            "team1": "Bavana Bavana",
+            "team2": "Liverpool",
+            "date": "2022-06-01T17:00:00Z",
+            "stage": "G"
         },
         {
-            "team1": "Masters of Darkness",
-            "team2": "Hawks",
-            "date": "2022-05-25T19:00:00Z"
+            "team1": "Dark Knights",
+            "team2": "Mazarita FC",
+            "date": "2022-06-01T17:40:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "The Challenge",
+            "team2": "Titans United",
+            "date": "2022-06-01T18:20:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Sampa",
+            "team2": "Pashas",
+            "date": "2022-06-01T19:00:00Z",
+            "stage": "G"
         }
     ],
     "2": [
         {
-            "team1": "Sparta Return",
-            "team2": "Masters of Darkness",
-            "date": "2022-06-01T18:00:00Z"
+            "team1": "The Challenge",
+            "team2": "Mazarita FC",
+            "date": "2022-06-08T17:00:00Z",
+            "stage": "G"
         },
         {
-            "team1": "Gunners",
-            "team2": "Broussia Dortumund",
-            "date": "2022-06-01T19:00:00Z"
+            "team1": "Titans United",
+            "team2": "Pirates",
+            "date": "2022-06-08T17:40:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Liverpool",
+            "team2": "Future Youth",
+            "date": "2022-06-08T18:20:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Bavana Bavana",
+            "team2": "Pashas",
+            "date": "2022-06-08T19:00:00Z",
+            "stage": "G"
         }
     ],
     "3": [
         {
-            "team1": "Broussia Dortumund",
-            "team2": "Sparta Return",
-            "date": "2022-06-25T18:00:00Z"
+            "team1": "Sampa",
+            "team2": "Future Youth",
+            "date": "2022-06-15T17:00:00Z",
+            "stage": "G"
         },
         {
-            "team1": "Masters of Darkness",
-            "team2": "Hawks",
-            "date": "2022-06-25T19:00:00Z"
+            "team1": "Liverpool",
+            "team2": "Pashas",
+            "date": "2022-06-15T17:40:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Dark Knights",
+            "team2": "Pirates",
+            "date": "2022-06-15T18:20:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Titans United",
+            "team2": "Mazarita FC",
+            "date": "2022-06-15T19:00:00Z",
+            "stage": "G"
         }
     ],
     "4": [
         {
-            "team1": "Broussia Dortumund",
-            "team2": "Sparta Return",
-            "date": "2022-07-25T18:00:00Z"
+            "team1": "Pashas",
+            "team2": "Future Youth",
+            "date": "2022-06-22T17:00:00Z",
+            "stage": "G"
         },
         {
-            "team1": "Masters of Darkness",
-            "team2": "Hawks",
-            "date": "2022-07-25T19:00:00Z"
+            "team1": "Bavana Bavana",
+            "team2": "Sampa",
+            "date": "2022-06-22T17:40:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Mazarita FC",
+            "team2": "Pirates",
+            "date": "2022-06-22T18:20:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "The Challenge",
+            "team2": "Dark Knights",
+            "date": "2022-06-22T19:00:00Z",
+            "stage": "G"
+        }
+    ],
+    "5": [
+        {
+            "team1": "Titans United",
+            "team2": "Dark Knights",
+            "date": "2022-06-29T17:00:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "The Challenge",
+            "team2": "Pirates",
+            "date": "2022-06-29T17:40:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Bavana Bavana",
+            "team2": "Future Youth",
+            "date": "2022-06-29T18:20:00Z",
+            "stage": "G"
+        },
+        {
+            "team1": "Liverpool",
+            "team2": "Sampa",
+            "date": "2022-06-29T19:00:00Z",
+            "stage": "G"
+        }
+    ],
+    "6": [
+        {
+            "team1": "Group A - First Place",
+            "team2": "Group B - Second Place",
+            "date": "2022-07-06T17:00:00Z",
+            "stage": "SF"
+        },
+        {
+            "team1": "Group B - First Place",
+            "team2": "Group A - Second Place",
+            "date": "2022-07-06T17:50:00Z",
+            "stage": "SF"
+        }
+    ],
+    "7": [
+        {
+            "team1": "Loser of Simi-Final 1",
+            "team2": "Loser of Semi-Final 2",
+            "date": "2022-07-13T17:00:00Z",
+            "stage": "3P"
+        },
+        {
+            "team1": "Winner of Simi-Final 1",
+            "team2": "Winner of Simi-Final 2",
+            "date": "2022-07-13T17:50:00Z",
+            "stage": "F"
         }
     ]
 }

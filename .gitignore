@@ -95,6 +95,7 @@ env.bak/
 venv.bak/
 .idea/
 .vs/*
+*.sqlite3
 
 # Spyder project settings
 .spyderproject

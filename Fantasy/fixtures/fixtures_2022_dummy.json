@@ -1,0 +1,50 @@
+{
+    "1": [
+        {
+            "team1": "Broussia Dortumund",
+            "team2": "Sparta Return",
+            "date": "2022-05-25T18:00:00Z"
+        },
+        {
+            "team1": "Masters of Darkness",
+            "team2": "Hawks",
+            "date": "2022-05-25T19:00:00Z"
+        }
+    ],
+    "2": [
+        {
+            "team1": "Sparta Return",
+            "team2": "Masters of Darkness",
+            "date": "2022-06-01T18:00:00Z"
+        },
+        {
+            "team1": "Gunners",
+            "team2": "Broussia Dortumund",
+            "date": "2022-06-01T19:00:00Z"
+        }
+    ],
+    "3": [
+        {
+            "team1": "Broussia Dortumund",
+            "team2": "Sparta Return",
+            "date": "2022-06-25T18:00:00Z"
+        },
+        {
+            "team1": "Masters of Darkness",
+            "team2": "Hawks",
+            "date": "2022-06-25T19:00:00Z"
+        }
+    ],
+    "4": [
+        {
+            "team1": "Broussia Dortumund",
+            "team2": "Sparta Return",
+            "date": "2022-07-25T18:00:00Z"
+        },
+        {
+            "team1": "Masters of Darkness",
+            "team2": "Hawks",
+            "date": "2022-07-25T19:00:00Z"
+        }
+    ]
+}

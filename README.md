@@ -4,6 +4,7 @@
 
 ## After Deployment, run:
 - python manage.py load_teams_players
+- python manage.py load_groups
 - python manage.py load_fixtures
 
 ## Each gameweek:

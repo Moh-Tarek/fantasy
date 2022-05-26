@@ -1,5 +1,9 @@
-<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+{% for stage, fixtures in fixtures_grouped.items %}
+<table class="table table-hover dataTable" width="100%" cellspacing="0">
     <thead class="thead-light">
+        <tr class="text-center">
+            <th colspan="100%" class="text-primary">{{stage}} Stage</th>
+        </tr>
         <tr class="text-center">
             <th>GW</th>
             <th>Day</th>
@@ -14,20 +18,24 @@
     <tbody>
         {% for f in fixtures %}
         <tr data-stats-tr="stats-{{f.id}}" class='{% if gameweek == f.gameweek %}table-selected{% endif %} {% if not f.is_finished %}nohover{% endif %}'>
-            <td class="text-center">{% ifchanged f.gameweek %}{{ f.gameweek }}{% endifchanged %}</td>
+            <td {% ifchanged f.gameweek %}id="gameweek-{{f.gameweek}}"{% endifchanged %} class="text-center">{% ifchanged f.gameweek %}{{ f.gameweek }}{% endifchanged %}</td>
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'l' }}{% endifchanged %}</td>
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
             <td class="text-center">{{ f.date | date:'h:i A' }}</td>
-            <td class="text-center">{{ f.team1 }}</td>
+            <td class="text-center">{{ f.team1_verbose_name }}</td>
             <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
-            <td class="text-center">{{ f.team2 }}</td>
-            {% if previous_gameweek == f.gameweek and user.is_staff or user.is_superuser %}
-                <td>
-                    <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-dark btn-circle btn-sm">
-                        <i class="fas fa-pen"></i>
-                    </a>
-                </td>
-            {% elif user.is_staff %}
+            <td class="text-center">{{ f.team2_verbose_name }}</td>
+            {% if f.team1 and f.team2 %}
+                {% if previous_gameweek == f.gameweek and user.is_staff or user.is_superuser %}
+                    <td>
+                        <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-dark btn-circle btn-sm">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                    </td>
+                {% elif user.is_staff %}
+                    <td></td>
+                {% endif %}
+            {% elif user.is_staff or user.is_superuser %}
                 <td></td>
             {% endif %}
         </tr>
@@ -82,6 +90,7 @@
         {% endfor %}
     </tbody>
 </table>
+{% endfor %}
 
 <style>
     .statsTables {

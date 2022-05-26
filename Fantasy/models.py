@@ -46,8 +46,15 @@ class Team(User):
             return last_gameweek_squad[0].total_squad_score
         return None
 
+class Group(Model):
+    name = CharField(max_length=1, unique=True)
+
+    def __str__(self):
+        return "Group " + self.name
+
 class FootballTeam(Model):
     name = CharField(max_length=100, unique=True)
+    group = ForeignKey(Group, on_delete=CASCADE, related_name='teams', null=True)
 
     def __str__(self):
         return self.name
@@ -284,10 +291,31 @@ class Score(Model):
 
 
 class Fixture(Model):
-    team1 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="home_fixtures")
-    team2 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="away_fixtures")
+    team1 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="home_fixtures", null=True, blank=True)
+    team1_representation = CharField(max_length=100, null=True, blank=True)
+    team2 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="away_fixtures", null=True, blank=True)
+    team2_representation = CharField(max_length=100, null=True, blank=True)
     gameweek = IntegerField()
+    stage = CharField(choices=[
+        ('G', 'Group'), 
+        ('QF', 'Quarter-Final'), 
+        ('SF', 'Semi-Final'), 
+        ('3P', '3rd Place Playoff'),
+        ('F', 'Final')
+    ], max_length=20, default='G')
     date = DateTimeField()
+
+    @property
+    def team1_verbose_name(self):
+        if self.team1:
+            return self.team1
+        return self.team1_representation
+
+    @property
+    def team2_verbose_name(self):
+        if self.team2:
+            return self.team2
+        return self.team2_representation
 
     @property
     def team1_scores(self):
@@ -348,7 +376,7 @@ class Fixture(Model):
         return False
     
     def __str__(self):
-        return f"GW{self.gameweek}: {self.team1} vs {self.team2}"
+        return f"GW{self.gameweek}: {self.team1_verbose_name} vs {self.team2_verbose_name}"
     
 
 # class FantasyTeam(Model):
