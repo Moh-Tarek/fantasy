@@ -55,6 +55,7 @@ class Group(Model):
 class FootballTeam(Model):
     name = CharField(max_length=100, unique=True)
     group = ForeignKey(Group, on_delete=CASCADE, related_name='teams', null=True)
+    color = CharField(max_length=20, default="royalblue")
 
     def __str__(self):
         return self.name

@@ -209,10 +209,12 @@ def squadSelectionView(request):
         teams_against[t.short_name] = t_h + t_a
     for p in players:
         p_team = p.team.short_name
+        color = p.team.color
         p_against = teams_against[p_team]
         players_data[p.id] = {
             'name': p.playerName,
             'team': p_team,
+            'color': color,
             'vs': ",".join(p_against)
         }
     print(players_data)

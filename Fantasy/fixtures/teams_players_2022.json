@@ -1,5 +1,5 @@
 {
-    "Future Youth": {
+    "Future Youth - white": {
         "Captain": "Kasem Shalaby",
         "Player": [
             "Ahmed Abdullah",
@@ -10,7 +10,7 @@
             "Abdelhamid Seyam"
         ]
     },
-    "Mazarita FC": {
+    "Mazarita FC - orange": {
         "Captain": "Salah Khalil",
         "GoalKeeper": "Mohamed Samir",
         "Player": [
@@ -22,7 +22,7 @@
             "Yousef Omar Hassan"
         ]
     },
-    "Liverpool": {
+    "Liverpool - mediumblue": {
         "Captain": "Ahmed Haseeb",
         "GoalKeeper": "Ibrahim Monsour",
         "Player": [
@@ -34,7 +34,7 @@
             "Elhusseiny Fekry"
         ]
     },
-    "Sampa": {
+    "Sampa - yellow": {
         "Captain": "Ashraf Omara",
         "GoalKeeper": "Amr Khattab",
         "Player": [
@@ -46,7 +46,7 @@
             "Ahmed Emad"
         ]
     },
-    "Pirates": {
+    "Pirates - black": {
         "Captain": "Mohamed Sabry",
         "GoalKeeper": "AboBakr Ibrahim",
         "Player": [
@@ -57,7 +57,7 @@
             "Youssef Ghazi"
         ]
     },
-    "Bavana Bavana": {
+    "Bavana Bavana - darkred": {
         "Captain": "Mahmoud Salheen",
         "GoalKeeper": "Mohamed Nabil",
         "Player": [
@@ -69,7 +69,7 @@
             "Ahmed Sayed Abdelhamid"
         ]
     },
-    "Pashas": {
+    "Pashas - slategray": {
         "Captain": "Omar Ali",
         "GoalKeeper": "Hossam Hassan",
         "Player": [
@@ -81,7 +81,7 @@
             "Abdelmegeed Abdallah"
         ]
     },
-    "The Challenge": {
+    "The Challenge floralwhite": {
         "Captain": "Mohamed Abolnour",
         "GoalKeeper": "Badr Mahmoud",
         "Player": [
@@ -92,7 +92,7 @@
             "Mohamed Mostafa Ramadan"
         ]
     },
-    "Dark Knights": {
+    "Dark Knights - skyblue": {
         "Captain": "Mohamed Alieldin",
         "GoalKeeper": "Mostafa Abdelsabour",
         "Player": [
@@ -104,7 +104,7 @@
             "Sherif Khalil"
         ]
     },
-    "Titans United": {
+    "Titans United - red": {
         "Captain": "Mohamed Abubakr",
         "GoalKeeper": "Moyad Atef",
         "Player": [

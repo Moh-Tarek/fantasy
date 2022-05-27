@@ -17,8 +17,11 @@ class Command(BaseCommand):
 
         json_data = json.loads(data)
 
-        for team_name, players in json_data.items():
-            t = FootballTeam.objects.create(name=team_name)
+        for team, players in json_data.items():
+            team = team.split(" - ")
+            team_name = team[0]
+            color = team[1]
+            t = FootballTeam.objects.create(name=team_name, color=color)
             players_list = []
             for playing_role, name in players.items():
                 if isinstance(name, str):

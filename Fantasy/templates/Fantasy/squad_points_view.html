@@ -14,21 +14,21 @@
         <div class="container pitch-container">
             <img src="{% static 'Fantasy/football-pitch.png' %}" alt="">
             {% if squad %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="black" player=squad.goalKeeperSelected value=squad.goalKeeperSelected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="royalblue" player=squad.player1Selected value=squad.player1Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="royalblue" player=squad.player2Selected value=squad.player2Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="royalblue" player=squad.player3Selected value=squad.player3Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="royalblue" player=squad.player4Selected value=squad.player4Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="royalblue" player=squad.player5Selected value=squad.player5Selected_score %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="darkblue" player=squad.captainSelected value=squad.captainSelected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" player=squad.goalKeeperSelected value=squad.goalKeeperSelected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" player=squad.player1Selected value=squad.player1Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" player=squad.player2Selected value=squad.player2Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" player=squad.player3Selected value=squad.player3Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" player=squad.player4Selected value=squad.player4Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" player=squad.player5Selected value=squad.player5Selected_score %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" player=squad.captainSelected value=squad.captainSelected_score %}
             {% else %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" color="lightgrey" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" color="lightgrey" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" %}
             {% endif %}
         </div>
         <style>
