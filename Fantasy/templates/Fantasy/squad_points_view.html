@@ -3,7 +3,7 @@
 {% block content%}
 {% load static %}
 <div>
-    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline}}</small>
+    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline|date:'D Y-m-d h:i A'}}</small>
 </div>
 <div>&nbsp;</div>
 <div class="card shadow mb-4">

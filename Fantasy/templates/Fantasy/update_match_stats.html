@@ -40,7 +40,7 @@
                                     {% for form in t1_formset %}
                                     <div style="display: none;">{{form.id}}</div>
                                     <tr>
-                                        <td>{{ form.instance.player }}</td>
+                                        <td>{{ form.instance.player.playerName }}</td>
                                         <td>{{ form.instance.player.playingRole }}</td>
                                         <td>{{ form.played|as_crispy_field }}</td>
                                         <td>{{ form.goal|as_crispy_field }}</td>
@@ -88,7 +88,7 @@
                                     {% for form in t2_formset %}
                                     <div style="display: none;">{{form.id}}</div>
                                     <tr>
-                                        <td>{{ form.instance.player }}</td>
+                                        <td>{{ form.instance.player.playerName }}</td>
                                         <td>{{ form.instance.player.playingRole }}</td>
                                         <td>{{ form.played|as_crispy_field }}</td>
                                         <td>{{ form.goal|as_crispy_field }}</td>

@@ -1,4 +1,5 @@
 from gc import is_finalized
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
@@ -9,7 +10,104 @@ import operator
 
 
 def home(request):
-    context = {'players': Player.objects.all()}
+    try:
+        gameweek = GameweekSetting.objects.last().active_gameweek
+    except:
+        gameweek = 1
+
+    teams = Team.objects.all()
+    teams_with_squads = teams.filter(squads__isnull=False).distinct()
+    
+    teams_selection_count = 5 if teams.count() >= 5 else teams.count()
+    teams_sorted_all = sorted(teams, key=lambda x: x.total_team_score)[-teams_selection_count:]
+    teams_sorted_all_teams = []
+    teams_sorted_all_scores = []
+    for t in teams_sorted_all:
+        teams_sorted_all_teams.append([t.first_name, t.last_name])
+        teams_sorted_all_scores.append(t.total_team_score)
+    teams_sorted_GW = sorted(teams, key=lambda x: x.last_gameweek_team_score or 0)[-teams_selection_count:]
+    teams_sorted_GW_teams = []
+    teams_sorted_GW_scores = []
+    for t in teams_sorted_GW:
+        teams_sorted_GW_teams.append([t.first_name, t.last_name])
+        teams_sorted_GW_scores.append(t.last_gameweek_team_score or 0)
+    
+    matches = Fixture.objects.all()
+    matches_GW = matches.filter(gameweek=gameweek)
+    matches_completed = [ i for i in matches if i.is_finished ]
+
+    groups = Group.objects.all()
+    f_teams = FootballTeam.objects.all()
+    
+    f_players = Player.objects.all()
+    players_selection_count = 5 if f_players.count() >= 5 else f_players.count()
+    players_sorted_all = sorted(f_players, key=lambda x: x.total_player_score)[-players_selection_count:]
+    players_sorted_all_players = []
+    players_sorted_all_scores = []
+    for p in players_sorted_all:
+        players_sorted_all_players.append(p.playerName.split(" "))
+        players_sorted_all_scores.append(p.total_player_score)
+    players_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score)[-players_selection_count:]
+    players_sorted_GW_players = []
+    players_sorted_GW_scores = []
+    for p in players_sorted_GW:
+        players_sorted_GW_players.append(p.playerName.split(" "))
+        players_sorted_GW_scores.append(p.last_gameweek_player_score)
+
+    players_goals_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_goals_sum())[-players_selection_count:]
+    players_goals_sorted_all_players = []
+    players_goals_sorted_all_scores = []
+    for p in players_goals_sorted_all:
+        players_goals_sorted_all_players.append(p.playerName.split(" "))
+        players_goals_sorted_all_scores.append(p.player_scores.get_goals_sum())
+
+    players_goals_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_goals_sum())[-players_selection_count:]
+    players_goals_sorted_GW_players = []
+    players_goals_sorted_GW_scores = []
+    for p in players_goals_sorted_GW:
+        players_goals_sorted_GW_players.append(p.playerName.split(" "))
+        players_goals_sorted_GW_scores.append(p.last_gameweek_player_score_objs.get_goals_sum())
+
+    players_assists_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_assists_sum())[-players_selection_count:]
+    players_assists_sorted_all_players = []
+    players_assists_sorted_all_scores = []
+    for p in players_assists_sorted_all:
+        players_assists_sorted_all_players.append(p.playerName.split(" "))
+        players_assists_sorted_all_scores.append(p.player_scores.get_assists_sum())
+
+    players_assists_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_assists_sum())[-players_selection_count:]
+    players_assists_sorted_GW_players = []
+    players_assists_sorted_GW_scores = []
+    for p in players_assists_sorted_GW:
+        players_assists_sorted_GW_players.append(p.playerName.split(" "))
+        players_assists_sorted_GW_scores.append(p.last_gameweek_player_score_objs.get_assists_sum())
+
+    context = {
+        'teams': teams.count,
+        'teams_with_squads': teams_with_squads.count,
+        'teams_sorted_all_teams': teams_sorted_all_teams,
+        'teams_sorted_all_scores': teams_sorted_all_scores,
+        'teams_sorted_GW_teams': teams_sorted_GW_teams,
+        'teams_sorted_GW_scores': teams_sorted_GW_scores,
+        'players_sorted_all_players': players_sorted_all_players,
+        'players_sorted_all_scores': players_sorted_all_scores,
+        'players_sorted_GW_players': players_sorted_GW_players,
+        'players_sorted_GW_scores': players_sorted_GW_scores,
+        'players_goals_sorted_all_players': players_goals_sorted_all_players,
+        'players_goals_sorted_all_scores': players_goals_sorted_all_scores,
+        'players_goals_sorted_GW_players': players_goals_sorted_GW_players,
+        'players_goals_sorted_GW_scores': players_goals_sorted_GW_scores,
+        'players_assists_sorted_all_players': players_assists_sorted_all_players,
+        'players_assists_sorted_all_scores': players_assists_sorted_all_scores,
+        'players_assists_sorted_GW_players': players_assists_sorted_GW_players,
+        'players_assists_sorted_GW_scores': players_assists_sorted_GW_scores,
+        'matches': matches.count,
+        'matches_GW': matches_GW.count,
+        'matches_completed': len(matches_completed),
+        'f_teams': f_teams.count,
+        'groups': groups.count,
+        'f_players': f_players.count,
+    }
     return render(request, 'Fantasy/home.html', context)
 
 def update_gameweek(request):

@@ -1,6 +1,324 @@
 {% extends "generic/base.html" %}
 {% block content%}
 {% load static %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+</div>
 
-<h1>What about your first Fantasy?</h1>
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Registered Fantasy Teams</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{teams}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Fantasy Teams (Registered Squads)</div>
+                            <div class="row no-gutters align-items-center">
+                                {% widthratio teams_with_squads teams 100 as registered_squads_ratio %}
+                                <div class="col-auto" style="width: 100%;">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{teams_with_squads}} ({{registered_squads_ratio}}%)</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar"
+                                            style="width: {{registered_squads_ratio}}%" aria-valuenow="{{registered_squads_ratio}}" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Gameweek {{gameweek}} Deadline</div>
+                        <div class="mb-0 font-weight-bold text-danger">{{gameweek_deadline|date:'D Y-m-d h:i A'}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Gameweek {{gameweek}} Matches</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{matches_GW}} <a href="{% url 'Fantasy-matches'%}" target="_blank"><i class="text-xs fas fa-external-link-square-alt"></i></a></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            League Football Teams</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{f_teams}} ({{groups}} Groups)  <a href="{% url 'Fantasy-groups'%}" target="_blank"><i class="text-xs fas fa-external-link-square-alt"></i></a></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            League Football Players</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{f_players}}  <a href="{% url 'Fantasy-allplayers'%}" target="_blank"><i class="text-xs fas fa-external-link-square-alt"></i></a></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Total Planned Matches</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{matches}} <a href="{% url 'Fantasy-matches'%}" target="_blank"><i class="text-xs fas fa-external-link-square-alt"></i></a></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Completed Matches</div>
+                            <div class="row no-gutters align-items-center">
+                                {% widthratio matches_completed matches 100 as completed_matches_ratio %}
+                                <div class="col-auto" style="width: 100%;">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{matches_completed}} ({{completed_matches_ratio}}%)  <a href="{% url 'Fantasy-matches'%}" target="_blank"><i class="text-xs fas fa-external-link-square-alt"></i></a></div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar"
+                                            style="width: {{completed_matches_ratio}}%" aria-valuenow="{{completed_matches_ratio}}" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-double fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header"> -->
+                <div class="row" style="padding-bottom: 20px">
+                    <div class="col-xl-6 col-lg-6" style="padding-right: 0;">
+                        <a href="#" id="all_stats" class="btn btn-light btn-block" style="border-bottom-right-radius: 0; border-top-right-radius: 0;">All The Time Stats</a>
+                        <!-- <h6 class="m-0 font-weight-bold text-primary text-center">All The Time Stats</h6> -->
+                    </div>
+                    <div class="col-xl-6 col-lg-6" style="padding-left: 0;">
+                        <a href="#" id="gw_stats" class="btn btn-danger btn-block" style="border-bottom-left-radius: 0; border-top-left-radius: 0;">Gameweek {{previous_gameweek}} Stats</a>
+                        <!-- <h6 class="m-0 font-weight-bold bg-primary text-white text-center">Gameweek {{previous_gameweek}} Stats</h6> -->
+                    </div>
+                </div>
+            <!-- </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Goals Scored</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersGoalsBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_goals_sorted_all_players|json_script:"players_goals_sorted_all_players" }}
+        {{ players_goals_sorted_all_scores|json_script:"players_goals_sorted_all_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Goals Scored (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersGoalsGWBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_goals_sorted_GW_players|json_script:"players_goals_sorted_GW_players" }}
+        {{ players_goals_sorted_GW_scores|json_script:"players_goals_sorted_GW_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Assists</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersAssistsBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_assists_sorted_all_players|json_script:"players_assists_sorted_all_players" }}
+        {{ players_assists_sorted_all_scores|json_script:"players_assists_sorted_all_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Assists (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersAssistsGWBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_assists_sorted_GW_players|json_script:"players_assists_sorted_GW_players" }}
+        {{ players_assists_sorted_GW_scores|json_script:"players_assists_sorted_GW_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Best Fantasy Teams</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="FantasyTeamsBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ teams_sorted_all_teams|json_script:"teams_sorted_all_teams" }}
+        {{ teams_sorted_all_scores|json_script:"teams_sorted_all_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Best Fantasy Teams (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="FantasyTeamsGWBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ teams_sorted_GW_teams|json_script:"teams_sorted_GW_teams" }}
+        {{ teams_sorted_GW_scores|json_script:"teams_sorted_GW_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Best Fantasy Players</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="FantasyPlayersBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_sorted_all_players|json_script:"players_sorted_all_players" }}
+        {{ players_sorted_all_scores|json_script:"players_sorted_all_scores" }}
+    </div>
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Best Fantasy Players (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="FantasyPlayersGWBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ players_sorted_GW_players|json_script:"players_sorted_GW_players" }}
+        {{ players_sorted_GW_scores|json_script:"players_sorted_GW_scores" }}
+    </div>
+</div>
 {% endblock content%}
+
+{% block scripts %}
+<script>
+    $("#gw_stats").on("click", function(e){
+            e.preventDefault();
+            $(this).removeClass('btn-danger')
+            $(this).addClass('btn-light')
+            $("#all_stats").removeClass('btn-light')
+            $("#all_stats").addClass('btn-danger')
+            $('.all_stats').hide()
+            $('.gw_stats').show()
+        }
+    )
+    $("#all_stats").on("click", function(e){
+            $(this).removeClass('btn-danger')
+            $(this).addClass('btn-light')
+            $("#gw_stats").removeClass('btn-light')
+            $("#gw_stats").addClass('btn-danger')
+            e.preventDefault();
+            $('.gw_stats').hide()
+            $('.all_stats').show()
+        }
+    )
+</script>
+<script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'Fantasy/js/chart-bar-common.js' %}"></script>
+<script src="{% static 'Fantasy/js/chart-bar-dashboard.js' %}"></script>
+{% endblock %}

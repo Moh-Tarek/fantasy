@@ -2,7 +2,7 @@
 
 {% block content%}
 <div>
-    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline}}</small>
+    <small style="color: red; font-weight: bold;">Gameweek {{gameweek}} Deadline at: {{gameweek_deadline|date:'D Y-m-d h:i A'}}</small>
 </div>
 <div>&nbsp;</div>
 <div class="card shadow mb-4">
@@ -32,7 +32,7 @@
         }
         $([document.documentElement, document.body]).animate({
             scrollTop: scroll_value
-        }, 2000);
+        }, 500);
     });
 </script>
 {% endblock %}

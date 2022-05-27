@@ -116,6 +116,15 @@ class Player(Model):
             return last_gameweek_score[0].total_score
         return 0
 
+    @property
+    def last_gameweek_player_score_objs(self):
+        try:
+            last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
+        except:
+            last_gameweek = 0
+        last_gameweek_score = self.player_scores.filter(fixture__gameweek=last_gameweek)
+        return last_gameweek_score
+
     def __str__(self):
         return f"{self.playerName} ({self.team})"
 

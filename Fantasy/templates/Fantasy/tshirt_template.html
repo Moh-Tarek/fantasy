@@ -14,6 +14,6 @@
         </span>
     </a>
     <div style="font-size: x-small; text-align: center; margin-top: 10px; color: darkgreen; font-weight: bold; ">
-        <span class="tshirt_player_name" data-player_id="{{ player.id }}">{{ player.playerName }}</span><br><span class="tshirt_player_value">{% if value != None %}{% if value|is_numeric %}({{ value }}){% else %}vs. {{value}}{% endif %}{% endif %}</span>
+        <span class="tshirt_player_name" data-player_id="{{ player.id }}">{{ player.playerName }}</span><br><b><span class="tshirt_player_value">{% if value != None %}{% if value|is_numeric %}({{ value }}){% else %}vs. {{value}}{% endif %}{% endif %}</span></b>
     </div>
 </div>
