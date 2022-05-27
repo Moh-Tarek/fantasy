@@ -1,0 +1,41 @@
+.pitch-container { 
+    position: relative; 
+    padding-left: 0px;
+    padding-top: 25px;
+}
+/* .pitch-container img { display: block; } */
+.pitch-container > div { max-width: 60px; /* tshirt icon width */ }
+.pitch-container i { font-size: 3em; }
+/* .pitch-container > div > div { 
+    font-size: x-small; 
+    text-align: center; 
+    margin-top: 5px; 
+    color: snow; 
+    font-weight: bold; 
+} */
+.pitch-container .tshirt-goalKeeper { position: absolute; top:35px; left:230px; }
+.pitch-container .tshirt-player1 { position: absolute; top:130px; left:146px; }
+.pitch-container .tshirt-player2 { position: absolute; top:130px; left:230px; }
+.pitch-container .tshirt-player3 { position: absolute; top:130px; left:314px; }
+.pitch-container .tshirt-player4 { position: absolute; top:225px; left:186px; }
+.pitch-container .tshirt-player5 { position: absolute; top:225px; left:274px; }
+.pitch-container .tshirt-captain { position: absolute; top:309px; left:230px; }
+
+@media (max-width: 720px) {
+    .pitch-container {
+        transform: scale(0.8);
+        transform-origin: 0% 0% 0px;
+    }
+}
+@media (max-width: 620px) {
+    .pitch-container {
+        transform: scale(0.7);
+        transform-origin: 0% 0% 0px;
+    }
+}
+@media (max-width: 520px) {
+    .pitch-container {
+        transform: scale(0.6);
+        transform-origin: 0% 0% 0px;
+    }
+}

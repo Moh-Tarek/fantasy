@@ -28,7 +28,7 @@
             {% if f.team1 and f.team2 %}
                 {% if previous_gameweek == f.gameweek and user.is_staff or user.is_superuser %}
                     <td>
-                        <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-dark btn-circle btn-sm">
+                        <a href="{% url 'Fantasy-update_match_stats' f.id %}" class="btn btn-dark btn-circle btn-sm edit-match">
                             <i class="fas fa-pen"></i>
                         </a>
                     </td>

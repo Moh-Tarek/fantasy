@@ -31,26 +31,6 @@
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" %}
             {% endif %}
         </div>
-        <style>
-            .pitch-container { position: relative; }
-            .pitch-container img { display: block; }
-            .pitch-container > div { max-width: 60px; /* tshirt icon width */ }
-            .pitch-container i { font-size: 3em; }
-            /* .pitch-container > div > div { 
-                font-size: x-small; 
-                text-align: center; 
-                margin-top: 5px; 
-                color: snow; 
-                font-weight: bold; 
-            } */
-            .pitch-container .tshirt-goalKeeper { position: absolute; top:10px; left:254px; }
-            .pitch-container .tshirt-player1 { position: absolute; top:105px; left:170px; }
-            .pitch-container .tshirt-player2 { position: absolute; top:105px; left:254px; }
-            .pitch-container .tshirt-player3 { position: absolute; top:105px; left:338px; }
-            .pitch-container .tshirt-player4 { position: absolute; top:200px; left:210px; }
-            .pitch-container .tshirt-player5 { position: absolute; top:200px; left:298px; }
-            .pitch-container .tshirt-captain { position: absolute; top:284px; left:254px; }
-        </style>
         <div class="table-responsive">
             {% include 'Fantasy/matches_table.html' %}
         </div>
@@ -59,13 +39,18 @@
 
 {% endblock content%}
 
+{% block style %}
+<link href="{% static 'Fantasy/css/pitch-style.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block scripts %}
 <script>
     $(document).ready(function() {
         $('.dataTable tbody').on('click', 'tr', function () {
             console.log($(this).data('stats-tr'))
-            $("#" + $(this).data('stats-tr')).toggle('slow');
+            $("#" + $(this).data('stats-tr')).toggle();
         });
+        $(".edit-match").click(function(e){ e.stopPropagation() });
     });
 </script>
 {% endblock scripts %}

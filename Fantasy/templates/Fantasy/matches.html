@@ -23,8 +23,9 @@
     $(document).ready(function() {
         $('.dataTable tbody').on('click', 'tr', function () {
             console.log($(this).data('stats-tr'))
-            $("#" + $(this).data('stats-tr')).toggle('slow');
+            $("#" + $(this).data('stats-tr')).toggle();
         });
+        $(".edit-match").click(function(e){ e.stopPropagation() });
         var scroll_value = 0
         if(my_gameweek != 1){
             scroll_value = $("#gameweek-" + my_gameweek).offset().top - 100
