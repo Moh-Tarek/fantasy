@@ -72,6 +72,12 @@
                         {% include 'Fantasy/match_stats_table_template.html' with stat_name="Red Cards" team1_stat=team1_rc team2_stat=team2_rc %}
                     {% endif %}
                 {% endwith %}
+                <!-- Clean Sheets -->
+                {% with team1_cs=f.team1_scores.get_clean_sheets team2_cs=f.team2_scores.get_clean_sheets %}
+                    {% if team1_cs or team2_cs %}
+                        {% include 'Fantasy/match_stats_table_template.html' with stat_name="Clean Sheets" team1_stat=team1_cs team2_stat=team2_cs %}
+                    {% endif %}
+                {% endwith %}
                 <!-- Penalties Saved -->
                 {% with team1_ps=f.team1_scores.get_penalties_saved team2_ps=f.team2_scores.get_penalties_saved %}
                     {% if team1_ps or team2_ps %}

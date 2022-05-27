@@ -237,6 +237,11 @@ class ScoreQuerySet(QuerySet):
     def get_red_cards_sum(self):
         return self.aggregate(t=Count(Case(When(red_card=True, then=Value(1)))))['t']
 
+    def get_clean_sheets(self):
+        return self.filter(clean_sheet=True).values_list('player__playerName', 'clean_sheet')
+    def get_clean_sheets_sum(self):
+        return self.aggregate(t=Count(Case(When(clean_sheet=True, then=Value(1)))))['t']
+
     def get_penalties_saved(self):
         return self.filter(penalty_saved__gt=0).order_by('-penalty_saved').values_list('player__playerName', 'penalty_saved')
     def get_penalties_saved_sum(self):
