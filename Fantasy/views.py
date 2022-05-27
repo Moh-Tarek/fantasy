@@ -198,6 +198,9 @@ def squadSelectionView(request):
     except:
         squad = None
 
+    fixtures = Fixture.objects.filter(gameweek=gameweek)
+    fixtures_grouped = group_fixtures_by_stage(fixtures)
+
     players_data = {}
     players = Player.objects.all()
     teams = FootballTeam.objects.all()
@@ -234,16 +237,14 @@ def squadSelectionView(request):
             print("form issue")
             print(form.errors)
             messages.warning(request, form.errors)
-            return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance, 'players_data': players_data})
+            return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance, 'players_data': players_data, 'fixtures_grouped': fixtures_grouped})
     else:
         if squad:
             form = SquadSelection(instance=squad)
         else:
             form = SquadSelection()
     
-    
-
-    return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance if form.instance.pk else None, 'players_data': players_data})
+    return render(request, 'Fantasy/squad_selection.html', {'form': form, 'squad': form.instance if form.instance.pk else None, 'players_data': players_data, 'fixtures_grouped': fixtures_grouped})
 
 
 def matches(request):
