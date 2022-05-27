@@ -165,14 +165,16 @@
         <div class="card shadow mb-4">
             <div class="card-header"> -->
                 <div class="row" style="padding-bottom: 20px">
-                    <div class="col-xl-6 col-lg-6" style="padding-right: 0;">
-                        <a href="#" id="all_stats" class="btn btn-light btn-block" style="border-bottom-right-radius: 0; border-top-right-radius: 0;">All The Time Stats</a>
+                    <div class="{% if previous_gameweek %}col-xl-6 col-lg-6{% else %}col-xl-12 col-lg-12{% endif %}" style="padding-right: 0;">
+                        <a href="#" id="all_stats" class="btn btn-light btn-block" style="border-bottom-right-radius: 0; border-top-right-radius: 0;">All-Time Stats</a>
                         <!-- <h6 class="m-0 font-weight-bold text-primary text-center">All The Time Stats</h6> -->
                     </div>
+                    {% if previous_gameweek %}
                     <div class="col-xl-6 col-lg-6" style="padding-left: 0;">
                         <a href="#" id="gw_stats" class="btn btn-danger btn-block" style="border-bottom-left-radius: 0; border-top-left-radius: 0;">Gameweek {{previous_gameweek}} Stats</a>
                         <!-- <h6 class="m-0 font-weight-bold bg-primary text-white text-center">Gameweek {{previous_gameweek}} Stats</h6> -->
                     </div>
+                    {% endif %}
                 </div>
             <!-- </div>
         </div>
@@ -194,6 +196,7 @@
         {{ players_goals_sorted_all_players|json_script:"players_goals_sorted_all_players" }}
         {{ players_goals_sorted_all_scores|json_script:"players_goals_sorted_all_scores" }}
     </div>
+    {% if previous_gameweek %}
     <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -208,6 +211,7 @@
         {{ players_goals_sorted_GW_players|json_script:"players_goals_sorted_GW_players" }}
         {{ players_goals_sorted_GW_scores|json_script:"players_goals_sorted_GW_scores" }}
     </div>
+    {% endif %}
     <div class="col-xl-6 col-lg-6 all_stats">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -222,6 +226,7 @@
         {{ players_assists_sorted_all_players|json_script:"players_assists_sorted_all_players" }}
         {{ players_assists_sorted_all_scores|json_script:"players_assists_sorted_all_scores" }}
     </div>
+    {% if previous_gameweek %}
     <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -236,6 +241,7 @@
         {{ players_assists_sorted_GW_players|json_script:"players_assists_sorted_GW_players" }}
         {{ players_assists_sorted_GW_scores|json_script:"players_assists_sorted_GW_scores" }}
     </div>
+    {% endif %}
     <div class="col-xl-6 col-lg-6 all_stats">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -250,6 +256,7 @@
         {{ teams_sorted_all_teams|json_script:"teams_sorted_all_teams" }}
         {{ teams_sorted_all_scores|json_script:"teams_sorted_all_scores" }}
     </div>
+    {% if previous_gameweek %}
     <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -264,6 +271,7 @@
         {{ teams_sorted_GW_teams|json_script:"teams_sorted_GW_teams" }}
         {{ teams_sorted_GW_scores|json_script:"teams_sorted_GW_scores" }}
     </div>
+    {% endif %}
     <div class="col-xl-6 col-lg-6 all_stats">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -278,6 +286,7 @@
         {{ players_sorted_all_players|json_script:"players_sorted_all_players" }}
         {{ players_sorted_all_scores|json_script:"players_sorted_all_scores" }}
     </div>
+    {% if previous_gameweek %}
     <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -292,8 +301,20 @@
         {{ players_sorted_GW_players|json_script:"players_sorted_GW_players" }}
         {{ players_sorted_GW_scores|json_script:"players_sorted_GW_scores" }}
     </div>
+    {% endif %}
 </div>
 {% endblock content%}
+
+{% block style%}
+<style>
+    .btn-light {
+        color: #3a3b45;
+        background-color: #dde2f1;
+        border-color: #d4daed;
+        box-shadow: 0 0 0 0.2rem rgba(220, 221, 225, 0.5);
+    }
+</style>
+{% endblock %}
 
 {% block scripts %}
 <script>

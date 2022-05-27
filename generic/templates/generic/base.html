@@ -41,6 +41,14 @@
                 <div class="sidebar-brand-text mx-2">Nagwa</div>
             </a>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Fantasy-home' %}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
             {% if user.is_superuser or user.is_staff %}
             <!-- Divider -->
             <hr class="sidebar-divider">
