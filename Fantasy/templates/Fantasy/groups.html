@@ -7,6 +7,17 @@
         <h4 class="m-0 font-weight-bold text-primary">Groups Table & Standings</h4>
     </div>
     <div class="card-body">
+        <div class="text-secondary">
+            * After all group stage matches are ended, the top two teams qualifies to semi-finals.<br> 
+            The ranking of teams in each group is based on the below criteria:
+            <ol>
+                <li>Points</li>
+                <li>Match result between the tied teams</li>
+                <li>Overall goals difference</li>
+                <li>Overall goals scored</li>
+                <li>Penalty kicks to be played between the tied teams</li>
+            </ol>
+        </div>
         <div class="table-responsive">
             {% include 'Fantasy/groups_table.html' %}
         </div>

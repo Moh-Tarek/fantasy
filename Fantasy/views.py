@@ -5,7 +5,7 @@ from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, Ga
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
-from .utils import group_fixtures_by_stage
+from . import utils
 import operator
 
 
@@ -138,6 +138,9 @@ def update_gameweek(request):
 
 def rules(request):
     return render(request, 'Fantasy/rules.html')
+
+def league_rules(request):
+    return render(request, 'Fantasy/league_rules.html')
 
 def about(request):
     return render(request, 'Fantasy/about.html', {'title': 'About Fantasy'})
@@ -281,7 +284,7 @@ def squadPointsView(request):
         squad = None
 
     fixtures = Fixture.objects.filter(gameweek=previous_gameweek)
-    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    fixtures_grouped = utils.group_fixtures_by_stage(fixtures)
     return render(request, 'Fantasy/squad_points_view.html', {'squad': squad, 'fixtures_grouped': fixtures_grouped})
 
 def squadSelectionView(request):
@@ -297,7 +300,7 @@ def squadSelectionView(request):
         squad = None
 
     fixtures = Fixture.objects.filter(gameweek=gameweek)
-    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    fixtures_grouped = utils.group_fixtures_by_stage(fixtures)
 
     players_data = {}
     players = Player.objects.all()
@@ -318,7 +321,7 @@ def squadSelectionView(request):
             'color': color,
             'vs': ",".join(p_against)
         }
-    print(players_data)
+    # print(players_data)
 
     ## check request method and continue
     if request.method == 'POST':
@@ -347,83 +350,44 @@ def squadSelectionView(request):
 
 def matches(request):
     fixtures = Fixture.objects.all()
-    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    fixtures_grouped = utils.group_fixtures_by_stage(fixtures)
     return render(request, 'Fantasy/matches.html', {'fixtures_grouped': fixtures_grouped})
 
 
 def groups(request):
+    # 1. get each group stats
     data = {}
-    # adding groups, teams, and initialize zero stats
     groups = Group.objects.all()
     for g in groups:
-        data[g.name] = {}
-        for t in g.teams.all():
-            data[g.name][t.name] = {
-                "MP": 0,
-                "W": 0,
-                "D": 0,
-                "L": 0,
-                "GS": 0,
-                "GC": 0,
-                "GD": 0,
-                "P": 0
-            }
-    # add stats
-    groups_fixtures = Fixture.objects.filter(stage="G")
-    for f in groups_fixtures:
-        if not f.is_finished:
-            continue
-        g = f.team1.group.name
-        t1 = f.team1.name
-        t2 = f.team2.name
-        t1_goals = f.team1_goals
-        t2_goals = f.team2_goals
+        group_fixtures = Fixture.objects.filter(stage="G", team1__group=g)
+        data[g.name] = utils.get_group_stats(g, group_fixtures)
 
-        data[g][t1]["MP"] += 1
-        data[g][t2]["MP"] += 1
-        data[g][t1]["GS"] += t1_goals
-        data[g][t2]["GS"] += t2_goals
-        data[g][t1]["GC"] += t2_goals
-        data[g][t2]["GC"] += t1_goals
-        data[g][t1]["GD"] += t1_goals - t2_goals
-        data[g][t2]["GD"] += t2_goals - t1_goals
-        if t1_goals > t2_goals:
-            data[g][t1]["P"] += 3
-            data[g][t1]["W"] += 1
-            data[g][t2]["L"] += 1
-        elif t2_goals > t1_goals:
-            data[g][t2]["P"] += 3
-            data[g][t2]["W"] += 1
-            data[g][t1]["L"] += 1
-        else:
-            data[g][t1]["P"] += 1
-            data[g][t2]["P"] += 1
-            data[g][t2]["D"] += 1
-            data[g][t1]["D"] += 1
-
+    # 2. rank each group teams depending on stats
     ranked_data = {}
     for g, teams in data.items():
+        # flatten each group stats dict to list by adding team name beside its stats
+        # from: { 'team_1: {'W': 2,...}, ... }
+        # to:   [ {'team': 'team_1', 'W': 2,...}, ... ]
         teams_stats = []
         for t, stats in teams.items():
             stats['team'] = t
             teams_stats.append(stats)
-        teams_stats.sort(key=operator.itemgetter('team'))      
-        teams_stats.sort(key=operator.itemgetter('GC'))  
-        teams_stats.sort(key=operator.itemgetter('GS'), reverse=True)  
-        teams_stats.sort(key=operator.itemgetter('GD'), reverse=True)    
-        teams_stats.sort(key=operator.itemgetter('P'), reverse=True)
+        # sort
+        teams_stats = utils.sort_by(
+            teams_stats, 
+            [
+                {'value': ('P', True)},
+                {'win_versus': ('W_vs', 'team')},
+                {'value': ('GD', True)}, 
+                {'value': ('GS', True)},
+                # {'value': ('team', False)}
+            ]
+        )
+        # teams_stats.sort(key=operator.itemgetter('team'))      
+        # teams_stats.sort(key=operator.itemgetter('GC'))  
+        # teams_stats.sort(key=operator.itemgetter('GS'), reverse=True)  
+        # teams_stats.sort(key=operator.itemgetter('GD'), reverse=True)    
+        # teams_stats.sort(key=operator.itemgetter('P'), reverse=True)
         ranked_data[g] = teams_stats
 
     return render(request, 'Fantasy/groups.html', {'ranked_data': ranked_data})
-
-
-{
-    "A": {
-        "T1": {
-
-        },
-        "T2": {
-
-        }
-    }
-}

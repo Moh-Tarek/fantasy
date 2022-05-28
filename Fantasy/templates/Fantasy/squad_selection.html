@@ -12,6 +12,9 @@
     </div>
     <div class="card-body row">
         <div class="col-lg-4">
+            {% if squad %}
+                <div class="text-primary" style="padding-bottom: 1rem;">* Transfers are unlimited</div>
+            {% endif %}
             <form method="post">
                 {% csrf_token%}
                 <fieldset class="form-group">

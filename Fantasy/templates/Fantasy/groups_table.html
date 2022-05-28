@@ -20,7 +20,7 @@
     <tbody>
         {% for i in teams_stats %}
         <tr class="{% if forloop.counter == 1 or forloop.counter == 2 %}border-left-success{% endif %}">
-            <td>{{forloop.counter}}</td>
+            <td>{{i.rank}}</td>
             <td>{{i.team}}</td>
             <td class="text-center">{{i.MP}}</td>
             <td class="text-center">{{i.W}}</td>
