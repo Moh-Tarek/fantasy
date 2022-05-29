@@ -32,7 +32,7 @@
                 <tbody>
                     {% for player in players%}
                         <tr>
-                            <td class="text-center"><img class="rounded-circle account-img" style="max-width:80px;" src="/media/profile_pics/{{player.playerName}}.jpg"></td>
+                            <td class="text-center"><img class="rounded-circle account-img" style="max-width:80px;" data-img="/media/profile_pics/{{player.playerName}}.jpg" src="/media/default.jpg"></td>
                             <td>{{player.playerName}}</td>
                             <td>{{player.team}}</td>
                             <td>{{player.playingRole}}</td>
@@ -70,6 +70,16 @@
     // Call the dataTables jQuery plugin
         $(document).ready(function() {
         $('#dataTable').DataTable();
+        // $(".account-img").each(function(){
+        //     console.log($(this).data('img'))
+        //     var my_img = $(this).data('img')
+        //     if(ImageExist(my_img)){
+        //         console.log("exists ", my_img)
+        //         $(this).attr('src', my_img)
+        //     }else{
+        //         console.log("not exist ", my_img)
+        //     }
+        // })
     });
 </script>
 {% endblock %}

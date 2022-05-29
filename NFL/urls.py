@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import logout as lo
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 def logout(request):
     lo(request)
