@@ -67,19 +67,36 @@
 
 {% block scripts %}
 <script>
+    function update_images(){
+        $(".account-img").each(function(){
+            elem = $(this)
+            var my_data_img = elem.data('img')
+            var my_src_img = elem.attr('src')
+            if(my_data_img != my_src_img){
+                $.ajax({
+                    async: false,
+                    url: my_data_img,
+                    success: function() {
+                        console.log("found img, so update src image to: ", my_data_img)
+                        elem.attr('src', my_data_img);
+                    },
+                    error: function(){
+                        console.log("not found img, so update data image to: ", my_src_img)
+                        elem.data('img', my_src_img)
+                    }
+                })
+            }
+        })
+    }
     // Call the dataTables jQuery plugin
         $(document).ready(function() {
         $('#dataTable').DataTable();
-        // $(".account-img").each(function(){
-        //     console.log($(this).data('img'))
-        //     var my_img = $(this).data('img')
-        //     if(ImageExist(my_img)){
-        //         console.log("exists ", my_img)
-        //         $(this).attr('src', my_img)
-        //     }else{
-        //         console.log("not exist ", my_img)
-        //     }
-        // })
+        // update_images()
+    });
+    $(document).on('draw.dt', function () {
+        console.log("page change")
+        update_images()
+        
     });
 </script>
 {% endblock %}
