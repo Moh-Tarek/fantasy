@@ -27,9 +27,13 @@ def create_squads(current_gameweek, previous_gameweek_squads):
 
 @receiver(post_save, sender=GameweekSetting)
 def add_new_gameweek_squads(sender, instance, created, **kwargs):
+    print("signal gameweek setting received")
     if not created:
         current_gameweek = instance.active_gameweek
+        print(f"start duplicating squads to the new gameweek {current_gameweek}")
         previous_gameweek = current_gameweek - 1
         if previous_gameweek > 0:
             previous_gameweek_squads = FantasySquad.objects.filter(gameweek=previous_gameweek)
             create_squads(current_gameweek, previous_gameweek_squads)
+    else:
+        print("do nothing as it is a new gameweek settings")

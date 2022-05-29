@@ -6,7 +6,7 @@
     </div>
 </div> -->
 
-<div class="tshirts {{my_id}} {% if player %}tshirts-full{% else %}tshirts-empty{% endif %}" id="{% if player %}{{my_id}}_full{% else %}{{my_id}}_empty{% endif %}" style="width: 60px; {% if hide %}display: none;{% endif %}"> 
+<div class="tshirts {{my_id}} {% if is_empty %}tshirts-empty{% else %}tshirts-full{% endif %}" id="{% if is_empty %}{{my_id}}_empty{% else %}{{my_id}}_full{% endif %}" style="width: 60px; {% if hide %}display: none;{% endif %}"> 
     <a class="fa-stack" style="text-align:center; width: -webkit-fill-available;" href="#">
         <i class="fas fa-tshirt fa-lg fa-stack-2x" style="color: {% if player %}{{ player.team.color }}{% else %}lightgrey{% endif %}"></i>
         <span class="fa fa-stack-1x" style="color: snow;">

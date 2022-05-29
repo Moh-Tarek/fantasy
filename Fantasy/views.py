@@ -1,12 +1,9 @@
-from gc import is_finalized
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
 from . import utils
-import operator
 
 
 def home(request):
