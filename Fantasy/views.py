@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
 from . import utils
 
@@ -78,6 +79,18 @@ def home(request):
     for p in players_assists_sorted_GW:
         players_assists_sorted_GW_players.append(p.playerName.split(" "))
         players_assists_sorted_GW_scores.append(p.last_gameweek_player_score_objs.get_assists_sum())
+
+    # most owned players
+    # gameweek = 4
+    # squads = FantasySquad.objects.filter(gameweek=gameweek-1)
+    # c = list(squads.values('captainSelected').annotate(c=Count('captainSelected')))
+    # gk = list(squads.values('goalKeeperSelected').annotate(c=Count('goalKeeperSelected')))
+    # p1 = list(squads.values('player1Selected').annotate(c=Count('player1Selected')))
+    # p2 = list(squads.values('player2Selected').annotate(c=Count('player2Selected')))
+    # p3 = list(squads.values('player3Selected').annotate(c=Count('player3Selected')))
+    # p4 = list(squads.values('player4Selected').annotate(c=Count('player4Selected')))
+    # p5 = list(squads.values('player5Selected').annotate(c=Count('player5Selected')))
+    # squads_players = c + gk + p1 + p2 + p3 + p4 + p5
 
     context = {
         'teams': teams.count,
