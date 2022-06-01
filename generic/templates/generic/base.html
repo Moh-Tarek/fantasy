@@ -52,7 +52,7 @@
                     <span>Dashboard</span></a>
             </li>
 
-            {% if user.is_superuser or user.is_staff %}
+            {% if user.is_superuser %}
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -60,14 +60,12 @@
                 Admin
             </div>
 
-            {% if user.is_superuser %}
-                <!-- Nav Item - Admin Panel -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:index' %}">
-                        <i class="fas fa-toolbox" style="color: red;"></i>
-                        <span style="color: red;">Admin Panel</span></a>
-                </li>
-            {% endif %}
+            <!-- Nav Item - Admin Panel -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}">
+                    <i class="fas fa-toolbox" style="color: red;"></i>
+                    <span style="color: red;">Admin Panel</span></a>
+            </li>
 
             <!-- Nav Item - Gameweek Settings -->
             <li class="nav-item">

@@ -17,8 +17,6 @@ from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, In
 from django.db.models import Sum, Count, Case, When, Value
 from django.contrib.auth.models import User
 
-import os
-
 
 class GameweekSetting(Model):
     active_gameweek = IntegerField()
@@ -62,17 +60,38 @@ class FootballTeam(Model):
 
     @property
     def short_name(self):
+        # from googletrans import Translator
+        # detector = Translator()
+        # name_lang = detector.detect(self.name[0]).lang
+        name_lang = "ar"
+        if self.name[0].lower() in "abcdefghijklmnopqrstuvwxyz":
+            name_lang = "en"
         name = self.name.split(" ")
-        if len(name) > 1:
-            short_name = ""
+        short_name = ""
+        if name_lang == "en":
+            if len(name) > 1:
+                for n in name:
+                    if len(n) > 2:
+                        short_name += n[0]
+                    else:
+                        short_name += n
+                short_name = short_name.upper()
+            else:
+                short_name = (name[0][0] + name[0][1]).upper()
+        elif name_lang == "ar":
+            new_name = []
             for n in name:
-                if len(n) > 2:
-                    short_name += n[0]
+                if n[:2] == 'ال':
+                    new_name.append(n[2:])
                 else:
-                    short_name += n
-            return short_name.upper()
+                    new_name.append(n)
+            if len(new_name) > 1:
+                short_name = new_name[0][0] + " " + new_name[1][0]
+            else:
+                short_name = new_name[0][:2]
         else:
-            return (name[0][0] + name[0][1]).upper()
+            short_name = self.name
+        return short_name
 
     @property
     def fixtures(self):
