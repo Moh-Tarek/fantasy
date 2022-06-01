@@ -103,5 +103,103 @@ Here are the metrics and their scores:
     </tbody>
 </table>
     </div>
+    <div class="card-body">
+        <h4>أهلًا بكم لنجوى فانتازي!</h4>
+        <br>
+        
+        <b class="text-primary">تقسيم اللاعبين</b>
+        <br>
+        The players in each team of the 5 teams are classified as follows:
+        <br>
+        <b>Captain (C):</b> The captain of the team.
+        <br>
+        <b>Goalkeeper (GK):</b> The main goalkeeper of the team.
+        <br>
+        <b>Player (P):</b> The rest players of the team.
+        <br>
+        <br>
+        
+        <b class="text-primary">Squad Selection Process</b>
+        <br>
+        </b>
+        Participants can select their squad every gameweek from <a href="{% url 'Fantasy-squadSelection' %}">Squad Selection</a>, and it can be edited anytime until the mentioned deadline above. 
+        <br>
+        Once the deadline passes, the gameweek is considered as started, you can't edit your squad for this gameweek. You can only edit your squad for the upcoming gameweek till the new mentioend deadline. 
+        <br>
+        <br>
+        
+        <b class="text-primary">General Rules</b>
+        <br>
+        Each participant must follow the below rules in order to create his fantasy squad.
+        <ul>
+            <li>The total number of players per fantasy squad is <b>SEVEN</b>, classified as: 1 Captain + 1 Goalkeeper + 5 Players</li>
+            <li>Each participant MUST NOT choose more than TWO players from the same team.</li>
+            <li>Each participant MUST choose only ONE Captain and ONE Goalkeeper.</li>
+            <li>The captain and the goalkeeper can be from the same team. If this is the case, no more players can be chosen from this team.</li>
+            <li>Each participant will choose the rest of the players to populate his squad.</li>
+        </ul>
+        
+        <b class="text-primary">Transfers Rules</b>
+        <ul>
+            <li>Each gameweek, you have an unlimited number of transfers.</li>
+            <li>In case of no transfers made or exceedeing the deadline, the same squad of the previous gameweek will be used.</li>
+        </ul>
+        
+        <b class="text-primary">Scoring System</b>
+        <br>
+        In this section, you will know how the score will be calculated and what are the metrics of calculations but first let us clarify the exceptions.
+        <ul>
+            <li>The captain (C): He will have x2 the points he earns or loses.</li>
+            <li>The goalkeeper (GK): He will earn extra points in case of a clean sheet.</li>
+        </ul>
+        Here are the metrics and their scores:
+        <br>
+        <table class="table table-responsive table-sm text-center">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-left">Played the game</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Goal</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Assist</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Yellow card</td>
+                    <td>-1</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Red card</td>
+                    <td>-2</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Clean sheet (GK)</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Penalty saved</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Penalty missed</td>
+                    <td>-2</td>
+                </tr>
+                <tr>
+                    <td class="text-left">Own goal</td>
+                    <td>-2</td>
+                </tr>
+            </tbody>
+        </table>
+            </div>
 </div>
 {% endblock content%}
