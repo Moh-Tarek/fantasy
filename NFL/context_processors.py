@@ -1,5 +1,6 @@
+from ast import Not
 from Fantasy.models import GameweekSetting
-
+from generic.models import Alarm, Notifications
 
 def gameweek_variables(request):
     try:
@@ -14,4 +15,12 @@ def gameweek_variables(request):
         "gameweek" :gameweek,
         "previous_gameweek": previous_gameweek,
         "gameweek_deadline": gameweek_deadline
+    }
+
+def alarm_notification_variables(request):
+    alarms = Alarm.objects.all()
+    notifications = Notifications.objects.all()
+    return {
+        'alarms': alarms,
+        'notifications': notifications
     }
