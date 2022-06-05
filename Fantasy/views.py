@@ -403,4 +403,6 @@ def groups(request):
     return render(request, 'Fantasy/groups.html', {'ranked_data': ranked_data})
 
 def matchesVideos(request):
-    return render(request, 'Fantasy/matches-videos.html')
+    fixtures = Fixture.objects.all()
+    fixtures_grouped = utils.group_fixtures_by_stage(fixtures)
+    return render(request, 'Fantasy/matches-videos.html', {'fixtures_grouped': fixtures_grouped})
