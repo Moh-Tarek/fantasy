@@ -11,6 +11,18 @@ def group_fixtures_by_stage(fixtures):
         result[s].append(f)
     return result
 
+def played_fixtures_grouped(fixtures):
+    fixtures_grouped = group_fixtures_by_stage(fixtures)
+    
+    played_fixtures_grouped ={}
+    for key, value in fixtures_grouped.items():
+        for x in value:
+            if x.url:
+                played_fixtures_grouped.update({key:value})
+                continue
+
+    return played_fixtures_grouped
+
 def get_group_stats(group, group_fixtures):
     data = {}
     # prepare stats with zero values

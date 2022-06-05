@@ -404,5 +404,15 @@ def groups(request):
 
 def matchesVideos(request):
     fixtures = Fixture.objects.all()
-    fixtures_grouped = utils.group_fixtures_by_stage(fixtures)
-    return render(request, 'Fantasy/matches-videos.html', {'fixtures_grouped': fixtures_grouped})
+    played_fixtures_grouped = utils.played_fixtures_grouped(fixtures)
+    
+    # working_fixtures_grouped ={}
+    # for key, value in fixtures_grouped.items():
+    #     for x in value:
+    #         if x.url:
+    #             working_fixtures_grouped.update({key:value})
+    #             continue
+    
+    # print (working_fixtures_grouped)
+    return render(request, 'Fantasy/matches-videos.html', {'played_fixtures_grouped': played_fixtures_grouped})
+
