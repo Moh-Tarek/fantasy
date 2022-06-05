@@ -23,6 +23,7 @@
     
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
     <!-- Custom styles for tables page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
@@ -367,6 +368,10 @@
                 padding-right: 0.75rem !important;
             }
         }
+        .arabic {
+            text-align: right;
+            direction: rtl;
+        }
     </style>
     {% block style %}{% endblock %}
     <!-- Bootstrap core JavaScript-->
@@ -382,6 +387,7 @@
     <!-- datatables plugins -->
     <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     <script>
         function ImageExist(url) 

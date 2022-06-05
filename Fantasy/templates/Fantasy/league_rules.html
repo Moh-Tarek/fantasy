@@ -1,7 +1,10 @@
 {% extends "generic/base.html" %}
 {% block content%}
 {% load static %}
-<div class="card shadow mb-4">
+<div style="padding: 10px; text-align: right;">
+    <input id="language-toggler" type="checkbox" checked data-toggle="toggle" data-size="small" data-on="Arabic" data-off="English" data-onstyle="info" data-offstyle="info">
+</div>
+<div id="english-rules" class="card shadow mb-4" style="display: none;">
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">League Rules</h4>
     </div>
@@ -30,7 +33,7 @@
     </div>
 </div>
 
-<div class="card shadow mb-4">
+<div id="arabic-rules" class="card shadow mb-4 arabic">
     <div class="card-header py-3" >
         <h4 class="m-0 font-weight-bold text-primary">قواعد الدوري</h4>
     </div>
@@ -59,3 +62,14 @@
     </div>
 </div>
 {% endblock content%}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#language-toggler').change(function() {
+            $("#arabic-rules").toggle()
+            $("#english-rules").toggle()
+        })
+    })
+</script>
+{% endblock scripts %}

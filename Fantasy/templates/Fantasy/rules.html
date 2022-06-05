@@ -1,7 +1,10 @@
 {% extends "generic/base.html" %}
 {% block content%}
 {% load static %}
-<div class="card shadow mb-4">
+<div style="padding: 10px; text-align: right;">
+    <input id="language-toggler" type="checkbox" checked data-toggle="toggle" data-size="small" data-on="Arabic" data-off="English" data-onstyle="info" data-offstyle="info">
+</div>
+<div id="english-rules" class="card shadow mb-4" style="display: none;">
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">Fantasy Rules</h4>
     </div>
@@ -103,6 +106,12 @@ Here are the metrics and their scores:
     </tbody>
 </table>
     </div>
+</div>
+
+<div id="arabic-rules" class="card shadow mb-4 arabic">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">قواعد الفانتازي</h4>
+    </div>
     <div class="card-body">
         <h4>أهلًا بكم لنجوى فانتازي!</h4>
         <br>
@@ -161,39 +170,39 @@ Here are the metrics and their scores:
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left">لعب المباراة</td>
+                    <td class="text-right">لعب المباراة</td>
                     <td>٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">تسجيل هدف</td>
+                    <td class="text-right">تسجيل هدف</td>
                     <td>٥</td>
                 </tr>
                 <tr>
-                    <td class="text-left">صناعة هدف</td>
+                    <td class="text-right">صناعة هدف</td>
                     <td>٣</td>
                 </tr>
                 <tr>
-                    <td class="text-left">كارت أصفر</td>
+                    <td class="text-right">كارت أصفر</td>
                     <td>-١</td>
                 </tr>
                 <tr>
-                    <td class="text-left">كارت أحمر</td>
+                    <td class="text-right">كارت أحمر</td>
                     <td>-٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">شباك نظيفة (حارس المرمى)</td>
+                    <td class="text-right">شباك نظيفة (حارس المرمى)</td>
                     <td>٤</td>
                 </tr>
                 <tr>
-                    <td class="text-left">انقاذ ضربة جزاء</td>
+                    <td class="text-right">انقاذ ضربة جزاء</td>
                     <td>٥</td>
                 </tr>
                 <tr>
-                    <td class="text-left">اهدار ضربة جزاء</td>
+                    <td class="text-right">اهدار ضربة جزاء</td>
                     <td>-٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">تسجيل هدف عكسي</td>
+                    <td class="text-right">تسجيل هدف عكسي</td>
                     <td>-٢</td>
                 </tr>
             </tbody>
@@ -201,3 +210,14 @@ Here are the metrics and their scores:
             </div>
 </div>
 {% endblock content%}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#language-toggler').change(function() {
+            $("#arabic-rules").toggle()
+            $("#english-rules").toggle()
+        })
+    })
+</script>
+{% endblock scripts %}
