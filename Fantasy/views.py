@@ -401,3 +401,6 @@ def groups(request):
         ranked_data[g] = teams_stats
 
     return render(request, 'Fantasy/groups.html', {'ranked_data': ranked_data})
+
+def matchesVideos(request):
+    return render(request, 'Fantasy/matches-videos.html')
