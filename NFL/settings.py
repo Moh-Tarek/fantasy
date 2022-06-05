@@ -104,6 +104,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'NFL.wsgi.application'
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
+# Mail Server Config
+# EMAIL_HOST = 'smtp-relay.sendinblue.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'apikey'
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'Fantasy Nagwa Administration <noreply@fantasy-nagwa.com>'
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
