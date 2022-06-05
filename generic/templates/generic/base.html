@@ -208,12 +208,12 @@
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
+                                <h6 class="dropdown-header" style="font-size: x-small;">
                                     Alerts Center
                                 </h6>
                                 {% if alarms %}
                                     {% for alarm in alarms%}
-                                        <a class="dropdown-item d-flex align-items-center" href="{% if alarm.url %}{{alarm.url}}{% else %}#{% endif %}">
+                                        <a class="dropdown-item d-flex align-items-center" href="{% if alarm.url %}{{alarm.url}}{% else %}#{% endif %}" style="font-size: x-small;">
                                             <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     <i class="fas {% if alarm.icon_tag %}{{alarm.icon_tag}}{% else %}fa-bell{% endif %} text-white"></i>
@@ -242,12 +242,12 @@
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
+                                <h6 class="dropdown-header" style="font-size: x-small;">
                                     Message Center
                                 </h6>
                                 {% if notifications %}
                                     {% for notification in notifications%}
-                                        <a class="dropdown-item d-flex align-items-center" href="{% if notification.url %}{{notification.url}}{% else %}#{% endif %}">
+                                        <a class="dropdown-item d-flex align-items-center" href="{% if notification.url %}{{notification.url}}{% else %}#{% endif %}" style="font-size: x-small;">
                                             <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     <i class="fas {% if notification.icon_tag %}{{notification.icon_tag}}{% else %}fa-envelope{% endif %} text-white"></i>
