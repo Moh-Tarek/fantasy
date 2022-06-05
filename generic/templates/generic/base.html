@@ -23,6 +23,7 @@
     
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
     <!-- Custom styles for tables page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
@@ -202,7 +203,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <!-- <span class="badge badge-danger badge-counter">3+</span> -->
+                                <span class="badge badge-danger badge-counter">{% if alarms %}{{alarms.count}}{% endif %}</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -210,6 +211,22 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
+                                {% if alarms %}
+                                    {% for alarm in alarms%}
+                                        <a class="dropdown-item d-flex align-items-center" href="{% if alarm.url %}{{alarm.url}}{% else %}#{% endif %}">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas {% if alarm.icon_tag %}{{alarm.icon_tag}}{% else %}fa-bell{% endif %} text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="small text-gray-500">{{alarm.date}}</div>
+                                                <span class="font-weight-bold">{{alarm.header}}</span><br>
+                                                <span>{{alarm.content | safe }}</span>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -220,7 +237,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <!-- <span class="badge badge-danger badge-counter">7</span> -->
+                                <span class="badge badge-danger badge-counter">{% if notifications %}{{notifications.count}}{% endif %}</span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -228,6 +245,22 @@
                                 <h6 class="dropdown-header">
                                     Message Center
                                 </h6>
+                                {% if notifications %}
+                                    {% for notification in notifications%}
+                                        <a class="dropdown-item d-flex align-items-center" href="{% if notification.url %}{{notification.url}}{% else %}#{% endif %}">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas {% if notification.icon_tag %}{{notification.icon_tag}}{% else %}fa-envelope{% endif %} text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="small text-gray-500">{{notification.date}}</div>
+                                                <span class="font-weight-bold">{{notification.header}}</span><br>
+                                                <span>{{notification.content}}</span>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
                         </li>
@@ -335,6 +368,10 @@
                 padding-right: 0.75rem !important;
             }
         }
+        .arabic {
+            text-align: right;
+            direction: rtl;
+        }
     </style>
     {% block style %}{% endblock %}
     <!-- Bootstrap core JavaScript-->
@@ -350,6 +387,7 @@
     <!-- datatables plugins -->
     <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     <script>
         function ImageExist(url) 

@@ -96,6 +96,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'NFL.context_processors.gameweek_variables',
+                'NFL.context_processors.alarm_notification_variables',
             ],
         },
     },

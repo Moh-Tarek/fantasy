@@ -10,10 +10,22 @@
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">Update Gameweek {{gameweek}} Squad</h4>
     </div>
+    <div class="alert alert-block alert-info" style="font-size: 0.7rem; margin-bottom: 0; border: none; border-radius: 0;">
+        <p style="margin-bottom: 0;">
+            <b>Squad Size</b><br>
+                &nbsp; Select a fantasy football squad of 7 players, consisting of: 1 Goalkeeper + 1 Captain + 5 Players<br>
+            <b>Players Per Team</b><br>
+            &emsp; You can select up to 2 members from a single League team.<br>
+            <b>Transfers Rules</b><br>
+            &emsp; Edit anytime until the mentioned deadline. Transfers are UNLIMITED!<br>
+            <b>Notes</b><br>
+            &emsp; Players who are not playing this week, will get NO scores in the fantasy, below you can check the matches of this week. For detailed rules, check the <a href="{% url 'Fantasy-rules' %}">Fantasy Rules</a>.
+        </p>
+    </div>
     <div class="card-body row">
         <div class="col-lg-4">
             {% if squad %}
-                <div class="text-primary" style="padding-bottom: 1rem;">* Transfers are unlimited</div>
+                <!-- <div class="text-primary" style="padding-bottom: 1rem;">* Transfers are unlimited</div> -->
             {% endif %}
             <form method="post">
                 {% csrf_token%}

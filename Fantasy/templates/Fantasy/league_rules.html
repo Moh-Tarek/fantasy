@@ -1,7 +1,10 @@
 {% extends "generic/base.html" %}
 {% block content%}
 {% load static %}
-<div class="card shadow mb-4">
+<div style="padding: 10px; text-align: right;">
+    <input id="language-toggler" type="checkbox" checked data-toggle="toggle" data-size="small" data-on="Arabic" data-off="English" data-onstyle="info" data-offstyle="info">
+</div>
+<div id="english-rules" class="card shadow mb-4" style="display: none;">
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">League Rules</h4>
     </div>
@@ -29,4 +32,44 @@
 </ul>
     </div>
 </div>
+
+<div id="arabic-rules" class="card shadow mb-4 arabic">
+    <div class="card-header py-3" >
+        <h4 class="m-0 font-weight-bold text-primary">قواعد الدوري</h4>
+    </div>
+    <div class="card-body" >
+<h4>قواعد دوري نجوى ٢٠٢٢:</h4>
+<br>
+<div style="padding-bottom: 1rem;">تقسم المباريات إلى نصفين. طول كل شوط 15 دقيقة مع استراحة مدتها 5 دقائق بين النصفين.</div>
+<b class="text-primary">قواعد الاستبدال</b>
+<ul>
+    <li>التبديلات غير محدودة ويمكن أن تحدث في أي وقت أثناء المباراة.</li>
+    <li> يجب أن يتم أي تبديل في خط الوسط حيث تم وضع لجان التحكيم.</li>
+    <li>يحق للبديل دخول الملعب بعد خروج اللاعب البديل دون إيقاف المباراة. إذا دخل اللاعب إلى الأرض قبل مغادرة اللاعب البديل للملعب ، فسيحصل اللاعب الذي دخل الملعب على بطاقة صفراء.</li>
+    <li>تتوقف المباراة فقط في حالة استبدال حارس المرمى.</li>
+</ul>
+<b class="text-primary">قواعد الملعب</b>
+<ul>
+    <li>يمكن احتساب ركلات البداية والركلات الركنية كهدف إذا نجح اللاعب في التسجيل مباشرة.</li>
+    <li>لا تعتبر رمية التماس هدفًا إذا دخلت الكرة المرمى مباشرة دون لمس أي لاعب.</li>
+    <li>يتم لعب ضربات المرمى بالأيدي.</li>
+    <li>يُمنع اللاعب الذي حصل على 3 بطاقات صفراء في دور المجموعات من لعب المباراة القادمة.</li>
+    <li>في حالة حصوله على بطاقتين صفراوين في المباراة ، يتم طرد اللاعب من المباراة ، لكن يمكنه لعب المباراة القادمة.</li>
+    <li>إذا تم طرده من المباراة ، يجب على فريق اللاعب أن يلعب اللعبة مختصرة لمدة دقيقتين قبل الحصول على لاعب بديل.</li>
+    <li>يمنع "الزحلقة" مع الخصم ويستحق ركلة حرة غير مباشرة.</li>
+    <li>إذا أعاد اللاعب الكرة إلى حارسه عن طريق قدمه ، فلن يتمكن حارس المرمى من التقاط الكرة في يديه ، وإذا فعل ذلك ، فسيحصل الفريق الآخر على ركلة حرة غير مباشرة من موقع ركلة الجزاء.</li>
+</ul>
+    </div>
+</div>
 {% endblock content%}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#language-toggler').change(function() {
+            $("#arabic-rules").toggle()
+            $("#english-rules").toggle()
+        })
+    })
+</script>
+{% endblock scripts %}

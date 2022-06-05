@@ -1,7 +1,10 @@
 {% extends "generic/base.html" %}
 {% block content%}
 {% load static %}
-<div class="card shadow mb-4">
+<div style="padding: 10px; text-align: right;">
+    <input id="language-toggler" type="checkbox" checked data-toggle="toggle" data-size="small" data-on="Arabic" data-off="English" data-onstyle="info" data-offstyle="info">
+</div>
+<div id="english-rules" class="card shadow mb-4" style="display: none;">
     <div class="card-header py-3">
         <h4 class="m-0 font-weight-bold text-primary">Fantasy Rules</h4>
     </div>
@@ -44,7 +47,7 @@ Each participant must follow the below rules in order to create his fantasy squa
 <b class="text-primary">Transfers Rules</b>
 <ul>
     <li>Each gameweek, you have an unlimited number of transfers.</li>
-    <li>In case of no transfers made or exceedeing the deadline, the same squad of the previous gameweek will be used.</li>
+    <li>In case of no transfers made or exceeding the deadline, the same squad of the previous gameweek will be used.</li>
 </ul>
 
 <b class="text-primary">Scoring System</b>
@@ -103,103 +106,118 @@ Here are the metrics and their scores:
     </tbody>
 </table>
     </div>
-    <!-- <div class="card-body">
+</div>
+
+<div id="arabic-rules" class="card shadow mb-4 arabic">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">قواعد الفانتازي</h4>
+    </div>
+    <div class="card-body">
         <h4>أهلًا بكم لنجوى فانتازي!</h4>
         <br>
         
         <b class="text-primary">تقسيم اللاعبين</b>
         <br>
-        The players in each team of the 5 teams are classified as follows:
+        يتم تصنيف اللاعبين في كل فريق من الفرق الخمسة على النحو التالي:
         <br>
-        <b>Captain (C):</b> The captain of the team.
+        <b>القائد (ق):</b> قائد الفريق.
         <br>
-        <b>Goalkeeper (GK):</b> The main goalkeeper of the team.
+        <b>حارس المرمى (ح):</b> حارس المرمى الرئيسي للفريق.
         <br>
-        <b>Player (P):</b> The rest players of the team.
+        <b>لاعب (ل):</b> باقي لاعبي الفريق.
         <br>
         <br>
-        
-        <b class="text-primary">Squad Selection Process</b>
+        <b class="text-primary">عملية اختيار الفرقة</b>
         <br>
         </b>
-        Participants can select their squad every gameweek from <a href="{% url 'Fantasy-squadSelection' %}">Squad Selection</a>, and it can be edited anytime until the mentioned deadline above. 
+        يمكن للمشاركين اختيار فريقهم كل أسبوع من <a href="{% url 'Fantasy-squadSelection' %}">أختيار الفرق</a> ويمكن تعديله في أي وقت حتى الموعد النهائي المذكور أعلاه.
         <br>
-        Once the deadline passes, the gameweek is considered as started, you can't edit your squad for this gameweek. You can only edit your squad for the upcoming gameweek till the new mentioend deadline. 
+        بمجرد مرور الموعد النهائي ، يتم اعتبار أسبوع اللعب كما لو أنه بدأ ، ولا يمكنك تعديل فريقك لأسبوع اللعب هذا. يمكنك فقط تعديل فريقك لأسبوع اللعب القادم حتى الموعد النهائي الجديد. 
         <br>
         <br>
-        
-        <b class="text-primary">General Rules</b>
+        <b class="text-primary">قواعد عامة</b>
         <br>
-        Each participant must follow the below rules in order to create his fantasy squad.
+        يجب على كل مشارك اتباع القواعد التالية من أجل تكوين فريقه الخيالي.
         <ul>
-            <li>The total number of players per fantasy squad is <b>SEVEN</b>, classified as: 1 Captain + 1 Goalkeeper + 5 Players</li>
-            <li>Each participant MUST NOT choose more than TWO players from the same team.</li>
-            <li>Each participant MUST choose only ONE Captain and ONE Goalkeeper.</li>
-            <li>The captain and the goalkeeper can be from the same team. If this is the case, no more players can be chosen from this team.</li>
-            <li>Each participant will choose the rest of the players to populate his squad.</li>
+            <li>إجمالي عدد اللاعبين في كل فرقة فانتازيا <b>سبعة</b>  ، مصنفين على النحو التالي: 1 قائد + 1 حارس مرمى + 5 لاعبين</li>
+            <li>يجب ألا يختار كل مشارك أكثر من لاعبين من نفس الفريق.</li>
+            <li>يجب على كل مشارك اختيار قائد واحد وحارس مرمى واحد.</li>
+            <li>يمكن أن يكون القائد وحارس المرمى من نفس الفريق. إذا كان هذا هو الحال ، فلا يمكن اختيار المزيد من اللاعبين من هذا الفريق.</li>
+            <li>سيختار كل مشارك بقية اللاعبين لملء فريقه.</li>
         </ul>
         
-        <b class="text-primary">Transfers Rules</b>
+        <b class="text-primary">قواعد الانتقالات</b>
         <ul>
-            <li>Each gameweek, you have an unlimited number of transfers.</li>
-            <li>In case of no transfers made or exceedeing the deadline, the same squad of the previous gameweek will be used.</li>
+            <li>في كل أسبوع ، لديك عدد غير محدود من الانتقالات.</li>
+            <li>في حالة عدم إجراء أي انتقالات أو تجاوز الموعد النهائي ، سيتم استخدام نفس الفريق في أسبوع اللعب السابق.</li>
         </ul>
         
-        <b class="text-primary">Scoring System</b>
+        <b class="text-primary">نظام النقاط</b>
         <br>
-        In this section, you will know how the score will be calculated and what are the metrics of calculations but first let us clarify the exceptions.
+        في هذا القسم ، ستعرف كيف سيتم احتساب النتيجة وما هي مقاييس الحسابات ولكن أولاً دعنا نوضح الاستثناءات.
         <ul>
-            <li>The captain (C): He will have x2 the points he earns or loses.</li>
-            <li>The goalkeeper (GK): He will earn extra points in case of a clean sheet.</li>
+            <li>القائد (ق): سيكون لديه ضعف النقاط التي يكسبها أو يخسرها.</li>
+            <li>حارس المرمى (ح): يربح نقاطًا إضافية في حالة وجود شباك نظيفة.</li>
         </ul>
-        Here are the metrics and their scores:
+        فيما يلي المقاييس ونتائجها:
         <br>
         <table class="table table-responsive table-sm text-center">
             <thead>
                 <tr>
-                    <th>Action</th>
-                    <th>Points</th>
+                    <th>الحدث</th>
+                    <th>النقاط</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-left">Played the game</td>
-                    <td>2</td>
+                    <td class="text-right">لعب المباراة</td>
+                    <td>٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Goal</td>
-                    <td>5</td>
+                    <td class="text-right">تسجيل هدف</td>
+                    <td>٥</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Assist</td>
-                    <td>3</td>
+                    <td class="text-right">صناعة هدف</td>
+                    <td>٣</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Yellow card</td>
-                    <td>-1</td>
+                    <td class="text-right">كارت أصفر</td>
+                    <td>-١</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Red card</td>
-                    <td>-2</td>
+                    <td class="text-right">كارت أحمر</td>
+                    <td>-٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Clean sheet (GK)</td>
-                    <td>4</td>
+                    <td class="text-right">شباك نظيفة (حارس المرمى)</td>
+                    <td>٤</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Penalty saved</td>
-                    <td>5</td>
+                    <td class="text-right">انقاذ ضربة جزاء</td>
+                    <td>٥</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Penalty missed</td>
-                    <td>-2</td>
+                    <td class="text-right">اهدار ضربة جزاء</td>
+                    <td>-٢</td>
                 </tr>
                 <tr>
-                    <td class="text-left">Own goal</td>
-                    <td>-2</td>
+                    <td class="text-right">تسجيل هدف عكسي</td>
+                    <td>-٢</td>
                 </tr>
             </tbody>
         </table>
-            </div> -->
+            </div>
 </div>
 {% endblock content%}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#language-toggler').change(function() {
+            $("#arabic-rules").toggle()
+            $("#english-rules").toggle()
+        })
+    })
+</script>
+{% endblock scripts %}
