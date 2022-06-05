@@ -256,7 +256,7 @@
                                             <div>
                                                 <div class="small text-gray-500">{{notification.date}}</div>
                                                 <span class="font-weight-bold">{{notification.header}}</span><br>
-                                                <span>{{notification.content}}</span>
+                                                <span>{{notification.content | safe }}</span>
                                             </div>
                                         </a>
                                     {% endfor %}
