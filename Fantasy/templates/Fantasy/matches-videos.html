@@ -1,16 +1,62 @@
-{% extends "generic/base.html" %} {% block content%}
-<h3>Matches Videos</h3>
-{% for stage, fixtures in played_fixtures_grouped.items %}
-<p>{{stage}} Stage</p>
-{% for f in fixtures %} {% if f.url %}
-<div class="card shadow mb-4">
-    <h3>Game week: {{ f.gameweek }}</h3>
-    <h4>{{ f.date }}</h4>
-    <object style="height: 390px; width: 640px">
-    <param name="movie" value="{{ f.url }}">
-    <param name="allowFullScreen" value="true">
-    <param name="allowScriptAccess" value="always">
-    <embed src="{{ f.url }}" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390"></object>
-    <h4>{{ f.team1_verbose_name }} vs {{ f.team2_verbose_name }}</h4>
+{% extends "generic/base.html" %} 
+{% load my_filters %}
+{% block content%}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Matches Videos</h1>
 </div>
-{% endif %} {% endfor %} {% endfor %} {% endblock %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <ul class="nav nav-pills card-header-pills">
+        {% for stage, others in played_fixtures_grouped_by_stage_and_gw.items %}
+        <li class="nav-item">
+          <a class="nav-link {% if others|is_in_keys:previous_gameweek %}active{% endif %} {% if not others %}disabled{% endif %}" id="nav-{{forloop.counter}}-tab" data-toggle="pill" href="#nav-{{forloop.counter}}" role="tab" aria-controls="nav-{{forloop.counter}}" aria-selected="true">{% if stage == 'Group' %}Groups{% elif stage == '3rd Place Playoff' %}3rd Place{% else %}{{stage}}{% endif %}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card-body tab-content">
+        {% for stage, others in played_fixtures_grouped_by_stage_and_gw.items %}
+        <div class="tab-pane fade {% if others|is_in_keys:previous_gameweek %}show active{% endif %}" id="nav-{{forloop.counter}}" role="tabpanel" aria-labelledby="nav-{{forloop.counter}}-tab">
+            {% for gw, fixtures in others.items %}
+            <div id="accordion">
+                <div class="card">
+                  <div class="card-header" id="heading{{gw}}">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link {% if gw == previous_gameweek or others.items|length == 1 %}{% else %}collapsed{% endif %}" data-toggle="collapse" data-target="#collapse{{gw}}" aria-expanded="true" aria-controls="collapse{{gw}}">
+                        Gameweek {{gw}}
+                      </button>
+                    </h5>
+                  </div>
+              
+                  <div id="collapse{{gw}}" class="collapse {% if gw == previous_gameweek or others.items|length == 1 %}show{% endif %}" aria-labelledby="heading{{gw}}" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for f in fixtures %}
+                            <div class="col-xl-6 col-lg-6 all_stats">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">{{ f.team1_verbose_name }} vs {{ f.team2_verbose_name }}</h6>
+                                    </div>
+                                    <div class="card-body" style="height: 300px;">
+                                        <object style="width: 100%; height: 100%;">
+                                            <param name="movie" value="{{ f.url }}">
+                                            <param name="allowFullScreen" value="true">
+                                            <param name="allowScriptAccess" value="always">
+                                            <iframe src="{{ f.url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </object>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content%}

@@ -404,7 +404,9 @@ def groups(request):
 
 def matchesVideos(request):
     fixtures = Fixture.objects.all()
-    played_fixtures_grouped = utils.played_fixtures_grouped(fixtures)
+    played_fixtures_grouped_by_stage_and_gw = utils.group_fixtures_by_stage_and_gw(fixtures, match_urls_only=True)
 
-    return render(request, 'Fantasy/matches-videos.html', {'played_fixtures_grouped': played_fixtures_grouped})
+    return render(request, 'Fantasy/matches-videos.html', {
+        'played_fixtures_grouped_by_stage_and_gw': played_fixtures_grouped_by_stage_and_gw
+    })
 
