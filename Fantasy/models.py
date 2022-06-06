@@ -183,7 +183,10 @@ class FantasySquad(Model):
 
     @property
     def captainSelected_score(self):
-        return self.get_player_score(self.captainSelected)
+        c = self.get_player_score(self.captainSelected)
+        if c:
+            c *= 2
+        return c
 
     @property
     def goalKeeperSelected_score(self):
@@ -306,8 +309,8 @@ class Score(Model):
             if self.yellow_card and not self.red_card:
                 total_score += YELLOW_CARD_POINTS
 
-            if self.player.playingRole == "Captain":
-                total_score *= 2
+            # if self.player.playingRole == "Captain":
+            #     total_score *= 2
 
             if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
                 total_score += CLEAN_SHEET_POINTS
