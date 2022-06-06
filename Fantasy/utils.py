@@ -11,6 +11,35 @@ def group_fixtures_by_stage(fixtures):
         result[s].append(f)
     return result
 
+# def played_fixtures_grouped(fixtures):
+#     fixtures_grouped = group_fixtures_by_stage(fixtures)
+    
+#     played_fixtures_grouped ={}
+#     for key, value in fixtures_grouped.items():
+#         for x in value:
+#             if x.url:
+#                 played_fixtures_grouped.update({key:value})
+#                 continue
+
+#     return played_fixtures_grouped
+
+def group_fixtures_by_stage_and_gw(fixtures, match_urls_only=False, show_all_stages=True):
+    result = {}
+    for f in fixtures:
+        if not show_all_stages:
+            if match_urls_only and not f.url:
+                continue
+        s = f.get_stage_display()
+        gw = f.gameweek
+        if s not in result.keys():
+            result[s] = {}
+        if match_urls_only and not f.url:
+            continue
+        if gw not in result[s].keys():
+            result[s][gw] = []
+        result[s][gw].append(f)
+    return result
+
 def get_group_stats(group, group_fixtures):
     data = {}
     # prepare stats with zero values

@@ -17,5 +17,7 @@ urlpatterns = [
     path('scores/<int:id>/', login_required(login_url='/accounts/google/login/')(views.teamScore), name='Fantasy-score-others'),
     path('squadselection/', login_required(login_url='/accounts/google/login/')(views.squadSelectionView), name='Fantasy-squadSelection'),
     path('points/', login_required(login_url='/accounts/google/login/')(views.squadPointsView), name='Fantasy-squad'),
+    path('matchesvideos/', login_required(login_url='/accounts/google/login/')(views.matchesVideos), name='Fantasy-videos'),
+
     # path('register/',login_required(login_url='/accounts/google/login/')(views.register), name='Fantasy-register'),
 ]

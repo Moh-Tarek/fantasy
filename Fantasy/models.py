@@ -13,7 +13,7 @@ from .constants import (
     PENALTY_MISSED_POINTS
 )
 
-from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE
+from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE, URLField
 from django.db.models import Sum, Count, Case, When, Value
 from django.contrib.auth.models import User
 
@@ -334,6 +334,7 @@ class Fixture(Model):
     team2 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="away_fixtures", null=True, blank=True)
     team2_representation = CharField(max_length=100, null=True, blank=True)
     gameweek = IntegerField()
+    url = URLField(max_length=100,null=True, blank=True ,unique=True)
     stage = CharField(choices=[
         ('G', 'Group'), 
         ('QF', 'Quarter-Final'), 
