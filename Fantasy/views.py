@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, GameweekSetting, Score
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, F
 from .forms import GameweekSettingForm, ScoreForm, SquadSelection
 from . import utils
 
@@ -99,17 +99,35 @@ def home(request):
     players_assists_sorted_GW_players.reverse()
     players_assists_sorted_GW_scores.reverse()
 
-    # most owned players
-    # gameweek = 4
-    # squads = FantasySquad.objects.filter(gameweek=gameweek-1)
-    # c = list(squads.values('captainSelected').annotate(c=Count('captainSelected')))
-    # gk = list(squads.values('goalKeeperSelected').annotate(c=Count('goalKeeperSelected')))
-    # p1 = list(squads.values('player1Selected').annotate(c=Count('player1Selected')))
-    # p2 = list(squads.values('player2Selected').annotate(c=Count('player2Selected')))
-    # p3 = list(squads.values('player3Selected').annotate(c=Count('player3Selected')))
-    # p4 = list(squads.values('player4Selected').annotate(c=Count('player4Selected')))
-    # p5 = list(squads.values('player5Selected').annotate(c=Count('player5Selected')))
-    # squads_players = c + gk + p1 + p2 + p3 + p4 + p5
+    # most owned players every gameweek
+    most_owned_players = {}
+    all_squads = FantasySquad.objects
+    for g in range(1, gameweek):
+        # get counts 
+        squads = all_squads.filter(gameweek=g)
+        c = list(squads.values(p=F('captainSelected__playerName')).annotate(c=Count('captainSelected')))
+        gk = list(squads.values(p=F('goalKeeperSelected__playerName')).annotate(c=Count('goalKeeperSelected')))
+        p1 = list(squads.values(p=F('player1Selected__playerName')).annotate(c=Count('player1Selected')))
+        p2 = list(squads.values(p=F('player2Selected__playerName')).annotate(c=Count('player2Selected')))
+        p3 = list(squads.values(p=F('player3Selected__playerName')).annotate(c=Count('player3Selected')))
+        p4 = list(squads.values(p=F('player4Selected__playerName')).annotate(c=Count('player4Selected')))
+        p5 = list(squads.values(p=F('player5Selected__playerName')).annotate(c=Count('player5Selected')))
+        squads_players = c + gk + p1 + p2 + p3 + p4 + p5
+        # concat with player id and get it selection count
+        squads_players_sum = {}
+        for i in squads_players:
+            p = i['p']
+            if p not in squads_players_sum.keys():
+                squads_players_sum[p] = 0
+            squads_players_sum[p] += i['c']
+        # convert count into ratio
+        squads_count = squads.count()
+        squads_players_ratio = []
+        for k, v in squads_players_sum.items():
+            squads_players_ratio.append((k, round(v/squads_count*100, 2)))
+        squads_players_ratio.sort(key = lambda x: x[1], reverse=True)
+
+        most_owned_players[g] = squads_players_ratio
 
     context = {
         'teams': teams.count,
@@ -136,7 +154,9 @@ def home(request):
         'f_teams': f_teams.count,
         'groups': groups.count,
         'f_players': f_players.count,
+        'most_owned_players': most_owned_players,
     }
+    
     return render(request, 'Fantasy/home.html', context)
 
 def update_gameweek(request):
