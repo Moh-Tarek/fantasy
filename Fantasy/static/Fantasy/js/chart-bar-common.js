@@ -1,7 +1,23 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
-
+// Chart.pluginService.register({
+//   afterDraw: function(chartinst) {
+//     ctx = chartinst.ctx;
+//     // chartinst = this;
+//     this.data.datasets.forEach(function(dataset, i) {
+//         if(chartinst.isDatasetVisible(i)){
+//             var meta = chartinst.getDatasetMeta(i);
+//             meta.data.forEach(function(bar, index) {
+//                 var data = dataset.data[index];
+//                 console.log(bar._model.x)
+//                 console.log(bar._model.y)
+//                 ctx.fillText(data, bar._model.x, bar._model.y - 2);
+//             });
+//         }
+//     });
+//   }
+// })
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -27,6 +43,55 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+function get_names_colors(y_data_names){
+  var output = {}
+  var colors_list = ["#26C6DA", "#D4E157", "#FF7043", "#BDBDBD", "#5C6BC0", "#EC407A", "#78909C", "#66BB6A", "#BA68C8", "#A1887F", "#E57373", "#455A64"]
+  colors_list = colors_list.sort((a, b) => 0.5 - Math.random());
+  var new_y_data_names = []
+  y_data_names.forEach(e => {
+    e.forEach(ee => {
+      var n = ee.join(" ")
+      if(!new_y_data_names.includes(n)){
+        new_y_data_names.push(n)
+      }
+    })
+  })
+  index = 0
+  new_y_data_names.forEach(e => {
+    output[e] = colors_list[index]
+    index = index + 1
+  })
+  y_data_colors = []
+  y_data_names.forEach(e => {
+    var i = []
+    e.forEach(ee => {
+      var n = ee.join(" ")
+      i.push(output[n])
+    })
+    y_data_colors.push(i)
+  })
+  return y_data_colors
+}
+function set_multi_data(x_data, y_data, y_data_names, label){
+  var y_data_colors = get_names_colors(y_data_names)
+  y_dataset = []
+  index = 0
+  y_data.forEach(e => {
+    y_dataset.push({
+      label: label,
+      backgroundColor: y_data_colors[index],
+      // backgroundColor: "purple",//"#4e73df",
+      // hoverBackgroundColor: "#2e59d9",
+      // borderColor: "#4e73df",
+      data: e,
+    })
+    index = index + 1
+  });
+  return {
+    labels: x_data,
+    datasets: y_dataset,
+  }
+}
 function set_data(x_data, y_data, label){
   return {
     labels: x_data,
@@ -39,7 +104,7 @@ function set_data(x_data, y_data, label){
     }],
   }
 }
-function set_options(y_min, y_max){
+function set_options(y_min, y_max, x_title, y_title, x_added_label, custom_tooltip_values){
   return {
     maintainAspectRatio: false,
     layout: {
@@ -52,6 +117,15 @@ function set_options(y_min, y_max){
     },
     scales: {
       xAxes: [{
+        display: true,
+        position: 'bottom',
+        scaleLabel: {
+          display: true,
+          labelString: x_title,
+          fontStyle: 'bold',
+          // fontSize: 12,
+          // fontColor: '#030',
+        },
         // time: {
         //   unit: 'month'
         // },
@@ -60,17 +134,33 @@ function set_options(y_min, y_max){
           drawBorder: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 6,
+          callback: function(value, index, values) {
+            l = (typeof x_added_label === 'undefined') ? '' : x_added_label
+            if(l){
+              return l + value
+            }else{
+              return value
+            }
+          }
         },
         maxBarThickness: 25,
       }],
       yAxes: [{
+        display: true,
+        position: 'bottom',
+        scaleLabel: {
+          display: true,
+          labelString: y_title,
+          fontStyle: 'bold',
+          // fontSize: 12,
+          // fontColor: '#030',
+        },
         ticks: {
           min: y_min,
           max: y_max,
           maxTicksLimit: 5,
           padding: 10,
-          // Include a dollar sign in the ticks
           callback: function(value, index, values) {
             return number_format(value);
           }
@@ -100,12 +190,47 @@ function set_options(y_min, y_max){
       displayColors: false,
       caretPadding: 10,
       callbacks: {
+        title: function(tooltipItem, chart){
+          var t = tooltipItem[0]
+          var d = ''
+          if(custom_tooltip_values){
+            d = custom_tooltip_values[t.datasetIndex][t.index]
+          }else{
+            d = t.xLabel
+          }
+          if(Array.isArray(d)){
+            d = d.join(" ")
+          }
+          return d
+        },
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+          if(datasetLabel == '%'){
+            return number_format(tooltipItem.yLabel) + datasetLabel
+          }else{
+            return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+          }
         }
       }
     },
+    // animation: {
+    //   duration: 0,
+    //   onComplete: function() {
+    //       ctx = this.ctx;
+    //       chartinst = this;
+    //       this.data.datasets.forEach(function(dataset, i) {
+    //           if(chartinst.isDatasetVisible(i)){
+    //               var meta = chartinst.getDatasetMeta(i);
+    //               meta.data.forEach(function(bar, index) {
+    //                   var data = dataset.data[index];
+    //                   console.log(bar._model.x)
+    //                   console.log(bar._model.y)
+    //                   ctx.fillText(data, bar._model.x, bar._model.y - 2);
+    //               });
+    //           }
+    //       });
+    //   }
+    // }
   }
 }
 

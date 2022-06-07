@@ -13,6 +13,7 @@ def home(request):
         gameweek = GameweekSetting.objects.last().active_gameweek
     except:
         gameweek = 1
+    previous_gameweek = gameweek - 1
 
     teams = Team.objects.all()
     teams_with_squads = teams.filter(squads__isnull=False).distinct()
@@ -129,6 +130,36 @@ def home(request):
 
         most_owned_players[g] = squads_players_ratio
 
+    most_owned_players_all = {}
+    max = 3
+    if len(most_owned_players.keys()) <= 3:
+        max = 5
+    for gw, value in most_owned_players.items():
+        most_owned_players_GW_players = []
+        most_owned_players_GW_perc = []
+        index = 0
+        for plyr, perc in value:
+            most_owned_players_GW_players.append(plyr.split(" "))
+            most_owned_players_GW_perc.append(perc)
+            index += 1
+            if index == max:
+                break
+        most_owned_players_all[gw] = [most_owned_players_GW_players, most_owned_players_GW_perc]
+
+    max = 5
+    most_owned_players_GW = []
+    if previous_gameweek in most_owned_players.keys():
+        most_owned_players_GW = most_owned_players[previous_gameweek]
+    most_owned_players_GW_players = []
+    most_owned_players_GW_perc = []
+    index = 0
+    for plyr, perc in most_owned_players_GW:
+        most_owned_players_GW_players.append(plyr.split(" "))
+        most_owned_players_GW_perc.append(perc)
+        index += 1
+        if index == max:
+            break
+
     context = {
         'teams': teams.count,
         'teams_with_squads': teams_with_squads.count,
@@ -155,6 +186,9 @@ def home(request):
         'groups': groups.count,
         'f_players': f_players.count,
         'most_owned_players': most_owned_players,
+        'most_owned_players_all': most_owned_players_all,
+        'most_owned_players_GW_players': most_owned_players_GW_players,
+        'most_owned_players_GW_perc': most_owned_players_GW_perc
     }
     
     return render(request, 'Fantasy/home.html', context)

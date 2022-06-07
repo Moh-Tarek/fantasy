@@ -181,10 +181,39 @@
     </div>
 </div> -->
 
-<div class="row" style="display: none;" data-most="{{most_owned_players}}">
+<div class="row" style="display: none;" data-most="{{most_owned_players_all}}">
 
 </div>
 <div class="row">
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Most Selected Players</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersSelectionBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ most_owned_players_all|json_script:"most_owned_players_all" }}
+    </div>
+    {% if previous_gameweek %}
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Most Selected Players (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="PlayersSelectionGWBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+        {{ most_owned_players_GW_players|json_script:"most_owned_players_GW_players" }}
+        {{ most_owned_players_GW_perc|json_script:"most_owned_players_GW_perc" }}
+    </div>
+    {% endif %}
     <div class="col-xl-6 col-lg-6 all_stats">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -343,6 +372,7 @@
     )
 </script>
 <script src="{% static 'js/chart.js/Chart.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc"></script>
 <script src="{% static 'Fantasy/js/chart-bar-common.js' %}"></script>
 <script src="{% static 'Fantasy/js/chart-bar-dashboard.js' %}"></script>
 {% endblock %}
