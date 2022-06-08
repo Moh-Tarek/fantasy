@@ -19,23 +19,19 @@ def home(request):
     teams_with_squads = teams.filter(squads__isnull=False).distinct()
     
     teams_selection_count = 5 if teams.count() >= 5 else teams.count()
-    teams_sorted_all = sorted(teams, key=lambda x: x.total_team_score)[-teams_selection_count:]
+    teams_sorted_all = sorted(teams, key=lambda x: x.total_team_score, reverse=True)[:teams_selection_count]
     teams_sorted_all_teams = []
     teams_sorted_all_scores = []
     for t in teams_sorted_all:
         teams_sorted_all_teams.append([t.first_name, t.last_name])
         teams_sorted_all_scores.append(t.total_team_score)
-    teams_sorted_all_teams.reverse()
-    teams_sorted_all_scores.reverse()
 
-    teams_sorted_GW = sorted(teams, key=lambda x: x.last_gameweek_team_score or 0)[-teams_selection_count:]
+    teams_sorted_GW = sorted(teams, key=lambda x: x.last_gameweek_team_score or 0, reverse=True)[:teams_selection_count]
     teams_sorted_GW_teams = []
     teams_sorted_GW_scores = []
     for t in teams_sorted_GW:
         teams_sorted_GW_teams.append([t.first_name, t.last_name])
         teams_sorted_GW_scores.append(t.last_gameweek_team_score or 0)
-    teams_sorted_GW_teams.reverse()
-    teams_sorted_GW_scores.reverse()
     
     matches = Fixture.objects.all()
     matches_GW = matches.filter(gameweek=gameweek)
@@ -45,60 +41,53 @@ def home(request):
     f_teams = FootballTeam.objects.all()
     
     f_players = Player.objects.all()
+
+    plyrs_sorted = sorted(f_players, key=lambda x: x.total_player_score, reverse=True)
+    plyrs_sorted_by_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score, reverse=True)
+
+    # dream_team_all = 
     players_selection_count = 5 if f_players.count() >= 5 else f_players.count()
-    players_sorted_all = sorted(f_players, key=lambda x: x.total_player_score)[-players_selection_count:]
+    players_sorted_all = plyrs_sorted[:players_selection_count]
     players_sorted_all_players = []
     players_sorted_all_scores = []
     for p in players_sorted_all:
         players_sorted_all_players.append(p.playerName.split(" "))
         players_sorted_all_scores.append(p.total_player_score)
-    players_sorted_all_players.reverse()
-    players_sorted_all_scores.reverse()
 
-    players_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score)[-players_selection_count:]
+    players_sorted_GW = plyrs_sorted_by_GW[:players_selection_count]
     players_sorted_GW_players = []
     players_sorted_GW_scores = []
     for p in players_sorted_GW:
         players_sorted_GW_players.append(p.playerName.split(" "))
         players_sorted_GW_scores.append(p.last_gameweek_player_score)
-    players_sorted_GW_players.reverse()
-    players_sorted_GW_scores.reverse()
 
-    players_goals_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_goals_sum())[-players_selection_count:]
+    players_goals_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_goals_sum(), reverse=True)[:players_selection_count]
     players_goals_sorted_all_players = []
     players_goals_sorted_all_scores = []
     for p in players_goals_sorted_all:
         players_goals_sorted_all_players.append(p.playerName.split(" "))
         players_goals_sorted_all_scores.append(p.player_scores.get_goals_sum())
-    players_goals_sorted_all_players.reverse()
-    players_goals_sorted_all_scores.reverse()
 
-    players_goals_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_goals_sum())[-players_selection_count:]
+    players_goals_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_goals_sum(), reverse=True)[:players_selection_count]
     players_goals_sorted_GW_players = []
     players_goals_sorted_GW_scores = []
     for p in players_goals_sorted_GW:
         players_goals_sorted_GW_players.append(p.playerName.split(" "))
         players_goals_sorted_GW_scores.append(p.last_gameweek_player_score_objs.get_goals_sum())
-    players_goals_sorted_GW_players.reverse()
-    players_goals_sorted_GW_scores.reverse()
 
-    players_assists_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_assists_sum())[-players_selection_count:]
+    players_assists_sorted_all = sorted(f_players, key=lambda x: x.player_scores.get_assists_sum(), reverse=True)[:players_selection_count]
     players_assists_sorted_all_players = []
     players_assists_sorted_all_scores = []
     for p in players_assists_sorted_all:
         players_assists_sorted_all_players.append(p.playerName.split(" "))
         players_assists_sorted_all_scores.append(p.player_scores.get_assists_sum())
-    players_assists_sorted_all_players.reverse()
-    players_assists_sorted_all_scores.reverse()
 
-    players_assists_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_assists_sum())[-players_selection_count:]
+    players_assists_sorted_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score_objs.get_assists_sum(), reverse=True)[:players_selection_count]
     players_assists_sorted_GW_players = []
     players_assists_sorted_GW_scores = []
     for p in players_assists_sorted_GW:
         players_assists_sorted_GW_players.append(p.playerName.split(" "))
         players_assists_sorted_GW_scores.append(p.last_gameweek_player_score_objs.get_assists_sum())
-    players_assists_sorted_GW_players.reverse()
-    players_assists_sorted_GW_scores.reverse()
 
     # most owned players every gameweek
     most_owned_players = {}
