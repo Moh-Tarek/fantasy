@@ -472,7 +472,14 @@ def matchesVideos(request):
     fixtures = Fixture.objects.all()
     played_fixtures_grouped_by_stage_and_gw = utils.group_fixtures_by_stage_and_gw(fixtures, match_urls_only=True)
 
+    query_gw = request.GET.get('gw')
+    if query_gw:
+        query_gw = int(query_gw)
+    query_match_id = request.GET.get('id', '')
+
     return render(request, 'Fantasy/matches-videos.html', {
-        'played_fixtures_grouped_by_stage_and_gw': played_fixtures_grouped_by_stage_and_gw
+        'played_fixtures_grouped_by_stage_and_gw': played_fixtures_grouped_by_stage_and_gw,
+        'gw': query_gw,
+        'match_id': query_match_id
     })
 

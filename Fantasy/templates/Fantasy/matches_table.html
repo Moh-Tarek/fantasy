@@ -12,7 +12,8 @@
             <th>Team 1</th>
             <th>Result</th>
             <th>Team 2</th>
-            {% if user.is_staff or user.is_superuser %}<th>Action</th>{% endif %}
+            <th> </th>
+            {% if user.is_staff or user.is_superuser %}<th> </th>{% endif %}
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,15 @@
             <td class="text-center">{{ f.team1_verbose_name }}</td>
             <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
             <td class="text-center">{{ f.team2_verbose_name }}</td>
+            <td class="text-center">
+                {% if f.url %}
+                <a href="{% url 'Fantasy-videos' %}?gw={{f.gameweek}}&id={{f.id}}" class="btn btn-dark btn-circle btn-sm">
+                    <i class="fas fa-video"></i>
+                </a>
+                {% else %}
+                -
+                {% endif %}
+            </td>
             {% if f.team1 and f.team2 %}
                 {% if previous_gameweek == f.gameweek and user.is_staff or user.is_superuser %}
                     <td>
@@ -101,8 +111,9 @@
 <style>
     .statsTables {
         width: 50%; 
-        table-layout: fixed; 
-        margin-left: auto; 
+        /* table-layout: fixed;  */
+        /* margin-left: auto;  */
+        margin-left: 40%; 
         margin-right: auto; 
         font-size: x-small;
     }

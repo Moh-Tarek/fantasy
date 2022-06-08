@@ -6,8 +6,8 @@
     </thead>
     <tbody>
         <tr>
-            <td class="text-right">{% for i in team1_stat %}{{ i.0 }} ({{ i.1|add:"0" }})<br>{% endfor %}</td>
-            <td class="text-left">{% for i in team2_stat %}{{ i.0 }} ({{ i.1|add:"0" }})<br>{% endfor %}</td>
+            <td class="text-right" style="width:50%;">{% for i in team1_stat %}{{ i.0 }} ({{ i.1|add:"0" }})<br>{% endfor %}</td>
+            <td class="text-left" style="width:50%;">{% for i in team2_stat %}{{ i.0 }} ({{ i.1|add:"0" }})<br>{% endfor %}</td>
         </tr>
     </tbody>
 </table>
