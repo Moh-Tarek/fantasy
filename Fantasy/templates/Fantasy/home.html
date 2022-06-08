@@ -188,6 +188,66 @@
     <div class="col-xl-6 col-lg-6 all_stats">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Dream Team</h6>
+            </div>
+            <div class="card-body" style="max-height: 360px;">
+                <div class="container pitch-container small-pitch">
+                    <img src="{% static 'Fantasy/football-pitch-no-captain.png' %}" alt="">
+                    {% if dream_team_all %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" player=dream_team_all.GK value=dream_team_all.GK.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" player=dream_team_all.players.1 value=dream_team_all.players.1.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" player=dream_team_all.players.2 value=dream_team_all.players.2.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" player=dream_team_all.players.3 value=dream_team_all.players.3.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" player=dream_team_all.players.4 value=dream_team_all.players.4.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" player=dream_team_all.players.5 value=dream_team_all.players.5.total_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" player=dream_team_all.players.0 value=dream_team_all.players.0.total_player_score  %}
+                    {% else %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" is_empty="1" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if previous_gameweek %}
+    <div class="col-xl-6 col-lg-6 gw_stats" style="display: none;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Dream Team (GW{{previous_gameweek}})</h6>
+            </div>
+            <div class="card-body" style="max-height: 360px;">
+                <div class="container pitch-container small-pitch">
+                    <img src="{% static 'Fantasy/football-pitch-no-captain.png' %}" alt="">
+                    {% if dream_team_GW %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" player=dream_team_GW.GK value=dream_team_GW.GK.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" player=dream_team_GW.players.1 value=dream_team_GW.players.1.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" player=dream_team_GW.players.2 value=dream_team_GW.players.2.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" player=dream_team_GW.players.3 value=dream_team_GW.players.3.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" player=dream_team_GW.players.4 value=dream_team_GW.players.4.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" player=dream_team_GW.players.5 value=dream_team_GW.players.5.last_gameweek_player_score %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" player=dream_team_GW.players.0 value=dream_team_GW.players.0.last_gameweek_player_score  %}
+                    {% else %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" is_empty="1" %}
+                        {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" is_empty="1" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="col-xl-6 col-lg-6 all_stats">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Most Selected Players</h6>
             </div>
             <div class="card-body">
@@ -338,6 +398,7 @@
 {% endblock content%}
 
 {% block style%}
+<link href="{% static 'Fantasy/css/pitch-style.css' %}" rel="stylesheet" type="text/css">
 <style>
     .btn-light {
         color: #3a3b45;

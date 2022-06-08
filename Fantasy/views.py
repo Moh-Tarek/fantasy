@@ -45,7 +45,9 @@ def home(request):
     plyrs_sorted = sorted(f_players, key=lambda x: x.total_player_score, reverse=True)
     plyrs_sorted_by_GW = sorted(f_players, key=lambda x: x.last_gameweek_player_score, reverse=True)
 
-    # dream_team_all = 
+    dream_team_all = utils.get_dream_team(plyrs_sorted)
+    dream_team_GW = utils.get_dream_team(plyrs_sorted_by_GW)
+
     players_selection_count = 5 if f_players.count() >= 5 else f_players.count()
     players_sorted_all = plyrs_sorted[:players_selection_count]
     players_sorted_all_players = []
@@ -156,6 +158,8 @@ def home(request):
         'teams_sorted_all_scores': teams_sorted_all_scores,
         'teams_sorted_GW_teams': teams_sorted_GW_teams,
         'teams_sorted_GW_scores': teams_sorted_GW_scores,
+        'dream_team_all': dream_team_all,
+        'dream_team_GW': dream_team_GW,
         'players_sorted_all_players': players_sorted_all_players,
         'players_sorted_all_scores': players_sorted_all_scores,
         'players_sorted_GW_players': players_sorted_GW_players,

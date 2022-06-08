@@ -175,3 +175,15 @@ def sort_by(data, actions):
             flatten_data.append(dd)
         rank += len(d)
     return flatten_data
+
+
+def get_dream_team(players_sorted):
+    dream_team = {'players': []}
+    for p in players_sorted:
+        if p.playingRole == 'GoalKeeper' and 'GK' not in dream_team.keys():
+            dream_team['GK'] = p
+        elif len(dream_team['players']) < 6:
+            dream_team['players'].append(p)
+        if 'GK' in dream_team.keys() and len(dream_team['players']) == 6:
+            break
+    return dream_team

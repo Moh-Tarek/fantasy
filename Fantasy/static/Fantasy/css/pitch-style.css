@@ -21,6 +21,10 @@
 .pitch-container .tshirt-player5 { position: absolute; top:225px; left:274px; }
 .pitch-container .tshirt-captain { position: absolute; top:309px; left:230px; }
 
+.small-pitch {
+    transform: scale(0.65);
+    transform-origin: 0% 0% 0px;
+}
 @media (max-width: 720px) {
     .pitch-container {
         transform: scale(0.8);

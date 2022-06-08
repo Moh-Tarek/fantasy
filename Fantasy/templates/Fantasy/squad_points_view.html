@@ -22,13 +22,13 @@
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" player=squad.player5Selected value=squad.player5Selected_score %}
                 {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" player=squad.captainSelected value=squad.captainSelected_score %}
             {% else %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" %}
-                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-goalKeeper" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player1" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player2" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player3" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player4" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-player5" is_empty="1" %}
+                {% include 'Fantasy/tshirt_template.html' with my_id="tshirt-captain" is_empty="1" %}
             {% endif %}
         </div>
         <div class="table-responsive">
