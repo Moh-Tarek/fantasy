@@ -29,7 +29,7 @@ if(ctx){
     var most_owned_players_GW_perc = JSON.parse(document.getElementById('most_owned_players_GW_perc').textContent);
     var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: set_data(most_owned_players_GW_players, most_owned_players_GW_perc, '%'),
+    data: set_data(most_owned_players_GW_players, most_owned_players_GW_perc, '%', "#4e73df", "#2e59d9"),
     options: set_options(0, get_max(most_owned_players_GW_perc), 'Players', 'Owned By %')
     });
 }
@@ -39,7 +39,7 @@ var players_goals_sorted_all_players = JSON.parse(document.getElementById('playe
 var players_goals_sorted_all_scores = JSON.parse(document.getElementById('players_goals_sorted_all_scores').textContent);
 var myBarChart = new Chart(ctx, {
   type: 'bar',
-  data: set_data(players_goals_sorted_all_players, players_goals_sorted_all_scores, 'Goals'),
+  data: set_data(players_goals_sorted_all_players, players_goals_sorted_all_scores, 'Goals', "#1cc88a", "#1aa774"),
   options: set_options(0, get_max(players_goals_sorted_all_scores), 'Players', 'Goals')
 });
 
@@ -49,7 +49,7 @@ if(ctx){
     var players_goals_sorted_GW_scores = JSON.parse(document.getElementById('players_goals_sorted_GW_scores').textContent);
     var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: set_data(players_goals_sorted_GW_players, players_goals_sorted_GW_scores, 'Goals'),
+    data: set_data(players_goals_sorted_GW_players, players_goals_sorted_GW_scores, 'Goals', "#1cc88a", "#1aa774"),
     options: set_options(0, get_max(players_goals_sorted_GW_scores), 'Players', 'Goals')
     });
 }
@@ -59,7 +59,7 @@ var players_assists_sorted_all_players = JSON.parse(document.getElementById('pla
 var players_assists_sorted_all_scores = JSON.parse(document.getElementById('players_assists_sorted_all_scores').textContent);
 var myBarChart = new Chart(ctx, {
   type: 'bar',
-  data: set_data(players_assists_sorted_all_players, players_assists_sorted_all_scores, 'Assists'),
+  data: set_data(players_assists_sorted_all_players, players_assists_sorted_all_scores, 'Assists', "#1cc88a", "#1aa774"),
   options: set_options(0, get_max(players_assists_sorted_all_scores), 'Players', 'Assists')
 });
 
@@ -69,7 +69,7 @@ if(ctx){
     var players_assists_sorted_GW_scores = JSON.parse(document.getElementById('players_assists_sorted_GW_scores').textContent);
     var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: set_data(players_assists_sorted_GW_players, players_assists_sorted_GW_scores, 'Assists'),
+    data: set_data(players_assists_sorted_GW_players, players_assists_sorted_GW_scores, 'Assists', "#1cc88a", "#1aa774"),
     options: set_options(0, get_max(players_assists_sorted_GW_scores), 'Players', 'Assists')
     });
 }
@@ -79,7 +79,7 @@ var teams_sorted_all_teams = JSON.parse(document.getElementById('teams_sorted_al
 var teams_sorted_all_scores = JSON.parse(document.getElementById('teams_sorted_all_scores').textContent);
 var myBarChart = new Chart(ctx, {
   type: 'bar',
-  data: set_data(teams_sorted_all_teams, teams_sorted_all_scores, 'Points'),
+  data: set_data(teams_sorted_all_teams, teams_sorted_all_scores, 'Points', "#4e73df", "#2e59d9"),
   options: set_options(0, get_max(teams_sorted_all_scores), 'Fantasy Teams', 'Total Score')
 });
 
@@ -89,7 +89,7 @@ if(ctx){
     var teams_sorted_GW_scores = JSON.parse(document.getElementById('teams_sorted_GW_scores').textContent);
     var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: set_data(teams_sorted_GW_teams, teams_sorted_GW_scores, 'Points'),
+    data: set_data(teams_sorted_GW_teams, teams_sorted_GW_scores, 'Points', "#4e73df", "#2e59d9"),
     options: set_options(0, get_max(teams_sorted_GW_scores), 'Fantasy Teams', 'GW Score')
     });
 }
@@ -99,7 +99,7 @@ var players_sorted_all_players = JSON.parse(document.getElementById('players_sor
 var players_sorted_all_scores = JSON.parse(document.getElementById('players_sorted_all_scores').textContent);
 var myBarChart = new Chart(ctx, {
   type: 'bar',
-  data: set_data(players_sorted_all_players, players_sorted_all_scores, 'Points'),
+  data: set_data(players_sorted_all_players, players_sorted_all_scores, 'Points', "#4e73df", "#2e59d9"),
   options: set_options(0, get_max(players_sorted_all_scores), 'Players', 'Total Score')
 });
 
@@ -109,7 +109,7 @@ if(ctx){
     var players_sorted_GW_scores = JSON.parse(document.getElementById('players_sorted_GW_scores').textContent);
     var myBarChart = new Chart(ctx, {
     type: 'bar',
-    data: set_data(players_sorted_GW_players, players_sorted_GW_scores, 'Points'),
+    data: set_data(players_sorted_GW_players, players_sorted_GW_scores, 'Points', "#4e73df", "#2e59d9"),
     options: set_options(0, get_max(players_sorted_GW_scores), 'Players', 'GW Score')
     });
 }

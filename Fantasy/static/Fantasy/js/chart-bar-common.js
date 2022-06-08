@@ -92,14 +92,14 @@ function set_multi_data(x_data, y_data, y_data_names, label){
     datasets: y_dataset,
   }
 }
-function set_data(x_data, y_data, label){
+function set_data(x_data, y_data, label, color, hover_color){
   return {
     labels: x_data,
     datasets: [{
       label: label,
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
+      backgroundColor: color,
+      hoverBackgroundColor: hover_color,
+      borderColor: color,
       data: y_data,
     }],
   }
