@@ -38,7 +38,7 @@
                                         <h6 class="m-0 font-weight-bold text-primary">{{ f.team1_verbose_name }} vs {{ f.team2_verbose_name }}</h6>
                                     </div>
                                     <div class="card-body" style="height: 300px;">
-                                        <object style="width: 100%; height: 100%;">
+                                        <object style="width:1px; min-width: 100%; height: 100%;">
                                             <param name="movie" value="{{ f.url }}">
                                             <param name="allowFullScreen" value="true">
                                             <param name="allowScriptAccess" value="always">
@@ -64,6 +64,11 @@
 {% block scripts %}
 <script>
     $(window).on("load", function() {
+        var non_disabled_tabs_count = $(".nav-pills a:not('.disabled')").length
+        var active_tabs_count = $(".nav-pills a:not('.disabled').active").length
+        if(non_disabled_tabs_count > 0 && active_tabs_count == 0){
+          $(".nav-pills a:not('.disabled')").first().tab('show')
+        }
         var scroll_value = 0
         var match_id = '{{match_id}}';
         if(match_id){

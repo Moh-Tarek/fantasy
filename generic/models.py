@@ -10,6 +10,9 @@ class Alarm(Model):
     url = URLField(max_length=1000, blank=True, null=True)
     icon_tag = CharField(max_length=50, default="fa-bell", blank=True, null=True)
 
+    class Meta:
+        ordering = ('-date', )
+        
 #Table for Message
 class Notifications(Model):
     header = CharField(max_length=100, unique=True)
@@ -17,3 +20,6 @@ class Notifications(Model):
     date = DateTimeField()
     url = URLField(max_length=1000, blank=True, null=True)
     icon_tag = CharField(max_length=50, default="fa-envelope", blank=True, null=True)
+
+    class Meta:
+        ordering = ('-date', )
