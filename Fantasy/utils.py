@@ -57,22 +57,22 @@ def get_group_stats(group, group_fixtures):
             continue
         t1 = f.team1.name
         t2 = f.team2.name
-        t1_goals = f.team1_goals
-        t2_goals = f.team2_goals
+        t1_result = f.team1_result
+        t2_result = f.team2_result
 
         # matches played
         data[t1]["MP"] += 1; data[t2]["MP"] += 1
         # goals scored
-        data[t1]["GS"] += t1_goals; data[t2]["GS"] += t2_goals
+        data[t1]["GS"] += t1_result; data[t2]["GS"] += t2_result
         # goals conceded
-        data[t1]["GC"] += t2_goals; data[t2]["GC"] += t1_goals
+        data[t1]["GC"] += t2_result; data[t2]["GC"] += t1_result
         # goals difference
-        data[t1]["GD"] += t1_goals - t2_goals; data[t2]["GD"] += t2_goals - t1_goals
+        data[t1]["GD"] += t1_result - t2_result; data[t2]["GD"] += t2_result - t1_result
         # points + win + draw + lose
-        if t1_goals > t2_goals:
+        if t1_result > t2_result:
             data[t1]["P"] += 3; data[t1]["W_vs"].append(t2)
             data[t1]["W"] += 1; data[t2]["L"] += 1
-        elif t2_goals > t1_goals:
+        elif t2_result > t1_result:
             data[t2]["P"] += 3; data[t2]["W_vs"].append(t1)
             data[t2]["W"] += 1; data[t1]["L"] += 1
         else:

@@ -364,33 +364,33 @@ class Fixture(Model):
     def team2_scores(self):
         return Score.objects.filter(fixture=self, player__team=self.team2)
 
-    def _goals(self):
-        team1_goals = None
-        team2_goals = None
+    def _result(self):
+        team1_result = None
+        team2_result = None
         team1_scores = self.team1_scores
         team2_scores = self.team2_scores
         if team1_scores or team2_scores:
-            team1_goals = 0
-            team2_goals = 0
+            team1_result = 0
+            team2_result = 0
             for s1 in team1_scores:
-                team1_goals += s1.goal
-                team2_goals += s1.own_goal
+                team1_result += s1.goal
+                team2_result += s1.own_goal
             for s2 in team2_scores:
-                team2_goals += s2.goal
-                team1_goals += s2.own_goal
-        return team1_goals, team2_goals
+                team2_result += s2.goal
+                team1_result += s2.own_goal
+        return team1_result, team2_result
 
     @property
-    def team1_goals(self):
-        return self._goals()[0]
+    def team1_result(self):
+        return self._result()[0]
     
     @property
-    def team2_goals(self):
-        return self._goals()[1]
+    def team2_result(self):
+        return self._result()[1]
 
     @property
-    def all_goals(self):
-        return self._goals()
+    def all_result(self):
+        return self._result()
 
     @property
     def players(self):
@@ -414,7 +414,7 @@ class Fixture(Model):
 
     @property
     def is_finished(self):
-        if self.team1_goals != None and self.team2_goals != None:
+        if self.team1_result != None and self.team2_result != None:
             return True
         return False
     

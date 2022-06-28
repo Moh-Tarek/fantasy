@@ -24,7 +24,7 @@
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
             <td class="text-center">{{ f.date | date:'h:i A' }}</td>
             <td class="text-center">{{ f.team1_verbose_name }}</td>
-            <td class="text-center">{{ f.team1_goals|default_if_none:'' }} - {{ f.team2_goals|default_if_none:'' }}</td>
+            <td class="text-center">{{ f.team1_result|default_if_none:'' }} - {{ f.team2_result|default_if_none:'' }}</td>
             <td class="text-center">{{ f.team2_verbose_name }}</td>
             <td class="text-center">
                 {% if f.url %}
