@@ -23,9 +23,9 @@
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'l' }}{% endifchanged %}</td>
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
             <td class="text-center">{{ f.date | date:'h:i A' }}</td>
-            <td class="text-center">{{ f.team1_verbose_name }}</td>
+            <td class="text-center">{{ f.team1_verbose_name }} {% if f.withdrawn_team and f.withdrawn_team == f.team1 %}<sub>(withdrew)</sub>{% endif %}</td>
             <td class="text-center">{{ f.team1_result|default_if_none:'' }} - {{ f.team2_result|default_if_none:'' }}</td>
-            <td class="text-center">{{ f.team2_verbose_name }}</td>
+            <td class="text-center">{{ f.team2_verbose_name }} {% if f.withdrawn_team and f.withdrawn_team == f.team2 %}<sub>(withdrew)</sub>{% endif %}</td>
             <td class="text-center">
                 {% if f.url %}
                 <a href="{% url 'Fantasy-videos' %}?gw={{f.gameweek}}&id={{f.id}}" class="btn btn-dark btn-circle btn-sm">
@@ -49,7 +49,7 @@
                 <td></td>
             {% endif %}
         </tr>
-        {% if f.is_finished %}
+        {% if f.is_finished and not f.withdrawn_team %}
         <tr class="stats_tr" id="stats-{{f.id}}" style="display: none;">
             <td colspan="100%">
                 <!-- Goals -->

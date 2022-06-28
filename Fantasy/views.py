@@ -4,7 +4,7 @@ from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, Ga
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, F
-from .forms import GameweekSettingForm, ScoreForm, SquadSelection
+from .forms import GameweekSettingForm, ScoreForm, SquadSelection, FixtureWithdrawForm
 from . import utils
 
 
@@ -245,6 +245,17 @@ def update_match_stats(request, id):
     team2_fixture_scores = f_scores.filter(player__team=team2)
 
     if request.method == 'POST':
+        # save withdrawn team with fixture and if so, return without saving the score
+        fw = FixtureWithdrawForm(request.POST, instance=fixture)
+        if fw.is_valid():
+            updated_fixture = fw.save()
+            if updated_fixture.withdrawn_team:
+                # remove all fixture teams scores
+                for p in fixture.players:
+                    f_scores.filter(player=p).delete()
+                return redirect('Fantasy-matches')
+        else:
+            print(fw.errors)
         team1_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team1_fixture_scores, prefix='team1')
         team2_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team2_fixture_scores, prefix='team2')    
         for formset in [team1_fixture_scores_formset, team2_fixture_scores_formset]:
@@ -257,11 +268,15 @@ def update_match_stats(request, id):
                 print(formset.errors)
         return redirect('Fantasy-matches')
     else:
+        ## withdraw form that has the option to select one of the fixture teams as withdrawn team
+        fw = FixtureWithdrawForm(instance=fixture)
+        ## create formsets for all the scores objects
         team1_fixture_scores_formset = ScoreFormSet(queryset=team1_fixture_scores, prefix='team1')
         team2_fixture_scores_formset = ScoreFormSet(queryset=team2_fixture_scores, prefix='team2')
     
     return render(request, 'Fantasy/update_match_stats.html', {
         'fixture': fixture, 
+        'fw': fw,
         't1_formset': team1_fixture_scores_formset,
         't2_formset': team2_fixture_scores_formset
     })

@@ -343,7 +343,11 @@ class Fixture(Model):
         ('F', 'Final')
     ], max_length=20, default='G')
     date = DateTimeField()
-
+    withdrawn_team = ForeignKey(
+        FootballTeam, on_delete=CASCADE, related_name="withdraw_fixtures", null=True, blank=True,
+        help_text="If one of the teams withdrew from the match, select it and the other team will be considered as the winner of the match with score 2-0"
+    )
+    
     @property
     def team1_verbose_name(self):
         if self.team1:
@@ -365,8 +369,13 @@ class Fixture(Model):
         return Score.objects.filter(fixture=self, player__team=self.team2)
 
     def _result(self):
-        team1_result = None
-        team2_result = None
+        team1_result, team2_result = None, None
+        if self.withdrawn_team:
+            if self.withdrawn_team == self.team1:
+                team1_result, team2_result = 0, 2
+            elif self.withdrawn_team == self.team2:
+                team1_result, team2_result = 2, 0
+            return team1_result, team2_result
         team1_scores = self.team1_scores
         team2_scores = self.team2_scores
         if team1_scores or team2_scores:
@@ -414,7 +423,7 @@ class Fixture(Model):
 
     @property
     def is_finished(self):
-        if self.team1_result != None and self.team2_result != None:
+        if self.withdrawn_team or (self.team1_result != None and self.team2_result != None):
             return True
         return False
     

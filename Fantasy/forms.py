@@ -1,4 +1,4 @@
-from .models import FantasySquad, GameweekSetting, Player, Score
+from .models import FantasySquad, Fixture, FootballTeam, GameweekSetting, Player, Score
 from django.forms import ModelForm
 import collections
 
@@ -30,10 +30,29 @@ class ScoreForm(ModelForm):
         exclude = ['player', 'fixture']
         # fields = '__all__'
 
+class FixtureWithdrawForm(ModelForm):
+    class Meta:
+        model = Fixture
+        fields = ('withdrawn_team',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance:
+            teams = []
+            team1 = self.instance.team1
+            if team1:
+                teams.append(team1.pk)
+            team2 = self.instance.team2
+            if team2:
+                teams.append(team2.pk)
+            self.fields['withdrawn_team'].queryset = FootballTeam.objects.filter(pk__in=teams)
+
+
 class SquadSelection(ModelForm):
     class Meta:
         model = FantasySquad
         exclude = ['team', 'gameweek']
+    
     def __init__(self, *args, **kwargs):
         self.team = kwargs.pop('team', None)
         self.gameweek = kwargs.pop('gameweek', None)
