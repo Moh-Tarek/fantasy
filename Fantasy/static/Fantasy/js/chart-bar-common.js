@@ -249,9 +249,30 @@ function get_max(my_list){
   if(m > 300){my_max=400}else{return my_max}
   if(m > 400){my_max=500}else{return my_max}
   if(m > 500){my_max=600}else{return my_max}
-  if(m > 500){my_max=600}else{return my_max}
   if(m > 600){my_max=700}else{return my_max}
   if(m > 700){my_max=800}else{return my_max}
   if(m > 800){my_max=900}else{return my_max}
   if(m > 900){my_max=1000}else{return my_max}
+}
+
+function get_min(my_list){
+  var m = Math.min(...my_list)
+  var my_min = 0
+  if(m > 5){my_min=5}else{return my_min}
+  if(m > 10){my_min=10}else{return my_min}
+  if(m > 20){my_min=20}else{return my_min}
+  if(m > 30){my_min=30}else{return my_min}
+  if(m > 50){my_min=50}else{return my_min}
+  if(m > 100){my_min=100}else{return my_min}
+  if(m > 150){my_min=150}else{return my_min}
+  if(m > 200){my_min=200}else{return my_min}
+  if(m > 250){my_min=250}else{return my_min}
+  if(m > 300){my_min=300}else{return my_min}
+  if(m > 400){my_min=400}else{return my_min}
+  if(m > 500){my_min=500}else{return my_min}
+  if(m > 600){my_min=600}else{return my_min}
+  if(m > 700){my_min=700}else{return my_min}
+  if(m > 800){my_min=800}else{return my_min}
+  if(m > 900){my_min=900}else{return my_min}
+  if(m > 1000){my_min=1000}else{return my_min}
 }

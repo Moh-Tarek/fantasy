@@ -30,7 +30,7 @@ if(ctx){
     var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: set_data(most_owned_players_GW_players, most_owned_players_GW_perc, '%', "#4e73df", "#2e59d9"),
-    options: set_options(0, get_max(most_owned_players_GW_perc), 'Players', 'Owned By %')
+    options: set_options(get_min(most_owned_players_GW_perc), get_max(most_owned_players_GW_perc), 'Players', 'Owned By %')
     });
 }
 
@@ -40,7 +40,7 @@ var players_goals_sorted_all_scores = JSON.parse(document.getElementById('player
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: set_data(players_goals_sorted_all_players, players_goals_sorted_all_scores, 'Goals', "#1cc88a", "#1aa774"),
-  options: set_options(0, get_max(players_goals_sorted_all_scores), 'Players', 'Goals')
+  options: set_options(get_min(players_goals_sorted_all_scores), get_max(players_goals_sorted_all_scores), 'Players', 'Goals')
 });
 
 var ctx = document.getElementById("PlayersGoalsGWBarChart");
@@ -50,7 +50,7 @@ if(ctx){
     var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: set_data(players_goals_sorted_GW_players, players_goals_sorted_GW_scores, 'Goals', "#1cc88a", "#1aa774"),
-    options: set_options(0, get_max(players_goals_sorted_GW_scores), 'Players', 'Goals')
+    options: set_options(get_min(players_goals_sorted_GW_scores), get_max(players_goals_sorted_GW_scores), 'Players', 'Goals')
     });
 }
 
@@ -60,7 +60,7 @@ var players_assists_sorted_all_scores = JSON.parse(document.getElementById('play
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: set_data(players_assists_sorted_all_players, players_assists_sorted_all_scores, 'Assists', "#1cc88a", "#1aa774"),
-  options: set_options(0, get_max(players_assists_sorted_all_scores), 'Players', 'Assists')
+  options: set_options(get_min(players_assists_sorted_all_scores), get_max(players_assists_sorted_all_scores), 'Players', 'Assists')
 });
 
 var ctx = document.getElementById("PlayersAssistsGWBarChart");
@@ -70,7 +70,7 @@ if(ctx){
     var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: set_data(players_assists_sorted_GW_players, players_assists_sorted_GW_scores, 'Assists', "#1cc88a", "#1aa774"),
-    options: set_options(0, get_max(players_assists_sorted_GW_scores), 'Players', 'Assists')
+    options: set_options(get_min(players_assists_sorted_GW_scores), get_max(players_assists_sorted_GW_scores), 'Players', 'Assists')
     });
 }
 
@@ -80,7 +80,7 @@ var teams_sorted_all_scores = JSON.parse(document.getElementById('teams_sorted_a
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: set_data(teams_sorted_all_teams, teams_sorted_all_scores, 'Points', "#4e73df", "#2e59d9"),
-  options: set_options(0, get_max(teams_sorted_all_scores), 'Fantasy Teams', 'Total Score')
+  options: set_options(get_min(teams_sorted_all_scores), get_max(teams_sorted_all_scores), 'Fantasy Teams', 'Total Score')
 });
 
 var ctx = document.getElementById("FantasyTeamsGWBarChart");
@@ -90,7 +90,7 @@ if(ctx){
     var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: set_data(teams_sorted_GW_teams, teams_sorted_GW_scores, 'Points', "#4e73df", "#2e59d9"),
-    options: set_options(0, get_max(teams_sorted_GW_scores), 'Fantasy Teams', 'GW Score')
+    options: set_options(get_min(teams_sorted_GW_scores), get_max(teams_sorted_GW_scores), 'Fantasy Teams', 'GW Score')
     });
 }
 
@@ -100,7 +100,7 @@ var players_sorted_all_scores = JSON.parse(document.getElementById('players_sort
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: set_data(players_sorted_all_players, players_sorted_all_scores, 'Points', "#4e73df", "#2e59d9"),
-  options: set_options(0, get_max(players_sorted_all_scores), 'Players', 'Total Score')
+  options: set_options(get_min(players_sorted_all_scores), get_max(players_sorted_all_scores), 'Players', 'Total Score')
 });
 
 var ctx = document.getElementById("FantasyPlayersGWBarChart");
@@ -110,6 +110,6 @@ if(ctx){
     var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: set_data(players_sorted_GW_players, players_sorted_GW_scores, 'Points', "#4e73df", "#2e59d9"),
-    options: set_options(0, get_max(players_sorted_GW_scores), 'Players', 'GW Score')
+    options: set_options(get_min(players_sorted_GW_scores), get_max(players_sorted_GW_scores), 'Players', 'GW Score')
     });
 }
