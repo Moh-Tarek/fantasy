@@ -120,6 +120,18 @@
 
 {% block scripts %}
 <script>
+    function get_other_team(w_team){
+        var result = ''
+        if(w_team){
+            var l = $('#id_withdrawn_team option').toArray().map(it => $(it).val())
+            l.forEach(function (e) { 
+                if(e && e != w_team){
+                    result = e
+                }
+            });
+        }
+        return result
+    }
     // Call the dataTables jQuery plugin
     $(document).ready(function() {
         $('#dataTable').DataTable(
@@ -128,12 +140,32 @@
         $("#match_stats").find("label").hide()
         if($("#id_withdrawn_team").val()){
             $("#match_stats").find("input[type!='submit']").attr('disabled','disabled')
+            $("#match_stats").find("input[type='hidden']").removeAttr('disabled')
+            var t = get_other_team($("#id_withdrawn_team").val())
+            $("input[name='team" + t + "-0-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-1-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-2-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-3-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-4-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-5-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-6-played']").removeAttr('disabled')
+            $("input[name='team" + t + "-7-played']").removeAttr('disabled')
         }else{
             $("#match_stats").find("input").removeAttr('disabled')
         }
         $("#id_withdrawn_team").on('change', function(e){
             if($(this).val()){
                 $("#match_stats").find("input[type!='submit']").attr('disabled','disabled')
+                $("#match_stats").find("input[type='hidden']").removeAttr('disabled')
+                var t = get_other_team($(this).val())
+                $("input[name='team" + t + "-0-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-1-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-2-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-3-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-4-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-5-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-6-played']").removeAttr('disabled')
+                $("input[name='team" + t + "-7-played']").removeAttr('disabled')
             }else{
                 $("#match_stats").find("input").removeAttr('disabled')
             }

@@ -30,6 +30,26 @@ class ScoreForm(ModelForm):
         exclude = ['player', 'fixture']
         # fields = '__all__'
 
+class LimitedScoreForm(ModelForm):
+    class Meta:
+        model = Score
+        fields = ('played',)
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        obj.goal = 0
+        obj.assist = 0
+        obj.own_goal = 0
+        obj.yellow_card = False
+        obj.red_card = False
+        obj.clean_sheet = False
+        obj.penalty_saved = 0
+        obj.penalty_missed = 0
+
+        if commit:
+            obj.save()
+        return obj
+
 class FixtureWithdrawForm(ModelForm):
     class Meta:
         model = Fixture

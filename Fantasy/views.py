@@ -4,7 +4,7 @@ from .models import Fixture, FootballTeam, Group, Player, FantasySquad, Team, Ga
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, F
-from .forms import GameweekSettingForm, ScoreForm, SquadSelection, FixtureWithdrawForm
+from .forms import GameweekSettingForm, LimitedScoreForm, ScoreForm, SquadSelection, FixtureWithdrawForm
 from . import utils
 
 
@@ -250,14 +250,35 @@ def update_match_stats(request, id):
         if fw.is_valid():
             updated_fixture = fw.save()
             if updated_fixture.withdrawn_team:
-                # remove all fixture teams scores
-                for p in fixture.players:
-                    f_scores.filter(player=p).delete()
+                w_team = updated_fixture.withdrawn_team
+                # remove withdrawn team scores
+                if w_team == team1:
+                    team1_fixture_scores.delete()
+                elif w_team == team2:
+                    team2_fixture_scores.delete()
+                # use limitedScoreForm for the other team scores (it includes played points only)
+                LimitedScoreFormSet = modelformset_factory(Score, extra=0, form=LimitedScoreForm)
+                if w_team == team1:
+                    team_fixture_scores_formset = LimitedScoreFormSet(request.POST, queryset=team2_fixture_scores, prefix='team' + str(team2.pk))
+                elif w_team == team2:
+                    team_fixture_scores_formset = LimitedScoreFormSet(request.POST, queryset=team1_fixture_scores, prefix='team' + str(team1.pk))   
+                if team_fixture_scores_formset.is_valid():
+                    for form in team_fixture_scores_formset:
+                        if form.is_valid():
+                            updated_score_obj = form.save()
+                            # add clean sheet to the goalkeeper if he played
+                            if updated_score_obj.player.playingRole == 'GoalKeeper' and updated_score_obj.played == True:
+                                updated_score_obj.clean_sheet = True
+                                updated_score_obj.save()
+                        print(form.errors)
+                else:
+                    print(team_fixture_scores_formset.errors)
                 return redirect('Fantasy-matches')
         else:
             print(fw.errors)
-        team1_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team1_fixture_scores, prefix='team1')
-        team2_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team2_fixture_scores, prefix='team2')    
+        ################# withrawal part ended #######################
+        team1_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team1_fixture_scores, prefix='team' + str(team1.pk))
+        team2_fixture_scores_formset = ScoreFormSet(request.POST, queryset=team2_fixture_scores, prefix='team' + str(team2.pk))   
         for formset in [team1_fixture_scores_formset, team2_fixture_scores_formset]:
             if formset.is_valid():
                 for form in formset:
@@ -271,8 +292,8 @@ def update_match_stats(request, id):
         ## withdraw form that has the option to select one of the fixture teams as withdrawn team
         fw = FixtureWithdrawForm(instance=fixture)
         ## create formsets for all the scores objects
-        team1_fixture_scores_formset = ScoreFormSet(queryset=team1_fixture_scores, prefix='team1')
-        team2_fixture_scores_formset = ScoreFormSet(queryset=team2_fixture_scores, prefix='team2')
+        team1_fixture_scores_formset = ScoreFormSet(queryset=team1_fixture_scores, prefix='team' + str(team1.pk))
+        team2_fixture_scores_formset = ScoreFormSet(queryset=team2_fixture_scores, prefix='team' + str(team2.pk))
     
     return render(request, 'Fantasy/update_match_stats.html', {
         'fixture': fixture, 
