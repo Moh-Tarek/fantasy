@@ -312,8 +312,13 @@ class Score(Model):
             # if self.player.playingRole == "Captain":
             #     total_score *= 2
 
-            if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
-                total_score += CLEAN_SHEET_POINTS
+            # if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
+            #     total_score += CLEAN_SHEET_POINTS
+
+        # add clean sheet points to the goalkeeper even if he didn't play the match
+        # doesn't make sense at all, but I added it for M. Tarek
+        if self.player.playingRole == "GoalKeeper" and self.clean_sheet:
+            total_score += CLEAN_SHEET_POINTS
 
         return total_score
 

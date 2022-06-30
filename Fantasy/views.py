@@ -267,7 +267,7 @@ def update_match_stats(request, id):
                         if form.is_valid():
                             updated_score_obj = form.save()
                             # add clean sheet to the goalkeeper if he played
-                            if updated_score_obj.player.playingRole == 'GoalKeeper' and updated_score_obj.played == True:
+                            if updated_score_obj.player.playingRole == 'GoalKeeper': # and updated_score_obj.played == True: (check scoring algorithm)
                                 updated_score_obj.clean_sheet = True
                                 updated_score_obj.save()
                         print(form.errors)
