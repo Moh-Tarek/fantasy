@@ -13,7 +13,6 @@ from .constants import (
     PENALTY_SAVED_POINTS, 
     PENALTY_MISSED_POINTS
 )
-
 from django.db.models import Model, Manager, QuerySet, ForeignKey, CharField, IntegerField, BooleanField, ImageField, DateTimeField, CASCADE, URLField
 from django.db.models import Sum, Count, Case, When, Value
 from django.contrib.auth.models import User
@@ -22,6 +21,7 @@ from django.contrib.auth.models import User
 class GameweekSetting(Model):
     active_gameweek = IntegerField()
     gameweek_deadline = DateTimeField()
+    max_players_same_team = IntegerField(default=2)
 
 class Team(User):
     class Meta:

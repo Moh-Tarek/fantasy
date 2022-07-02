@@ -400,10 +400,13 @@ def squadPointsView(request):
     return render(request, 'Fantasy/squad_points_view.html', {'squad': squad, 'fixtures_grouped': fixtures_grouped})
 
 def squadSelectionView(request):
+    gw_settings = GameweekSetting.objects.last()
     try:
-        gameweek = GameweekSetting.objects.last().active_gameweek
+        gameweek = gw_settings.active_gameweek
+        max_players_same_team = gw_settings.max_players_same_team
     except:
         gameweek = 1
+        max_players_same_team = 2
     
     ## get this gameweek's squad so that the user can edit it, and return empty squad if no squad created
     try:
@@ -438,9 +441,9 @@ def squadSelectionView(request):
     ## check request method and continue
     if request.method == 'POST':
         if squad:
-            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek, instance=squad)
+            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek, max_players_same_team=max_players_same_team, instance=squad)
         else:
-            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek)
+            form = SquadSelection(request.POST, team=request.user, gameweek=gameweek, max_players_same_team=max_players_same_team)
         if form.is_valid():
             print("form saved")
             sub_form = form.save()

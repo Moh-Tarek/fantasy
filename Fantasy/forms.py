@@ -76,6 +76,7 @@ class SquadSelection(ModelForm):
     def __init__(self, *args, **kwargs):
         self.team = kwargs.pop('team', None)
         self.gameweek = kwargs.pop('gameweek', None)
+        self.max_players_same_team = kwargs.pop('max_players_same_team', None)
         super(SquadSelection, self).__init__(*args, **kwargs)
         self.fields['captainSelected'].queryset = Player.objects.filter(playingRole='Captain')
         self.fields['goalKeeperSelected'].queryset = Player.objects.filter(playingRole='GoalKeeper')
@@ -109,15 +110,15 @@ class SquadSelection(ModelForm):
                     c += 1
                 valid = False
                 return valid
-            # 2. check that no more than 2 players are selected from the same team
+            # 2. check that no more than {self.max_players_same_team} players are selected from the same team
             selected_palyers_teams = [p.team for p in selected_palyers]
             selected_palyers_teams_dict = {i:selected_palyers_teams.count(i) for i in selected_palyers_teams}
             c = 0
             for k,v in selected_palyers_teams_dict.items():
-                if v > 2:
+                if v > self.max_players_same_team:
                     affected_players = [p.playerName for p in selected_palyers if p.team == k]
                     if c == 0:
-                        self.add_error(None, f'Don\'t Be Greedy! You have selected {v} palyers: {affected_players} from "{k}" team. It is not permitted to select more than 2 players from the same team.')
+                        self.add_error(None, f'Don\'t Be Greedy! You have selected {v} palyers: {affected_players} from "{k}" team. It is not permitted to select more than {self.max_players_same_team} players from the same team.')
                     else:
                         self.add_error(None, f'Same applies for the {v} players: {affected_players} from "{k}" team!')
                     c += 1
