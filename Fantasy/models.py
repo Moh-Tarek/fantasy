@@ -1,3 +1,4 @@
+from functools import cached_property
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.forms import DateTimeField
@@ -26,14 +27,14 @@ class Team(User):
     class Meta:
         proxy = True
         
-    @property
+    @cached_property
     def total_team_score(self):
         team_score = 0
         for s in self.squads.all():
             team_score += s.total_squad_score
         return team_score
 
-    @property
+    @cached_property
     def last_gameweek_team_score(self):
         try:
             last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
@@ -58,7 +59,7 @@ class FootballTeam(Model):
     def __str__(self):
         return self.name
 
-    @property
+    @cached_property
     def short_name(self):
         # from googletrans import Translator
         # detector = Translator()
@@ -93,13 +94,13 @@ class FootballTeam(Model):
             short_name = self.name
         return short_name
 
-    @property
+    @cached_property
     def fixtures(self):
         hf = self.home_fixtures.all()
         af = self.away_fixtures.all()
         return hf, af
 
-    @property
+    @cached_property
     def group_fixtures(self):
         hf = self.home_fixtures.filter(stage="G")
         af = self.away_fixtures.filter(stage="G")
@@ -117,14 +118,14 @@ class Player(Model):
     )
     playingRole = CharField(max_length=100, choices=playingRoleChoices)
 
-    @property
+    @cached_property
     def total_player_score(self):
         total_player_score = 0
         for s in self.player_scores.all():
             total_player_score += s.total_score
         return total_player_score
 
-    @property
+    @cached_property
     def last_gameweek_player_score(self):
         try:
             last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
@@ -135,7 +136,7 @@ class Player(Model):
             return last_gameweek_score[0].total_score
         return 0
 
-    @property
+    @cached_property
     def last_gameweek_player_score_objs(self):
         try:
             last_gameweek = GameweekSetting.objects.last().active_gameweek - 1
@@ -181,38 +182,38 @@ class FantasySquad(Model):
             return score
         return None
 
-    @property
+    @cached_property
     def captainSelected_score(self):
         c = self.get_player_score(self.captainSelected)
         if c:
             c *= 2
         return c
 
-    @property
+    @cached_property
     def goalKeeperSelected_score(self):
         return self.get_player_score(self.goalKeeperSelected)
 
-    @property
+    @cached_property
     def player1Selected_score(self):
         return self.get_player_score(self.player1Selected)
 
-    @property
+    @cached_property
     def player2Selected_score(self):
         return self.get_player_score(self.player2Selected)
 
-    @property
+    @cached_property
     def player3Selected_score(self):
         return self.get_player_score(self.player3Selected)
 
-    @property
+    @cached_property
     def player4Selected_score(self):
         return self.get_player_score(self.player4Selected)
 
-    @property
+    @cached_property
     def player5Selected_score(self):
         return self.get_player_score(self.player5Selected)
 
-    @property
+    @cached_property
     def total_squad_score(self):
         total_squad_score = 0
         scores = [
@@ -292,7 +293,7 @@ class Score(Model):
     # objects = ScoreManager()
     objects = ScoreQuerySet.as_manager()
 
-    @property
+    @cached_property
     def total_score(self):
         total_score = 0
         if self.played:
@@ -353,23 +354,23 @@ class Fixture(Model):
         help_text="If one of the teams withdrew from the match, select it and the other team will be considered as the winner of the match with score 2-0"
     )
     
-    @property
+    @cached_property
     def team1_verbose_name(self):
         if self.team1:
             return self.team1
         return self.team1_representation
 
-    @property
+    @cached_property
     def team2_verbose_name(self):
         if self.team2:
             return self.team2
         return self.team2_representation
 
-    @property
+    @cached_property
     def team1_scores(self):
         return Score.objects.filter(fixture=self, player__team=self.team1)
 
-    @property
+    @cached_property
     def team2_scores(self):
         return Score.objects.filter(fixture=self, player__team=self.team2)
 
@@ -394,25 +395,25 @@ class Fixture(Model):
                 team1_result += s2.own_goal
         return team1_result, team2_result
 
-    @property
+    @cached_property
     def team1_result(self):
         return self._result()[0]
     
-    @property
+    @cached_property
     def team2_result(self):
         return self._result()[1]
 
-    @property
+    @cached_property
     def all_result(self):
         return self._result()
 
-    @property
+    @cached_property
     def players(self):
         a = list(self.team1.players.all())
         b = list(self.team2.players.all())
         return a + b
 
-    # @property
+    # @cached_property
     # def team2_goals(self):
     #     goals = None
     #     scores = Score.objects.filter(fixture=self, player__team=self.team2)
@@ -426,7 +427,7 @@ class Fixture(Model):
         ordering = ['gameweek', 'date']
         unique_together = ['gameweek', 'team1', 'team2']
 
-    @property
+    @cached_property
     def is_finished(self):
         if self.withdrawn_team or (self.team1_result != None and self.team2_result != None):
             return True

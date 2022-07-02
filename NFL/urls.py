@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import logout as lo
 from django.shortcuts import redirect
+import debug_toolbar
 
 def logout(request):
     lo(request)
@@ -19,7 +20,8 @@ urlpatterns = [
     # path('profile/',user_views.profile, name='profile'),
     # path('login/',auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', logout, name='logout'),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 if settings.DEBUG:

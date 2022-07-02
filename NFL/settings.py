@@ -27,6 +27,10 @@ DEBUG = True
 # ALLOWED_HOSTS = ['nfl-env.eba-2jea2pg6.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
 
+if DEBUG:
+    import socket
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
 
 # Application definition
 
@@ -47,9 +51,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'jquery',
     'djangoformsetjs',
+    # "debug_toolbar",
 ]
 
 MIDDLEWARE = [
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
