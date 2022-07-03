@@ -24,7 +24,15 @@
             <td class="text-center">{% ifchanged f.date.date %}{{ f.date | date:'Y-m-d' }}{% endifchanged %}</td>
             <td class="text-center">{{ f.date | date:'h:i A' }}</td>
             <td class="text-center">{{ f.team1_verbose_name }} {% if f.withdrawn_team and f.withdrawn_team == f.team1 %}<sub>(withdrew)</sub>{% endif %}</td>
-            <td class="text-center">{{ f.team1_result|default_if_none:'' }} - {{ f.team2_result|default_if_none:'' }}</td>
+            <td class="text-center" {% if f.team1_penalties or f.team2_penalties %}style="line-height: 1rem;"{% endif %}>
+                {{ f.team1_result|default_if_none:'' }} - {{ f.team2_result|default_if_none:'' }}
+                {% if f.team1_penalties or f.team2_penalties %}
+                <br>
+                <span style="font-size:0.75rem;">Penalties</span>
+                <br>
+                <span style="font-size:0.75rem;">{{ f.team1_penalties|default_if_none:'' }} - {{ f.team2_penalties|default_if_none:'' }}</span>
+                {% endif %}
+            </td>
             <td class="text-center">{{ f.team2_verbose_name }} {% if f.withdrawn_team and f.withdrawn_team == f.team2 %}<sub>(withdrew)</sub>{% endif %}</td>
             <td class="text-center">
                 {% if f.url %}

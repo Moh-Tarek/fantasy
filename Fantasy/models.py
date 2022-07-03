@@ -337,8 +337,10 @@ class Score(Model):
 class Fixture(Model):
     team1 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="home_fixtures", null=True, blank=True)
     team1_representation = CharField(max_length=100, null=True, blank=True)
+    team1_penalties = IntegerField(null=True, blank=True)
     team2 = ForeignKey(FootballTeam, on_delete=CASCADE, related_name="away_fixtures", null=True, blank=True)
     team2_representation = CharField(max_length=100, null=True, blank=True)
+    team2_penalties = IntegerField(null=True, blank=True)
     gameweek = IntegerField()
     url = URLField(max_length=100,null=True, blank=True ,unique=True)
     stage = CharField(choices=[
