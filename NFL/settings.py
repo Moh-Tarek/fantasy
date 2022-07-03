@@ -26,7 +26,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['nfl-env.eba-2jea2pg6.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://fantasy.nagwa.com', 'http://fantasy.nagwa.com', 'http://localhost:8000']
 if DEBUG:
     import socket
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
